@@ -398,21 +398,54 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   background: linear-gradient(135deg, var(--ink2) 0%, #201a10 100%);
   border: 1px solid var(--br2);
   border-radius: var(--r);
-  padding: 28px 28px 24px;
+  padding: 32px 36px;
   margin-bottom: 4px;
   position: relative;
   overflow: hidden;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .dash-hero::before {
   content: '';
   position: absolute;
   right: -20px; top: -20px;
-  width: 180px; height: 180px;
+  width: 220px; height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(228,176,64,.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(228,176,64,.05) 0%, transparent 70%);
   pointer-events: none;
 }
-.dash-proj-name { font-family: var(--fd); font-size: 24px; font-weight: 700; color: var(--gold3); letter-spacing: .05em; margin-bottom: 4px; }
+.dash-hero::after {
+  content: '';
+  position: absolute;
+  left: -40px; bottom: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(228,176,64,.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* When hero only has a name and nothing else, center it nicely */
+.dash-hero.sparse {
+  align-items: center;
+  text-align: center;
+}
+.dash-hero.sparse .dash-proj-name { font-size: 28px; }
+.dash-hero.sparse .dash-hero-hint {
+  display: block;
+  font-family: var(--fd);
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(228,176,64,.28);
+  margin-top: 10px;
+  cursor: pointer;
+  transition: color var(--t);
+}
+.dash-hero.sparse .dash-hero-hint:hover { color: rgba(228,176,64,.55); }
+.dash-hero-hint { display: none; }
+
+.dash-proj-name { font-family: var(--fd); font-size: 24px; font-weight: 700; color: var(--gold3); letter-spacing: .05em; margin-bottom: 4px; line-height: 1.15; }
 .dash-genre { font-family: var(--fd); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
 .dash-pitch { font-size: 16px; color: rgba(228,176,64,.62); line-height: 1.65; font-style: italic; margin-bottom: 14px; max-width: 600px; }
 .dash-meta-row { display: flex; gap: 18px; flex-wrap: wrap; }
@@ -1432,18 +1465,22 @@ function renderDashboard() {
     </div>
   `).join('');
 
+  // Detect sparse state — only name, nothing else filled in yet
+  const isSparse = !t.genre && !t.pitch && !t.studio && !t.platform && !t.audience && !(t.team&&t.team.length);
+
   // Hero
   let html = `
-    <div class="dash-hero">
+    <div class="dash-hero ${isSparse ? 'sparse' : ''}">
       <div class="dash-proj-name">${esc(t.name||p.name)}</div>
       ${t.genre ? `<div class="dash-genre">${esc(t.genre)}</div>` : ''}
       ${t.pitch ? `<div class="dash-pitch">${esc(t.pitch)}</div>` : ''}
-      <div class="dash-meta-row">
+      ${!isSparse ? `<div class="dash-meta-row">
         ${t.studio ? `<div class="dash-meta-item"><div class="dash-meta-label">Studio</div><div class="dash-meta-val">${esc(t.studio)}</div></div>` : ''}
         ${t.platform ? `<div class="dash-meta-item"><div class="dash-meta-label">Platform</div><div class="dash-meta-val">${esc(t.platform)}</div></div>` : ''}
         ${t.audience ? `<div class="dash-meta-item"><div class="dash-meta-label">Audience</div><div class="dash-meta-val">${esc(t.audience)}</div></div>` : ''}
-      </div>
-      ${teamHtml ? `<div class="dash-team" style="margin-top:14px">${teamHtml}</div>` : ''}
+      </div>` : ''}
+      ${teamHtml ? `<div class="dash-team" style="margin-top:14px;${isSparse?'justify-content:center':''}">${teamHtml}</div>` : ''}
+      ${isSparse ? `<span class="dash-hero-hint" onclick="openTheme()">✦ Click Edit Theme to set your project details</span>` : ''}
     </div>
 
     <div class="dash-stats">
