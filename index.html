@@ -5,19 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Codex — Living GDD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <style>
 
-/* ╔═══════════════════════════════════════════════════════╗
-   ║  THE CODEX — Living Game Design Document              ║
-   ║  v3.0 — Single file, zero dependencies               ║
-   ║  Deploy: GitHub Pages, Netlify Drop, or any static   ║
-   ╚═══════════════════════════════════════════════════════╝ */
+/* ===
+     THE CODEX — Living Game Design Document              
+     v3.0 — Single file, zero dependencies               
+     Deploy: GitHub Pages, Netlify Drop, or any static   
+   === */
 
-/* ── Reset ─────────────────────────────────────────────── */
+/*  Reset  */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Design Tokens ─────────────────────────────────────── */
+/*  Design Tokens  */
 :root {
   --ink:    #13110d;
   --ink2:   #272018;
@@ -73,17 +74,17 @@
   --t: .15s ease;
 }
 
-/* ── Base ──────────────────────────────────────────────── */
+/*  Base  */
 html, body { height: 100%; overflow: hidden; background: var(--ink); }
 body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 
-/* ── Scrollbar ─────────────────────────────────────────── */
+/*  Scrollbar  */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(154,110,24,.22); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(154,110,24,.42); }
 
-/* ── Paper grain texture overlay ───────────────────────── */
+/*  Paper grain texture overlay  */
 .grain::after {
   content: '';
   position: absolute;
@@ -94,7 +95,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   z-index: 0;
 }
 
-/* ── App Grid ──────────────────────────────────────────── */
+/*  App Grid  */
 #app {
   display: grid;
   grid-template-rows: var(--header) 1fr;
@@ -103,9 +104,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   overflow: hidden;
 }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    HEADER
-════════════════════════════════════════════════════════ */
+=== */
 #header {
   grid-column: 1/-1;
   grid-row: 1;
@@ -165,9 +166,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .hbtn.gold { background: var(--gold2); color: var(--ink); border-color: var(--gold2); font-weight: 700; }
 .hbtn.gold:hover { background: var(--gold3); border-color: var(--gold3); }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    SIDEBAR
-════════════════════════════════════════════════════════ */
+=== */
 #sidebar {
   grid-column: 1;
   grid-row: 2;
@@ -298,9 +299,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 }
 .sb-addbtn:hover { border-color: rgba(228,176,64,.44); color: var(--gold3); background: rgba(228,176,64,.04); }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    MAIN
-════════════════════════════════════════════════════════ */
+=== */
 #main {
   grid-column: 2;
   grid-row: 2;
@@ -391,9 +392,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 /* Content area */
 #content-area { flex: 1; overflow-y: auto; padding: 22px 24px; display: flex; flex-direction: column; gap: 16px; }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    DASHBOARD VIEW
-════════════════════════════════════════════════════════ */
+=== */
 .dash-hero {
   background: linear-gradient(135deg, var(--ink2) 0%, #201a10 100%);
   border: 1px solid var(--br2);
@@ -549,9 +550,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .dash-team-name { font-size: 13px; color: var(--ink2); }
 .dash-team-role { font-family: var(--fd); font-size: 8px; letter-spacing: .08em; color: var(--ink4); text-transform: uppercase; }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    ENTRY CARDS
-════════════════════════════════════════════════════════ */
+=== */
 .entry-card {
   background: #fff;
   border: 1px solid var(--br);
@@ -778,9 +779,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .lock-toggle { font-size: 13px; background: none; border: none; cursor: pointer; color: var(--ink4); padding: 2px; transition: color var(--t); }
 .lock-toggle:hover { color: var(--gold2); }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    EMPTY STATE — section-specific guiding prompts
-════════════════════════════════════════════════════════ */
+=== */
 .empty-state { text-align: center; padding: 50px 24px; color: var(--ink4); }
 .empty-icon { font-size: 34px; margin-bottom: 14px; opacity: .38; }
 .empty-title { font-family: var(--fd); font-size: 16px; color: var(--ink3); margin-bottom: 7px; letter-spacing: .05em; }
@@ -796,9 +797,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .add-bar-lbl { font-family: var(--fd); font-size: 10px; letter-spacing: .10em; color: var(--ink4); flex: 1; }
 .add-type-sel { font-family: var(--fd); font-size: 9px; padding: 4px 8px; border: 1px solid var(--br2); background: var(--parch2); border-radius: var(--r); color: var(--ink3); cursor: pointer; }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    AI PANEL
-════════════════════════════════════════════════════════ */
+=== */
 #ai-panel {
   background: var(--ink);
   border-top: 2px solid var(--gold2);
@@ -847,9 +848,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .ai-resp { font-family: var(--fb); font-size: 14px; color: rgba(228,176,64,.75); line-height: 1.70; padding: 10px 14px; background: rgba(255,255,255,.035); border-radius: var(--r); border-left: 2px solid var(--gold2); max-height: 140px; overflow-y: auto; display: none; white-space: pre-wrap; }
 .ai-resp.show { display: block; }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    VERSION HISTORY PANEL
-════════════════════════════════════════════════════════ */
+=== */
 #hist-panel { position: fixed; right: 0; top: var(--header); bottom: 0; width: 290px; background: var(--ink); border-left: 1px solid rgba(228,176,64,.14); z-index: 55; transform: translateX(100%); transition: transform .24s ease; display: flex; flex-direction: column; box-shadow: -8px 0 28px rgba(19,17,13,.28); }
 #hist-panel.open { transform: translateX(0); }
 .hp-hdr { padding: 16px 18px; border-bottom: 1px solid rgba(228,176,64,.10); display: flex; align-items: center; }
@@ -865,9 +866,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .hp-restore { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; padding: 3px 9px; border-radius: 2px; background: transparent; border: 1px solid rgba(228,176,64,.22); color: rgba(228,176,64,.42); cursor: pointer; margin-top: 7px; transition: all var(--t); }
 .hp-restore:hover { border-color: var(--gold2); color: var(--gold3); }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    PROJECT PANEL
-════════════════════════════════════════════════════════ */
+=== */
 #proj-panel { position: fixed; left: var(--sidebar); top: var(--header); width: 270px; background: var(--ink2); border: 1px solid rgba(228,176,64,.16); border-top: none; z-index: 55; display: none; flex-direction: column; box-shadow: 8px 8px 32px rgba(19,17,13,.38); }
 #proj-panel.open { display: flex; }
 .pp-hd { padding: 10px 16px 7px; border-bottom: 1px solid rgba(228,176,64,.08); font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .18em; color: rgba(228,176,64,.32); }
@@ -880,9 +881,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .pp-date { font-family: var(--fd); font-size: 8px; color: rgba(228,176,64,.26); }
 .pp-foot { padding: 10px 16px; border-top: 1px solid rgba(228,176,64,.08); display: flex; gap: 6px; }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    ONE-PAGER PITCH VIEW
-════════════════════════════════════════════════════════ */
+=== */
 #one-pager { position: fixed; inset: 0; background: var(--parch); z-index: 80; display: none; flex-direction: column; overflow: hidden; }
 #one-pager.open { display: flex; }
 .op-bar { background: var(--ink); border-bottom: 2px solid var(--gold2); padding: 12px 24px; display: flex; align-items: center; gap: 12px; }
@@ -898,18 +899,18 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .op-entry-title { font-family: var(--fd); font-size: 11px; font-weight: 600; letter-spacing: .05em; color: var(--ink2); margin-bottom: 4px; }
 .op-entry-text { font-size: 14px; color: var(--ink3); line-height: 1.70; }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    LIGHTBOX
-════════════════════════════════════════════════════════ */
+=== */
 #lightbox { position: fixed; inset: 0; background: rgba(19,17,13,.88); z-index: 100; display: none; align-items: center; justify-content: center; cursor: zoom-out; }
 #lightbox.open { display: flex; }
 #lb-img { max-width: 90vw; max-height: 88vh; border-radius: var(--r); box-shadow: 0 20px 60px rgba(19,17,13,.55); cursor: default; }
 #lb-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: rgba(249,244,235,.55); font-size: 28px; cursor: pointer; }
 #lb-close:hover { color: var(--parch); }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    MODALS
-════════════════════════════════════════════════════════ */
+=== */
 .overlay { position: fixed; inset: 0; background: rgba(19,17,13,.70); z-index: 90; display: none; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
 .overlay.open { display: flex; }
 .modal { background: var(--parch); border: 1px solid var(--br2); border-top: 3px solid var(--gold2); border-radius: var(--r); padding: 26px; width: 500px; max-width: 95vw; max-height: 92vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(19,17,13,.42); }
@@ -929,16 +930,16 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .team-rm { background: none; border: none; cursor: pointer; color: var(--ink4); font-size: 16px; padding: 0; opacity: .4; }
 .team-rm:hover { opacity: 1; color: var(--crimson2); }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    TOAST
-════════════════════════════════════════════════════════ */
+=== */
 #toast { position: fixed; bottom: 24px; right: 24px; z-index: 200; font-family: var(--fd); font-size: 10px; letter-spacing: .10em; padding: 10px 20px; border-radius: var(--r); background: var(--ink); color: var(--gold3); border: 1px solid var(--gold2); box-shadow: 0 6px 20px rgba(19,17,13,.38); transform: translateY(12px); opacity: 0; transition: all .22s; pointer-events: none; }
 #toast.show { transform: translateY(0); opacity: 1; }
 #toast.err { border-color: var(--crimson2); color: #ffaaaa; }
 
-/* ════════════════════════════════════════════════════════
+/* ===
    PRINT
-════════════════════════════════════════════════════════ */
+=== */
 @media print {
   #header, #sidebar, #ai-panel, #status-bar, #theme-bar, #hist-panel, .card-ft, .ed-tb, .tags-row, .add-bar, .sh-acts { display: none !important; }
   #app { display: block; height: auto; overflow: visible; }
@@ -949,7 +950,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   .entry-card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
 }
 
-/* ── Storage Bar ── */
+/*  Storage Bar  */
 .storage-bar-wrap {
   display: flex; align-items: center; gap: 8px;
   padding: 5px 24px; background: var(--parch2);
@@ -965,7 +966,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .storage-tip.warn { color: var(--gold2); font-weight: 700; cursor: pointer; }
 .storage-tip.crit { color: var(--crimson3); font-weight: 700; cursor: pointer; }
 
-/* ── Reading Mode ── */
+/*  Reading Mode  */
 #content-area.reading-mode { padding: 28px 0; align-items: center; display: flex; flex-direction: column; }
 #content-area.reading-mode .entry-card,
 #content-area.reading-mode .add-bar,
@@ -979,7 +980,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 #content-area.reading-mode .lnk-sec { opacity: 0.5; pointer-events: none; }
 .hbtn.read-active { background: rgba(13,72,72,.22); color: var(--teal4); border-color: rgba(13,72,72,.50); }
 
-/* ── More Dropdown ── */
+/*  More Dropdown  */
 .more-wrap { position: relative; }
 .more-menu {
   position: absolute; top: calc(100% + 6px); right: 0;
@@ -1001,7 +1002,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .more-item:last-child { border-bottom: none; }
 .more-item:hover { color: var(--gold3); background: rgba(228,176,64,.06); }
 
-/* ── Token Cost Badge ── */
+/*  Token Cost Badge  */
 .cost-chip {
   font-family: var(--fm); font-size: 10px;
   color: var(--teal3); background: rgba(13,72,72,.08);
@@ -1011,7 +1012,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 }
 .cost-chip:hover { background: rgba(13,72,72,.16); }
 
-/* ── AI Cost Strip ── */
+/*  AI Cost Strip  */
 .ai-cost-strip {
   display: flex; align-items: center; gap: 16px;
   padding: 5px 0 7px; border-bottom: 1px solid rgba(228,176,64,.10);
@@ -1021,7 +1022,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .ai-cost-val { color: rgba(228,176,64,.65); }
 .ai-cost-val.hi { color: var(--teal4); }
 
-/* ── Cost Modal rows ── */
+/*  Cost Modal rows  */
 .cost-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--br); }
 .cost-row:last-child { border-bottom: none; }
 .cost-row-lbl { font-size: 14px; color: var(--ink3); }
@@ -1030,7 +1031,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .cost-bar { height: 3px; background: var(--parch3); border-radius: 2px; margin-top: 4px; overflow: hidden; }
 .cost-bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal3), var(--teal4)); border-radius: 2px; transition: width .5s; }
 
-/* ── Activity Changelog Feed on Dashboard ── */
+/*  Activity Changelog Feed on Dashboard  */
 .dash-activity-label {
   font-family: var(--fd); font-size: 9px; font-weight: 700;
   letter-spacing: .18em; text-transform: uppercase; color: var(--ink3);
@@ -1049,7 +1050,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .cl-msg { font-size: 13px; color: var(--ink2); line-height: 1.4; }
 .cl-time { font-family: var(--fd); font-size: 8px; letter-spacing: .07em; color: var(--ink4); margin-top: 2px; }
 
-/* ── Pinned Section Note ── */
+/*  Pinned Section Note  */
 .pinned-note {
   margin: 8px 24px 0;
   padding: 10px 14px;
@@ -1073,7 +1074,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 }
 .pinned-rm:hover { opacity: 1; color: var(--crimson2); }
 
-/* ── Status Badges ── */
+/*  Status Badges  */
 .status-sel {
   font-family: var(--fd); font-size: 8px; letter-spacing: .08em; text-transform: uppercase;
   padding: 2px 7px; border-radius: 10px; cursor: pointer;
@@ -1084,7 +1085,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .st-approved { background: rgba(48,72,48,.10);   color: var(--sage2);  border-color: rgba(48,72,48,.20); }
 .st-cut      { background: rgba(118,18,18,.08);  color: var(--crimson2); border-color: rgba(118,18,18,.16); text-decoration: line-through; }
 
-/* ── Priority Flags ── */
+/*  Priority Flags  */
 .priority-sel {
   font-family: var(--fd); font-size: 8px; letter-spacing: .08em; text-transform: uppercase;
   padding: 2px 7px; border-radius: 10px; cursor: pointer;
@@ -1094,7 +1095,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .pr-nice { background: rgba(154,110,24,.07); color: var(--gold);    border-color: rgba(154,110,24,.16); }
 .pr-cut  { background: rgba(80,64,48,.07);  color: var(--ink4);    border-color: rgba(80,64,48,.14); }
 
-/* ── Word Count Ring ── */
+/*  Word Count Ring  */
 .wc-ring { position: relative; width: 22px; height: 22px; flex-shrink: 0; }
 .wc-ring svg { width: 22px; height: 22px; transform: rotate(-90deg); }
 .wc-ring-bg   { fill: none; stroke: var(--parch3); stroke-width: 3; }
@@ -1102,13 +1103,327 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .wc-ring-fill.done { stroke: var(--sage3); }
 .wc-ring-pct  { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--fd); font-size: 5px; color: var(--ink4); }
 
+/* FLOWCHART BUILDER */
+.fc-modal-overlay {
+  position: fixed; inset: 0; background: rgba(19,17,13,.75);
+  z-index: 110; display: none; align-items: center; justify-content: center;
+  backdrop-filter: blur(3px);
+}
+.fc-modal-overlay.open { display: flex; }
+.fc-modal {
+  background: var(--parch); border: 1px solid var(--br2);
+  border-top: 3px solid var(--gold2); border-radius: var(--r);
+  width: 90vw; max-width: 1000px; height: 82vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 24px 64px rgba(19,17,13,.50);
+  overflow: hidden;
+}
+.fc-topbar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; background: var(--parch2);
+  border-bottom: 1px solid var(--br); flex-shrink: 0; flex-wrap: wrap;
+}
+.fc-title { font-family: var(--fd); font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: .05em; flex-shrink: 0; }
+.fc-type-sel { font-family: var(--fd); font-size: 9px; padding: 4px 9px; border: 1px solid var(--br2); background: #fff; border-radius: var(--r); color: var(--ink2); cursor: pointer; }
+.fc-sep { width: 1px; height: 20px; background: var(--br); flex-shrink: 0; }
+.fc-tool-btn {
+  font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: var(--r); cursor: pointer;
+  border: 1px solid var(--br2); background: transparent; color: var(--ink2);
+  transition: all var(--t); white-space: nowrap;
+}
+.fc-tool-btn:hover { background: var(--parch3); border-color: var(--gold2); }
+.fc-tool-btn.active { background: var(--gold); color: var(--parch); border-color: var(--gold); }
+.fc-tool-btn.danger { color: var(--crimson2); border-color: rgba(158,30,30,.28); }
+.fc-tool-btn.danger:hover { background: rgba(158,30,30,.06); }
+.fc-spacer { flex: 1; }
+.fc-hint { font-family: var(--fd); font-size: 8px; letter-spacing: .07em; color: var(--ink4); flex-shrink: 0; }
+
+.fc-body { display: flex; flex: 1; overflow: hidden; }
+
+/* Left panel — node palette */
+.fc-palette {
+  width: 160px; flex-shrink: 0; background: var(--parch2);
+  border-right: 1px solid var(--br); padding: 10px 10px;
+  display: flex; flex-direction: column; gap: 6px; overflow-y: auto;
+}
+.fc-palette-label { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--ink4); margin: 4px 0 2px; }
+.fc-node-template {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 10px; border-radius: var(--r); cursor: grab;
+  border: 1px solid var(--br2); background: #fff; font-size: 12px; color: var(--ink2);
+  font-family: var(--fb); transition: all var(--t); user-select: none;
+}
+.fc-node-template:hover { border-color: var(--gold2); background: var(--parch); box-shadow: 0 2px 6px var(--sh); }
+.fc-node-template .fc-shape { font-size: 14px; flex-shrink: 0; }
+
+/* Canvas */
+.fc-canvas-wrap {
+  flex: 1; overflow: hidden; position: relative; background: var(--parch);
+  background-image: radial-gradient(var(--parch4) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+#fc-canvas { width: 100%; height: 100%; display: block; cursor: default; }
+
+/* Right panel — properties + code */
+.fc-right {
+  width: 240px; flex-shrink: 0; background: var(--parch2);
+  border-left: 1px solid var(--br); display: flex; flex-direction: column; overflow: hidden;
+}
+.fc-right-tab-bar { display: flex; border-bottom: 1px solid var(--br); flex-shrink: 0; }
+.fc-rtab {
+  flex: 1; font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 8px; cursor: pointer; text-align: center; color: var(--ink4);
+  border: none; background: transparent; transition: all var(--t); border-bottom: 2px solid transparent;
+}
+.fc-rtab.active { color: var(--gold2); border-bottom-color: var(--gold2); background: rgba(154,110,24,.04); }
+.fc-right-panel { flex: 1; overflow-y: auto; padding: 10px; display: none; }
+.fc-right-panel.active { display: block; }
+
+/* Properties panel */
+.fc-prop-lbl { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink4); display: block; margin-bottom: 4px; margin-top: 10px; }
+.fc-prop-lbl:first-child { margin-top: 0; }
+.fc-prop-inp, .fc-prop-sel, .fc-prop-ta {
+  width: 100%; font-family: var(--fb); font-size: 13px; padding: 5px 8px;
+  border: 1px solid var(--br2); background: #fff; border-radius: var(--r); color: var(--ink); outline: none;
+}
+.fc-prop-inp:focus, .fc-prop-sel:focus, .fc-prop-ta:focus { border-color: var(--gold2); }
+.fc-prop-ta { min-height: 56px; resize: vertical; font-size: 12px; }
+.fc-color-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
+.fc-color-swatch {
+  width: 22px; height: 22px; border-radius: var(--r); cursor: pointer;
+  border: 2px solid transparent; transition: all var(--t);
+}
+.fc-color-swatch:hover, .fc-color-swatch.active { border-color: var(--gold2); transform: scale(1.15); }
+.fc-no-sel { font-size: 13px; color: var(--ink4); font-style: italic; text-align: center; padding: 16px 8px; }
+
+/* Mermaid code panel */
+.fc-code-area {
+  width: 100%; font-family: var(--fm); font-size: 11px;
+  padding: 8px; border: 1px solid var(--br2); background: var(--ink);
+  color: var(--gold3); border-radius: var(--r); outline: none;
+  resize: none; flex: 1; min-height: 180px; line-height: 1.6;
+}
+.fc-render-btn {
+  font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase;
+  padding: 6px; border-radius: var(--r); cursor: pointer; border: none;
+  background: var(--gold2); color: var(--ink); width: 100%; margin-top: 6px; transition: background var(--t);
+}
+.fc-render-btn:hover { background: var(--gold3); }
+
+/* Rendered mermaid output */
+.fc-render-output {
+  padding: 12px; background: #fff; border-radius: var(--r);
+  border: 1px solid var(--br); margin-top: 8px; overflow: auto;
+  min-height: 120px; display: flex; align-items: flex-start; justify-content: center;
+}
+.fc-render-output svg { max-width: 100%; height: auto; }
+
+/* Canvas nodes (SVG) */
+.fc-node { cursor: move; }
+.fc-node rect, .fc-node ellipse, .fc-node polygon, .fc-node path {
+  stroke-width: 1.5; transition: stroke .12s;
+}
+.fc-node.selected rect,
+.fc-node.selected ellipse,
+.fc-node.selected polygon,
+.fc-node.selected path { stroke: var(--gold2) !important; stroke-width: 2.5; }
+.fc-node text { font-family: var(--fb); font-size: 13px; pointer-events: none; fill: var(--ink); }
+.fc-edge { stroke: var(--ink3); stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.fc-edge.selected { stroke: var(--gold2); stroke-width: 2.5; }
+.fc-edge-label { font-family: var(--fb); font-size: 11px; fill: var(--ink3); pointer-events: none; }
+
+/* Bottom bar */
+.fc-bottombar {
+  padding: 6px 16px; background: var(--parch3);
+  border-top: 1px solid var(--br); display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0; font-family: var(--fd); font-size: 9px; color: var(--ink4);
+  letter-spacing: .06em;
+}
+
+/* Entry card fc button */
+.fc-entry-btn {
+  font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: var(--r); cursor: pointer;
+  border: 1px solid rgba(13,72,72,.28); background: rgba(13,72,72,.06); color: var(--teal2);
+  transition: all var(--t); white-space: nowrap;
+}
+.fc-entry-btn:hover { background: rgba(13,72,72,.12); border-color: var(--teal2); }
+.fc-entry-btn.has { background: rgba(13,72,72,.10); color: var(--teal2); font-weight: 700; }
+
+/* Disc panel for flowchart */
+.fc-disc-panel { padding: 12px 20px 14px; background: rgba(13,72,72,.03); border-top: 1px solid var(--br); }
+.fc-disc-panel-lbl { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--teal2); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+.fc-preview-svg { max-width: 100%; border: 1px solid var(--br); border-radius: var(--r); background: #fff; padding: 8px; }
+/* == THEME SYSTEM == */
+
+/* Terminal - Sci-Fi / Cyberpunk */
+[data-theme="terminal"] {
+  --ink:#0a0e0a;--ink2:#111811;--ink3:#1e2e1e;--ink4:#4a6e4a;--ink5:#6a9a6a;
+  --parch:#0d120d;--parch2:#111811;--parch3:#162016;--parch4:#1c2a1c;--parch5:#223022;
+  --gold:#00cc66;--gold2:#00ff88;--gold3:#44ffaa;--gold4:#88ffcc;
+  --teal:#003322;--teal2:#005533;--teal3:#008855;--teal4:#00bb77;
+  --crimson:#cc0033;--crimson2:#ff0044;--crimson3:#ff3366;
+  --sage:#004422;--sage2:#006633;--sage3:#009944;
+  --amber:#cc6600;--amber2:#ff8800;--amber3:#ffaa33;
+  --br:rgba(0,255,136,.12);--br2:rgba(0,255,136,.28);--br3:rgba(0,255,136,.50);
+  --sh:rgba(0,0,0,.30);--sh2:rgba(0,0,0,.50);--sh3:rgba(0,0,0,.70);
+  --fd:'Share Tech Mono',monospace;--fb:'Share Tech Mono',monospace;--r:2px;
+}
+[data-theme="terminal"] body{background:#0a0e0a;color:#00ff88;}
+[data-theme="terminal"] #main{background:#0d120d;}
+[data-theme="terminal"] #sidebar{background:#111811;border-right-color:rgba(0,255,136,.10);}
+[data-theme="terminal"] #header{background:#0a0e0a;border-bottom-color:#00ff88;}
+[data-theme="terminal"] #sec-hdr{background:#111811;border-bottom-color:rgba(0,255,136,.12);}
+[data-theme="terminal"] .sh-title{color:#44ffaa;}
+[data-theme="terminal"] .sh-sub{color:#008855;}
+[data-theme="terminal"] .entry-card{background:#111811;border-color:rgba(0,255,136,.15);}
+[data-theme="terminal"] .card-hd{background:linear-gradient(90deg,#162016 0%,#111811 100%);}
+[data-theme="terminal"] .card-title{color:#44ffaa;}
+[data-theme="terminal"] .rich-ed{color:#aaffcc;}
+[data-theme="terminal"] .dash-card{background:#111811;border-color:rgba(0,255,136,.12);}
+[data-theme="terminal"] .dash-stats{background:#111811;border-color:rgba(0,255,136,.12);}
+[data-theme="terminal"] .dash-hero{background:linear-gradient(135deg,#0d120d 0%,#0a0e0a 100%);}
+[data-theme="terminal"] .cl-feed,.cl-item{background:#111811;border-color:rgba(0,255,136,.10);}
+[data-theme="terminal"] #status-bar{background:#111811;border-bottom-color:rgba(0,255,136,.10);}
+[data-theme="terminal"] #theme-bar{background:linear-gradient(90deg,#0d120d 0%,#0a0e0a 100%);}
+[data-theme="terminal"] .modal{background:#111811;}
+[data-theme="terminal"] .fld-inp,[data-theme="terminal"] .fld-sel,[data-theme="terminal"] .fld-ta{background:#0a0e0a;color:#aaffcc;border-color:rgba(0,255,136,.22);}
+[data-theme="terminal"] .storage-bar-wrap,[data-theme="terminal"] .pinned-note{background:rgba(0,255,136,.04);}
+[data-theme="terminal"] #ai-panel{background:#0a0e0a;border-top-color:#00ff88;}
+
+/* Clean Light - Professional */
+[data-theme="light"] {
+  --ink:#1a1a2e;--ink2:#2d2d44;--ink3:#555577;--ink4:#8888aa;--ink5:#aaaacc;
+  --parch:#ffffff;--parch2:#f5f5fa;--parch3:#ebebf5;--parch4:#dddde8;--parch5:#ccccdd;
+  --gold:#4444cc;--gold2:#5555ee;--gold3:#6666ff;--gold4:#8888ff;
+  --teal:#005577;--teal2:#007799;--teal3:#0099bb;--teal4:#22bbdd;
+  --crimson:#cc2244;--crimson2:#ee3355;--crimson3:#ff5577;
+  --sage:#226644;--sage2:#338855;--sage3:#44aa66;
+  --amber:#886600;--amber2:#aa8800;--amber3:#ccaa22;
+  --br:rgba(68,68,204,.12);--br2:rgba(68,68,204,.26);--br3:rgba(68,68,204,.48);
+  --sh:rgba(26,26,46,.06);--sh2:rgba(26,26,46,.14);--sh3:rgba(26,26,46,.28);
+  --fd:'Inter',sans-serif;--fb:'Inter',sans-serif;--r:8px;
+}
+[data-theme="light"] body{background:#f5f5fa;}
+[data-theme="light"] html{background:#f5f5fa;}
+[data-theme="light"] #main{background:#ffffff;}
+[data-theme="light"] #sidebar{background:#f5f5fa;border-right-color:rgba(68,68,204,.12);}
+[data-theme="light"] #header{background:#1a1a2e;border-bottom-color:#5555ee;}
+[data-theme="light"] #sec-hdr{background:#f5f5fa;border-bottom-color:rgba(68,68,204,.12);}
+[data-theme="light"] .sh-title{color:#1a1a2e;}
+[data-theme="light"] .sh-sub{color:#555577;}
+[data-theme="light"] .entry-card{background:#ffffff;border-color:rgba(68,68,204,.12);}
+[data-theme="light"] .card-hd{background:linear-gradient(90deg,#f5f5fa 0%,#ffffff 100%);}
+[data-theme="light"] .card-title{color:#1a1a2e;}
+[data-theme="light"] .rich-ed{color:#1a1a2e;}
+[data-theme="light"] .dash-card{background:#ffffff;border-color:rgba(68,68,204,.12);}
+[data-theme="light"] .dash-stats{background:#ffffff;border-color:rgba(68,68,204,.12);}
+[data-theme="light"] .dash-hero{background:linear-gradient(135deg,#2d2d44 0%,#1a1a2e 100%);}
+[data-theme="light"] #status-bar{background:#ebebf5;border-bottom-color:rgba(68,68,204,.12);}
+[data-theme="light"] #theme-bar{background:linear-gradient(90deg,#2d2d44 0%,#1a1a2e 100%);}
+[data-theme="light"] .modal{background:#ffffff;}
+[data-theme="light"] .fld-inp,[data-theme="light"] .fld-sel,[data-theme="light"] .fld-ta{background:#f5f5fa;color:#1a1a2e;border-color:rgba(68,68,204,.20);}
+[data-theme="light"] .storage-bar-wrap{background:#ebebf5;}
+[data-theme="light"] #ai-panel{background:#1a1a2e;border-top-color:#5555ee;}
+[data-theme="light"] .sb-item,.sb-home,[data-theme="light"] .sb-gl{color:rgba(26,26,46,.60);}
+[data-theme="light"] .sb-item.active{color:#5555ee;background:rgba(68,68,204,.07);}
+
+/* Slate - Modern Studio */
+[data-theme="slate"] {
+  --ink:#0f1117;--ink2:#1a1d27;--ink3:#343848;--ink4:#666880;--ink5:#8890a8;
+  --parch:#1e2130;--parch2:#252840;--parch3:#2d3050;--parch4:#353860;--parch5:#3d4070;
+  --gold:#4488ff;--gold2:#5599ff;--gold3:#66aaff;--gold4:#88bbff;
+  --teal:#003366;--teal2:#004488;--teal3:#0055aa;--teal4:#2277cc;
+  --crimson:#cc3344;--crimson2:#ee4455;--crimson3:#ff6677;
+  --sage:#224466;--sage2:#336688;--sage3:#4488aa;
+  --amber:#664400;--amber2:#886600;--amber3:#aa8833;
+  --br:rgba(68,136,255,.14);--br2:rgba(68,136,255,.30);--br3:rgba(68,136,255,.54);
+  --sh:rgba(0,0,0,.25);--sh2:rgba(0,0,0,.45);--sh3:rgba(0,0,0,.65);
+  --fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--r:6px;
+}
+[data-theme="slate"] body{background:#0f1117;}
+[data-theme="slate"] #main{background:#1e2130;}
+[data-theme="slate"] #sidebar{background:#1a1d27;border-right-color:rgba(68,136,255,.10);}
+[data-theme="slate"] #header{background:#0f1117;border-bottom-color:#5599ff;}
+[data-theme="slate"] #sec-hdr{background:#252840;border-bottom-color:rgba(68,136,255,.14);}
+[data-theme="slate"] .sh-title{color:#ccd0e0;}
+[data-theme="slate"] .sh-sub{color:#666880;}
+[data-theme="slate"] .entry-card{background:#252840;border-color:rgba(68,136,255,.14);}
+[data-theme="slate"] .card-hd{background:linear-gradient(90deg,#2d3050 0%,#252840 100%);}
+[data-theme="slate"] .card-title{color:#ccd0e0;}
+[data-theme="slate"] .rich-ed{color:#ccd0e0;}
+[data-theme="slate"] .dash-card{background:#252840;border-color:rgba(68,136,255,.14);}
+[data-theme="slate"] .dash-stats{background:#252840;border-color:rgba(68,136,255,.12);}
+[data-theme="slate"] .dash-hero{background:linear-gradient(135deg,#1a1d27 0%,#0f1117 100%);}
+[data-theme="slate"] .cl-feed,.cl-item{background:#252840;border-color:rgba(68,136,255,.10);}
+[data-theme="slate"] #status-bar{background:#252840;border-bottom-color:rgba(68,136,255,.10);}
+[data-theme="slate"] #theme-bar{background:linear-gradient(90deg,#1a1d27 0%,#0f1117 100%);}
+[data-theme="slate"] .modal{background:#1e2130;}
+[data-theme="slate"] .fld-inp,[data-theme="slate"] .fld-sel,[data-theme="slate"] .fld-ta{background:#1a1d27;color:#ccd0e0;border-color:rgba(68,136,255,.22);}
+[data-theme="slate"] #ai-panel{background:#0f1117;border-top-color:#5599ff;}
+
+/* Manuscript - Horror / Gothic */
+[data-theme="manuscript"] {
+  --ink:#0c0808;--ink2:#1a1010;--ink3:#3a2020;--ink4:#6a4040;--ink5:#8a6060;
+  --parch:#140b0b;--parch2:#1e1010;--parch3:#2d1515;--parch4:#3a1c1c;--parch5:#442222;
+  --gold:#882020;--gold2:#aa2828;--gold3:#cc3333;--gold4:#dd5555;
+  --teal:#1a0808;--teal2:#2a1010;--teal3:#4a1818;--teal4:#6a2222;
+  --crimson:#5a0808;--crimson2:#771010;--crimson3:#991818;
+  --sage:#1a2010;--sage2:#2a3018;--sage3:#3a4020;
+  --amber:#4a2008;--amber2:#6a3010;--amber3:#8a4418;
+  --br:rgba(170,40,40,.16);--br2:rgba(170,40,40,.34);--br3:rgba(170,40,40,.58);
+  --sh:rgba(0,0,0,.45);--sh2:rgba(0,0,0,.65);--sh3:rgba(0,0,0,.85);
+  --fd:'Cinzel',serif;--fb:'Crimson Pro',Georgia,serif;--r:2px;
+}
+[data-theme="manuscript"] body{background:#0c0808;}
+[data-theme="manuscript"] #main{background:#140b0b;}
+[data-theme="manuscript"] #sidebar{background:#110909;border-right-color:rgba(170,40,40,.12);}
+[data-theme="manuscript"] #header{background:#0c0808;border-bottom-color:#aa2828;}
+[data-theme="manuscript"] #sec-hdr{background:#1a0f0f;border-bottom-color:rgba(170,40,40,.14);}
+[data-theme="manuscript"] .sh-title{color:#cc8080;}
+[data-theme="manuscript"] .sh-sub{color:#6a4040;}
+[data-theme="manuscript"] .entry-card{background:#1a0f0f;border-color:rgba(170,40,40,.16);}
+[data-theme="manuscript"] .card-hd{background:linear-gradient(90deg,#220f0f 0%,#1a0f0f 100%);}
+[data-theme="manuscript"] .card-title{color:#cc8080;}
+[data-theme="manuscript"] .rich-ed{color:#c8a0a0;line-height:2;}
+[data-theme="manuscript"] .dash-card{background:#1a0f0f;border-color:rgba(170,40,40,.14);}
+[data-theme="manuscript"] .dash-stats{background:#1a0f0f;border-color:rgba(170,40,40,.12);}
+[data-theme="manuscript"] .dash-hero{background:linear-gradient(135deg,#1a1010 0%,#0c0808 100%);}
+[data-theme="manuscript"] #status-bar{background:#1a0f0f;border-bottom-color:rgba(170,40,40,.12);}
+[data-theme="manuscript"] #theme-bar{background:linear-gradient(90deg,#1a1010 0%,#0c0808 100%);}
+[data-theme="manuscript"] .modal{background:#1a0f0f;}
+[data-theme="manuscript"] .fld-inp,[data-theme="manuscript"] .fld-sel,[data-theme="manuscript"] .fld-ta{background:#0c0808;color:#c8a0a0;border-color:rgba(170,40,40,.26);}
+[data-theme="manuscript"] #ai-panel{background:#0c0808;border-top-color:#aa2828;}
+
+/* Theme Picker UI */
+.theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:4px;}
+.theme-card{border:2px solid var(--br2);border-radius:var(--r);cursor:pointer;overflow:hidden;transition:all var(--t);position:relative;}
+.theme-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--sh2);}
+.theme-card.active{border-color:var(--gold2);}
+.theme-card.active::after{content:'✓';position:absolute;top:6px;right:8px;font-size:12px;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);}
+.theme-preview{height:64px;display:flex;overflow:hidden;}
+.tp-sidebar{width:32px;flex-shrink:0;}
+.tp-main{flex:1;padding:6px 8px;}
+.tp-hdr{height:7px;border-radius:2px;margin-bottom:4px;opacity:.8;}
+.tp-line{height:3px;border-radius:2px;margin-bottom:3px;opacity:.5;}
+.tp-line.s{width:55%;}
+.tp-card{height:16px;border-radius:2px;margin-top:4px;opacity:.6;}
+.theme-name{font-size:10px;font-weight:700;letter-spacing:.06em;text-align:center;padding:5px 4px;background:var(--parch2);color:var(--ink2);}
+
+/* Bug report */
+.bug-body{font-family:var(--fm);font-size:11px;background:var(--parch2);border:1px solid var(--br2);border-radius:var(--r);padding:12px;white-space:pre-wrap;word-break:break-all;max-height:260px;overflow-y:auto;color:var(--ink2);line-height:1.65;}
+.bug-copy{font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;padding:7px 18px;border-radius:var(--r);cursor:pointer;border:none;background:var(--gold2);color:var(--ink);transition:background var(--t);}
+.bug-copy:hover{background:var(--gold3);}
+.bug-copy.ok{background:var(--sage2);color:#fff;}
+
 </style>
 </head>
 <body>
 
 <div id="app">
 
-  <!-- ══ HEADER ════════════════════════════════════════ -->
+  <!-- === HEADER === -->
   <header id="header">
     <div class="hdr-logo">The Codex <span>— GDD</span></div>
     <div class="hdr-sep"></div>
@@ -1131,7 +1446,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     </div>
   </header>
 
-  <!-- ══ PROJECT PANEL ══════════════════════════════════ -->
+  <!-- === PROJECT PANEL === -->
   <div id="proj-panel">
     <div class="pp-hd">Your Projects</div>
     <div class="pp-list" id="pp-list"></div>
@@ -1141,7 +1456,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     </div>
   </div>
 
-  <!-- ══ SIDEBAR ════════════════════════════════════════ -->
+  <!-- === SIDEBAR === -->
   <aside id="sidebar">
     <div class="sb-search">
       <input class="sb-search-inp" id="sb-search" placeholder="Search entries…" oninput="handleSearch(this.value)">
@@ -1161,7 +1476,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     </div>
   </aside>
 
-  <!-- ══ MAIN ═══════════════════════════════════════════ -->
+  <!-- === MAIN === -->
   <main id="main">
 
     <div id="theme-bar">
@@ -1241,7 +1556,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   </main>
 </div>
 
-<!-- ══ VERSION HISTORY ════════════════════════════════ -->
+<!-- === VERSION HISTORY === -->
 <div id="hist-panel">
   <div class="hp-hdr">
     <div class="hp-title">⊙ Version History</div>
@@ -1250,7 +1565,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   <div class="hp-list" id="hp-list"></div>
 </div>
 
-<!-- ══ ONE-PAGER ══════════════════════════════════════ -->
+<!-- === ONE-PAGER === -->
 <div id="one-pager">
   <div class="op-bar">
     <div class="op-bar-title">◈ Pitch View — One-Page Summary</div>
@@ -1260,13 +1575,13 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   <div class="op-scroll" id="op-scroll"></div>
 </div>
 
-<!-- ══ LIGHTBOX ═══════════════════════════════════════ -->
+<!-- === LIGHTBOX === -->
 <div id="lightbox" onclick="closeLB()">
   <button id="lb-close" onclick="closeLB()">✕</button>
   <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
-<!-- ══ MODALS ═════════════════════════════════════════ -->
+<!-- === MODALS === -->
 
 <!-- Add Entry -->
 <div class="overlay" id="m-entry">
@@ -1343,14 +1658,53 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <div class="overlay" id="m-settings">
   <div class="modal">
     <div class="modal-title">Settings</div>
+    <div class="modal-sec-hd">Appearance</div>
+    <div class="fld">
+      <label class="fld-lbl">Theme</label>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn" onclick="closeM('m-settings');openThemePicker()">🎨 Choose Theme</button>
+        <span id="theme-name-display" style="font-family:var(--fd);font-size:11px;color:var(--ink4);letter-spacing:.06em">Parchment (default)</span>
+      </div>
+    </div>
     <div class="modal-sec-hd">Claude AI</div>
     <div class="fld"><label class="fld-lbl">Anthropic API Key</label><input class="fld-inp" id="set-key" type="password" placeholder="sk-ant-…"><div class="fld-hint">Stored only in your browser's localStorage. Never sent anywhere except directly to Anthropic's API.</div></div>
     <div class="fld"><label class="fld-lbl">Key Status</label><div id="key-status" style="font-family:var(--fm);font-size:12px;color:var(--ink4)">No key configured</div></div>
+    <div class="modal-sec-hd">Support</div>
+    <div class="fld" style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" style="flex:1;text-align:center" onclick="closeM('m-settings');openBugReport()">🐛 Submit Bug Report</button>
+      <button class="btn" style="flex:1;text-align:center" onclick="closeM('m-settings');openChangelog()">📋 App Changelog</button>
+    </div>
     <div class="modal-sec-hd">Danger Zone</div>
     <div class="fld"><button class="btn danger" style="width:100%" onclick="clearAll()">Clear All Data (irreversible)</button></div>
-    <div class="modal-sec-hd">About</div>
-    <div class="fld"><button class="btn" style="width:100%;text-align:center" onclick="closeM('m-settings');openChangelog()">📋 View App Changelog</button></div>
     <div class="modal-acts"><button class="btn" onclick="closeM('m-settings')">Cancel</button><button class="btn primary" onclick="saveSettings()">Save</button></div>
+  </div>
+</div>
+
+<!-- Theme Picker -->
+<div class="overlay" id="m-theme-picker">
+  <div class="modal" style="width:560px">
+    <div class="modal-title">🎨 Choose Your Theme</div>
+    <p style="font-size:13px;color:var(--ink4);font-style:italic;margin-bottom:16px">Each theme is designed to match a genre and feel — not just a color swap. Pick what fits your game.</p>
+    <div class="theme-grid" id="theme-grid"></div>
+    <div class="modal-acts"><button class="btn primary" onclick="closeM('m-theme-picker')">Done</button></div>
+  </div>
+</div>
+
+<!-- Bug Report -->
+<div class="overlay" id="m-bug">
+  <div class="modal">
+    <div class="modal-title">🐛 Bug Report</div>
+    <p style="font-size:14px;color:var(--ink3);margin-bottom:12px;line-height:1.6">This report captures your current state so the developer can reproduce the issue. Copy it and send it directly.</p>
+    <div class="fld">
+      <label class="fld-lbl">Describe the problem (optional)</label>
+      <textarea class="fld-ta" id="bug-desc" placeholder="What happened? What did you expect to happen? What were you doing when it occurred?"></textarea>
+    </div>
+    <label class="fld-lbl" style="display:block;margin-bottom:6px">Auto-generated report</label>
+    <div class="bug-body" id="bug-body">Generating…</div>
+    <div class="modal-acts">
+      <button class="btn" onclick="closeM('m-bug')">Close</button>
+      <button class="bug-copy" id="bug-copy-btn" onclick="copyBugReport()">📋 Copy Report</button>
+    </div>
   </div>
 </div>
 
@@ -1429,12 +1783,155 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   </div>
 </div>
 
+<!-- === FLOWCHART BUILDER MODAL === -->
+<div class="fc-modal-overlay" id="fc-modal">
+  <div class="fc-modal">
+
+    <!-- Top bar -->
+    <div class="fc-topbar">
+      <div class="fc-title">⟁ Flowchart Builder</div>
+      <select class="fc-type-sel" id="fc-type" onchange="fcSetType(this.value)">
+        <option value="flowchart">Flowchart / Game Loop</option>
+        <option value="stateDiagram">State Machine</option>
+        <option value="sequenceDiagram">Sequence Diagram</option>
+      </select>
+      <div class="fc-sep"></div>
+      <button class="fc-tool-btn" id="fc-tool-select" onclick="fcSetTool('select')">✦ Select</button>
+      <button class="fc-tool-btn" id="fc-tool-connect" onclick="fcSetTool('connect')">→ Connect</button>
+      <div class="fc-sep"></div>
+      <button class="fc-tool-btn" onclick="fcUndo()">↩ Undo</button>
+      <button class="fc-tool-btn danger" onclick="fcClear()">✕ Clear</button>
+      <div class="fc-spacer"></div>
+      <span class="fc-hint" id="fc-hint-text">Click a node type in the palette to add it to the canvas</span>
+      <div class="fc-sep"></div>
+      <button class="fc-tool-btn" onclick="fcExportSVG()">↓ SVG</button>
+      <button class="fc-tool-btn" onclick="fcSave()">Save to Entry</button>
+      <button class="fc-tool-btn danger" onclick="closeFCModal()">✕ Close</button>
+    </div>
+
+    <div class="fc-body">
+
+      <!-- Palette -->
+      <div class="fc-palette">
+        <div class="fc-palette-label">Process</div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'rect','Process')" onclick="fcAddNode('rect','Process')">
+          <span class="fc-shape">▭</span> Process
+        </div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'rounded','Action')" onclick="fcAddNode('rounded','Action')">
+          <span class="fc-shape">▢</span> Action
+        </div>
+
+        <div class="fc-palette-label">Decision</div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'diamond','Decision')" onclick="fcAddNode('diamond','Decision')">
+          <span class="fc-shape">◇</span> Decision
+        </div>
+
+        <div class="fc-palette-label">Flow</div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'oval','Start')" onclick="fcAddNode('oval','Start')">
+          <span class="fc-shape">⬭</span> Start/End
+        </div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'parallelogram','Input')" onclick="fcAddNode('parallelogram','Input/Output')">
+          <span class="fc-shape">▱</span> Input/Output
+        </div>
+
+        <div class="fc-palette-label">Annotation</div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'note','Note')" onclick="fcAddNode('note','Note')">
+          <span class="fc-shape">📝</span> Note
+        </div>
+
+        <div class="fc-palette-label">Quick Add</div>
+        <div class="fc-node-template" onclick="fcAddTemplate('gameloop')" style="font-size:11px">
+          <span class="fc-shape">∞</span> Game Loop
+        </div>
+        <div class="fc-node-template" onclick="fcAddTemplate('decision')" style="font-size:11px">
+          <span class="fc-shape">◇</span> Decision Tree
+        </div>
+        <div class="fc-node-template" onclick="fcAddTemplate('statemachine')" style="font-size:11px">
+          <span class="fc-shape">⊙</span> State Machine
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div class="fc-canvas-wrap" id="fc-canvas-wrap"
+        ondragover="event.preventDefault()"
+        ondrop="fcCanvasDrop(event)">
+        <svg id="fc-canvas" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7"
+              refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="var(--ink3)"/>
+            </marker>
+            <marker id="arrowhead-selected" markerWidth="10" markerHeight="7"
+              refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="var(--gold2)"/>
+            </marker>
+          </defs>
+          <g id="fc-edges-layer"></g>
+          <g id="fc-nodes-layer"></g>
+        </svg>
+      </div>
+
+      <!-- Right panel -->
+      <div class="fc-right">
+        <div class="fc-right-tab-bar">
+          <button class="fc-rtab active" id="fc-tab-props" onclick="fcSwitchTab('props')">Properties</button>
+          <button class="fc-rtab" id="fc-tab-code" onclick="fcSwitchTab('code')">Mermaid</button>
+        </div>
+        <!-- Properties tab -->
+        <div class="fc-right-panel active" id="fc-panel-props">
+          <div id="fc-no-sel" class="fc-no-sel">Select a node to edit its properties</div>
+          <div id="fc-sel-props" style="display:none">
+            <label class="fc-prop-lbl">Label</label>
+            <input class="fc-prop-inp" id="fc-prop-label" oninput="fcUpdateNodeLabel(this.value)" placeholder="Node label…">
+            <label class="fc-prop-lbl">Shape</label>
+            <select class="fc-prop-sel" id="fc-prop-shape" onchange="fcUpdateNodeShape(this.value)">
+              <option value="rect">Process (Rectangle)</option>
+              <option value="rounded">Action (Rounded)</option>
+              <option value="diamond">Decision (Diamond)</option>
+              <option value="oval">Start/End (Oval)</option>
+              <option value="parallelogram">Input/Output</option>
+              <option value="note">Note</option>
+            </select>
+            <label class="fc-prop-lbl">Color</label>
+            <div class="fc-color-row">
+              <div class="fc-color-swatch" style="background:#fff;border:1px solid #ccc" onclick="fcSetNodeColor('#fff','#333')" title="White"></div>
+              <div class="fc-color-swatch" style="background:#e8f4f8" onclick="fcSetNodeColor('#e8f4f8','#0d4848')" title="Teal tint"></div>
+              <div class="fc-color-swatch" style="background:#f5ecd7" onclick="fcSetNodeColor('#f5ecd7','#9a6e18')" title="Gold tint"></div>
+              <div class="fc-color-swatch" style="background:#f8e8e8" onclick="fcSetNodeColor('#f8e8e8','#761212')" title="Red tint"></div>
+              <div class="fc-color-swatch" style="background:#e8f0e8" onclick="fcSetNodeColor('#e8f0e8','#304830')" title="Green tint"></div>
+              <div class="fc-color-swatch" style="background:#272018" onclick="fcSetNodeColor('#272018','#e4b040')" title="Dark"></div>
+            </div>
+            <label class="fc-prop-lbl" style="margin-top:12px">Note / Tooltip</label>
+            <textarea class="fc-prop-ta" id="fc-prop-note" oninput="fcUpdateNodeNote(this.value)" placeholder="Optional note…"></textarea>
+            <button class="fc-tool-btn danger" style="width:100%;margin-top:10px;text-align:center" onclick="fcDeleteSelected()">✕ Delete Node</button>
+          </div>
+        </div>
+        <!-- Mermaid code tab -->
+        <div class="fc-right-panel" id="fc-panel-code">
+          <label class="fc-prop-lbl" style="margin-top:0">Edit Mermaid Syntax</label>
+          <textarea class="fc-code-area" id="fc-code-ta" spellcheck="false" placeholder="flowchart TD&#10;  A[Start] --> B{Decision}&#10;  B --> |Yes| C[Action]&#10;  B --> |No| D[End]"></textarea>
+          <button class="fc-render-btn" onclick="fcRenderFromCode()">▶ Render from Code</button>
+          <div class="fc-render-output" id="fc-render-out">
+            <div style="color:var(--ink4);font-style:italic;font-size:13px">Click Render to preview</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-bottombar">
+      <span id="fc-status">Ready — <b id="fc-node-count">0</b> nodes, <b id="fc-edge-count">0</b> edges</span>
+      <span style="margin-left:auto">Scroll to zoom · Drag canvas to pan · Click node to select · Connect tool: click source then target</span>
+    </div>
+
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-/* ═══════════════════════════════════════════════════════
+/* ===
    SECTION DEFINITIONS
-═══════════════════════════════════════════════════════ */
+=== */
 const SECTIONS = [
   {key:'overview',     title:'Overview',           cat:'Core',        icon:'◈', sub:'The elevator pitch — what your game is and why it matters',
    qs:['What is the core concept in one sentence?','What makes this unique in its genre?','What is the player fantasy?','What is the tone — dark, hopeful, absurd?']},
@@ -1472,11 +1969,23 @@ const SECTIONS = [
    qs:['What is most likely to break the schedule?','What assumptions could be wrong?','What does the competitive landscape look like?','Fallback plan?']},
   {key:'references',   title:'References',         cat:'Production',  icon:'☍', sub:'Inspirations, competitor titles, research links, mood boards',
    qs:['What 5 games does the team play to align on feel?','What makes those games better or worse than yours?','Research articles or GDCs that inform this design?']},
+  {key:'controls',      title:'Controls & Input',   cat:'Gameplay',    icon:'⌨', sub:'Key bindings, controller layout, touch gestures, input philosophy',
+   qs:['What is the default control scheme for each platform?','What actions are remappable?','How does the game feel on keyboard vs controller vs touch?','Any platform-specific input constraints?','What is the most important action and how prominent is its button?']},
+  {key:'accessibility', title:'Accessibility',       cat:'Gameplay',    icon:'◎', sub:'Features ensuring all players can enjoy the game regardless of ability',
+   qs:['What color blindness modes are supported?','Are subtitles and closed captions available?','Can difficulty be adjusted granularly?','Are there motor accessibility options (toggle vs hold, auto-aim)?','What is the minimum readable font size?']},
+  {key:'playtesting',   title:'Playtesting Log',     cat:'Production',  icon:'◉', sub:'Session logs, player feedback, discoveries, and what changed as a result',
+   qs:['Who playtested and when?','What confused players the most?','What did players try that you did not expect?','What changed after this session?','What will you test next?']},
+  {key:'economy',       title:'Economy & Systems',   cat:'Gameplay',    icon:'◈', sub:'Internal game economy — resources, currencies, crafting, reward schedules, balance',
+   qs:['What resources exist and how do players acquire them?','What is the primary currency and what can it buy?','Are resources scarce, abundant, or player-controlled?','What is the reward schedule — fixed, variable, milestone?','How does the economy change from early to late game?']},
+  {key:'emotional',     title:'Emotional Journey',   cat:'Core',        icon:'◑', sub:'The intended feeling arc — what players feel at each stage of the game',
+   qs:['What emotion does the player feel in the first 10 minutes?','What is the emotional peak of the game?','What should the player feel at the midpoint?','How do mechanics reinforce the emotional tone?','What feeling should linger after the game ends?']},
+  {key:'localization',  title:'Localization',        cat:'Production',  icon:'⊡', sub:'Language support, text pipeline, voice acting scope, regional concerns',
+   qs:['What languages will be supported at launch?','How is text externalized — spreadsheet, JSON, localization service?','Is voice acting included and in which languages?','Are there font or encoding requirements for non-Latin scripts?','Any regional content restrictions to plan for?']},
 ];
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    STATE
-═══════════════════════════════════════════════════════ */
+=== */
 let S = {
   projId: null,
   section: '__home',
@@ -1485,6 +1994,7 @@ let S = {
   projects: {},
   customSections: [],
   readMode: false,
+  currentTheme: 'parchment',
   cost: { sIn: 0, sOut: 0, calls: [], lastIn: 0, lastOut: 0 },
 };
 
@@ -1498,9 +2008,9 @@ const PRICE_IN  = 3.00  / 1_000_000;
 const PRICE_OUT = 15.00 / 1_000_000;
 const fmt$ = n => '$' + n.toFixed(4);
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    STORAGE
-═══════════════════════════════════════════════════════ */
+=== */
 function saveS() {
   try {
     const data = JSON.stringify({
@@ -1584,9 +2094,9 @@ function setSaveDot(s) {
   else { d.className = 'dot g'; l.textContent = 'Saved'; }
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    HELPERS
-═══════════════════════════════════════════════════════ */
+=== */
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
 const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const wc  = html => (html||'').replace(/<[^>]*>/g,' ').replace(/&\w+;/g,' ').trim().split(/\s+/).filter(Boolean).length;
@@ -1633,7 +2143,7 @@ function timeAgo(ts) {
   return new Date(ts).toLocaleDateString('en-US', {month:'short', day:'numeric'});
 }
 
-/* ── Changelog Logger ── */
+/*  Changelog Logger  */
 function logChange(msg, type = 'entry') {
   const p = proj(); if (!p) return;
   if (!p.changelog) p.changelog = [];
@@ -1641,7 +2151,7 @@ function logChange(msg, type = 'entry') {
   if (p.changelog.length > 60) p.changelog.pop();
 }
 
-/* ── Token Cost Tracking ── */
+/*  Token Cost Tracking  */
 function trackCost(inputTokens, outputTokens) {
   S.cost.sIn  += inputTokens;
   S.cost.sOut += outputTokens;
@@ -1693,7 +2203,7 @@ function resetCost() {
   closeM('m-cost'); toast('Cost counter reset');
 }
 
-/* ── Reading Mode ── */
+/*  Reading Mode  */
 function toggleReadMode() {
   S.readMode = !S.readMode;
   document.getElementById('content-area').classList.toggle('reading-mode', S.readMode);
@@ -1702,7 +2212,7 @@ function toggleReadMode() {
   btn.textContent = S.readMode ? '✕ Read' : '◉ Read';
 }
 
-/* ── Keyboard Shortcuts ── */
+/*  Keyboard Shortcuts  */
 document.addEventListener('keydown', e => {
   // Ctrl/Cmd + S — Save
   if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -1730,9 +2240,9 @@ function catClass(cat) {
   return map[cat] || 'cat-custom';
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    PROJECTS
-═══════════════════════════════════════════════════════ */
+=== */
 function promptNewProj() {
   closeProjPanel();
   document.getElementById('np-name').value = '';
@@ -1779,9 +2289,9 @@ function renderProjList() {
   `).join('');
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    NAVIGATION
-═══════════════════════════════════════════════════════ */
+=== */
 function renderNav() {
   const all = [...SECTIONS, ...S.customSections];
   const grouped = {};
@@ -1865,9 +2375,9 @@ function switchSection(key) {
   closeAI();
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    DASHBOARD
-═══════════════════════════════════════════════════════ */
+=== */
 function renderDashboard() {
   const area = document.getElementById('content-area');
   const p = proj();
@@ -1962,9 +2472,9 @@ function renderDashboard() {
   area.innerHTML = html;
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    CONTENT RENDERING
-═══════════════════════════════════════════════════════ */
+=== */
 function renderContent() {
   if (S.section === '__home') { renderDashboard(); return; }
   // Remove any existing pinned note bar first
@@ -2127,7 +2637,6 @@ function buildCard(entry, idx) {
           onfocus="showToolbar(${idx})"
           onblur="hideToolbar(${idx})">${entry.content||''}</div>
 
-        <!-- Tags panel — hidden by default -->
         <div class="disc-panel" id="disc-tags-${idx}">
           <div class="tags-row">
             <span class="tags-lbl">Tags</span>
@@ -2138,7 +2647,6 @@ function buildCard(entry, idx) {
           </div>
         </div>
 
-        <!-- Images panel — hidden by default -->
         <div class="disc-panel" id="disc-imgs-${idx}">
           <div class="img-sec">
             <div class="img-sec-lbl">Images &amp; Concept Art</div>
@@ -2155,12 +2663,21 @@ function buildCard(entry, idx) {
           </div>
         </div>
 
-        <!-- Links panel — hidden by default -->
         <div class="disc-panel" id="disc-lnks-${idx}">
           <div class="lnk-sec">
             <div class="lnk-lbl">Attached Links &amp; Docs</div>
             <div class="lnk-list">${lnkHtml}</div>
             ${!locked ? `<div style="margin-top:6px"><button class="btn sm" onclick="openLink(${idx})">+ Attach Link</button></div>` : ''}
+          </div>
+        </div>
+
+        <div class="disc-panel" id="disc-fc-${idx}">
+          <div class="fc-disc-panel">
+            <div class="fc-disc-panel-lbl">
+              ⟁ Diagram
+              ${!locked ? `<button class="fc-entry-btn" onclick="openFCModal(${idx})">Edit Diagram</button>` : ''}
+            </div>
+            ${entry.flowchart ? `<div id="fc-preview-${idx}" class="fc-preview-svg">${entry.flowchart.svg||'<div style="color:var(--ink4);font-style:italic;font-size:13px">No render yet — open the editor and click Save</div>'}</div>` : `<div style="color:var(--ink4);font-style:italic;font-size:13px">No diagram yet. Click Edit Diagram to create one.</div>`}
           </div>
         </div>
 
@@ -2178,6 +2695,9 @@ function buildCard(entry, idx) {
           <button class="disc-btn ${(entry.links||[]).length?'has':''}" onclick="toggleDisc(${idx},'lnks')" title="Links">
             🔗 Links${(entry.links||[]).length ? ' ('+entry.links.length+')' : ''}
           </button>
+          <button class="disc-btn ${entry.flowchart?'has':''}" onclick="openFCModal(${idx})" title="Flowchart">
+            ⟁ Diagram${entry.flowchart ? ' ✓' : ''}
+          </button>
           <button class="btn sm ai" onclick="reviewEntry(${idx})">✦ Review</button>
           <button class="btn sm" onclick="duplicateEntry(${idx})" title="Duplicate entry">⧉</button>
           ` : ''}
@@ -2188,9 +2708,9 @@ function buildCard(entry, idx) {
   `;
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    ENTRY ACTIONS
-═══════════════════════════════════════════════════════ */
+=== */
 function toggleCard(idx) {
   const sec = secData(); if (!sec) return;
   sec.entries[idx].open = !sec.entries[idx].open;
@@ -2200,7 +2720,7 @@ function toggleCard(idx) {
   if (chev) chev.classList.toggle('open', sec.entries[idx].open);
 }
 
-/* ── Focus Toolbar ── */
+/*  Focus Toolbar  */
 function showToolbar(idx) {
   const tb = document.getElementById('tb-' + idx);
   if (tb) tb.classList.add('visible');
@@ -2213,14 +2733,14 @@ function hideToolbar(idx) {
   }, 180);
 }
 
-/* ── Progressive Disclosure Panels ── */
+/*  Progressive Disclosure Panels  */
 function toggleDisc(idx, panel) {
   const el = document.getElementById('disc-' + panel + '-' + idx);
   if (!el) return;
   el.classList.toggle('open');
 }
 
-/* ── More Dropdown ── */
+/*  More Dropdown  */
 let _moreOpen = false;
 function toggleMore() {
   _moreOpen = !_moreOpen;
@@ -2308,7 +2828,7 @@ function updatePriority(idx, val) {
   scheduleSave();
 }
 
-/* ── Pinned Section Notes ── */
+/*  Pinned Section Notes  */
 function togglePin() {
   const p = proj(); if (!p) return;
   if (!p.pinnedNotes) p.pinnedNotes = {};
@@ -2345,7 +2865,7 @@ function renderPin() {
   content.focus();
 }
 
-/* ── Import JSON ── */
+/*  Import JSON  */
 function openImport() {
   document.getElementById('import-json').value = '';
   openM('m-import');
@@ -2387,7 +2907,7 @@ function toggleLock(idx) {
   toast(sec.entries[idx].locked ? '🔒 Entry locked' : '🔓 Entry unlocked');
 }
 
-/* ── Tags ── */
+/*  Tags  */
 function addTag(idx, input) {
   const val = input.value.replace(/,/g,'').trim(); if (!val) return;
   const sec = secData(); if (!sec || !sec.entries[idx]) return;
@@ -2402,7 +2922,7 @@ function removeTag(idx, ti) {
   renderContent(); scheduleSave();
 }
 
-/* ── Images ── */
+/*  Images  */
 function triggerImg(idx) { document.getElementById('imgf-' + idx).click(); }
 function handleImgFile(e, idx) {
   const f = e.target.files[0]; if (!f) return;
@@ -2431,7 +2951,7 @@ function removeImg(idx, ii) {
 function openLB(src) { document.getElementById('lb-img').src = src; document.getElementById('lightbox').classList.add('open'); }
 function closeLB() { document.getElementById('lightbox').classList.remove('open'); }
 
-/* ── Links ── */
+/*  Links  */
 function openLink(idx) { _linkEntry = idx; document.getElementById('lm-label').value = ''; document.getElementById('lm-url').value = ''; openM('m-link'); }
 function confirmLink() {
   const label = document.getElementById('lm-label').value.trim();
@@ -2447,7 +2967,7 @@ function removeLink(idx, li) {
   renderContent(); scheduleSave();
 }
 
-/* ── Cross-reference ── */
+/*  Cross-reference  */
 function insertXref(idx) {
   const all = [...SECTIONS, ...S.customSections];
   const choice = prompt('Type a section name to cross-reference:\n\n' + all.map(s=>s.title).join('\n'));
@@ -2460,7 +2980,7 @@ function insertXref(idx) {
   document.execCommand('insertHTML', false, `<span class="xref" onclick="switchSection('${found.key}')" contenteditable="false">→ ${found.title}</span> `);
 }
 
-/* ── AI Comments ── */
+/*  AI Comments  */
 function resolveComment(eIdx, ci) {
   const sec = secData(); if (!sec || !sec.entries[eIdx]) return;
   sec.entries[eIdx].comments[ci].resolved = true;
@@ -2472,9 +2992,9 @@ function dismissComment(eIdx, ci) {
   renderContent(); renderNav(); scheduleSave();
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    EDITOR
-═══════════════════════════════════════════════════════ */
+=== */
 function fmt(cmd) { document.execCommand(cmd, false, null); }
 function fmtBlock(tag) { document.execCommand('formatBlock', false, tag); }
 
@@ -2515,9 +3035,9 @@ document.addEventListener('input', e => {
   }
 });
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    STATS & PROGRESS
-═══════════════════════════════════════════════════════ */
+=== */
 function updateStats() {
   if (S.section === '__home') {
     document.getElementById('st-entries').textContent = '';
@@ -2547,9 +3067,9 @@ function updateProgress() {
   document.getElementById('sh-pct').textContent = pct > 0 ? pct + '%' : '';
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    VERSION HISTORY
-═══════════════════════════════════════════════════════ */
+=== */
 function snapshot() {
   collectEdits();
   const p = proj(); if (!p || S.section === '__home') { toast('Switch to a section first'); return; }
@@ -2596,9 +3116,9 @@ function restoreSnap(i) {
   toast('Restored to v' + snaps[i].version);
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    THEME / TEAM
-═══════════════════════════════════════════════════════ */
+=== */
 function openTheme() {
   const p = proj(); if (!p) { toast('Create a project first'); return; }
   const t = p.theme||{};
@@ -2673,9 +3193,9 @@ function applyTheme() {
   document.getElementById('theme-val').textContent = parts.length ? parts.join(' — ') : 'Not configured — click Edit Theme';
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    SETTINGS
-═══════════════════════════════════════════════════════ */
+=== */
 function openSettings() {
   document.getElementById('set-key').value = S.apiKey ? '••••••••' + S.apiKey.slice(-4) : '';
   const d = document.getElementById('key-status');
@@ -2693,9 +3213,9 @@ function clearAll() {
   localStorage.removeItem('codex_v3'); localStorage.removeItem('codex_apikey'); location.reload();
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    AI PANEL
-═══════════════════════════════════════════════════════ */
+=== */
 const TONE_PROMPTS = {
   encouraging: 'You are a supportive game design mentor. Acknowledge what is working well before raising concerns. Be encouraging but honest. Keep feedback constructive and specific. Under 200 words.',
   balanced:    'You are a senior game design consultant. Give precise, honest feedback. Flag issues clearly but fairly. No rewriting their content. Under 200 words unless the section is dense.',
@@ -2825,9 +3345,9 @@ async function marketPulse() {
   setAIBusy(false);
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    CUSTOM SECTIONS
-═══════════════════════════════════════════════════════ */
+=== */
 function openAddSection() { document.getElementById('sm-name').value=''; document.getElementById('sm-desc').value=''; openM('m-section'); }
 function confirmSection() {
   const name = document.getElementById('sm-name').value.trim(); if (!name) return;
@@ -2836,9 +3356,9 @@ function confirmSection() {
   saveS(); closeM('m-section'); switchSection(key);
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    SEARCH
-═══════════════════════════════════════════════════════ */
+=== */
 function handleSearch(q) {
   const c = document.getElementById('sb-search-results');
   if (!q.trim()) { c.style.display='none'; return; }
@@ -2869,9 +3389,9 @@ function goResult(skey, eIdx) {
   }, 120);
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    ONE-PAGER
-═══════════════════════════════════════════════════════ */
+=== */
 function openOnePager() {
   collectEdits();
   const p = proj(); if (!p) { toast('No project loaded'); return; }
@@ -2897,9 +3417,9 @@ function openOnePager() {
 }
 function closeOnePager() { document.getElementById('one-pager').classList.remove('open'); }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    EXPORT
-═══════════════════════════════════════════════════════ */
+=== */
 function openExport() { openM('m-export'); }
 
 function exportMD() {
@@ -2947,12 +3467,28 @@ function exportHTML() {
     });
     body += '<hr>';
   });
-  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(t.name||'GDD')}</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>body{font-family:'Crimson Pro',serif;max-width:860px;margin:40px auto;padding:0 32px;color:#13110d;line-height:1.82;font-size:17px}h1{font-family:'Cinzel',serif;font-size:26px;border-bottom:2px solid #c08c28;padding-bottom:8px;margin-bottom:6px}h2{font-family:'Cinzel',serif;font-size:17px;color:#166060;margin-top:38px;border-bottom:1px solid #ddd;padding-bottom:4px}h3{font-family:'Cinzel',serif;font-size:13px;color:#2a2018;margin-top:18px}.sd{font-size:13px;color:#857060;font-style:italic;margin-bottom:14px}.entry{margin-bottom:18px;padding:14px 16px;border:1px solid #e6ddc8;border-radius:4px;background:#fdf9f2;border-left:3px solid #c08c28}.et{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#9a6e18;margin-bottom:5px}.meta{font-size:12px;color:#857060;margin-top:8px}hr{border:none;border-top:1px solid #e6ddc8;margin:28px 0}@media print{body{margin:20px;padding:0}.entry{page-break-inside:avoid}}</style>
-</head><body><h1>${esc(t.name||p.name||'GDD')}</h1>
-<p style="color:#857060;font-style:italic;margin-bottom:24px">${[t.genre,t.pitch,t.studio,t.platform].filter(Boolean).map(esc).join(' · ')} · ${new Date().toLocaleDateString()}</p>
-${body}</body></html>`;
+  const exportCSS = [
+    'body{font-family:\'Crimson Pro\',serif;max-width:860px;margin:40px auto;padding:0 32px;color:#13110d;line-height:1.82;font-size:17px}',
+    'h1{font-family:\'Cinzel\',serif;font-size:26px;border-bottom:2px solid #c08c28;padding-bottom:8px;margin-bottom:6px}',
+    'h2{font-family:\'Cinzel\',serif;font-size:17px;color:#166060;margin-top:38px;border-bottom:1px solid #ddd;padding-bottom:4px}',
+    'h3{font-family:\'Cinzel\',serif;font-size:13px;color:#2a2018;margin-top:18px}',
+    '.sd{font-size:13px;color:#857060;font-style:italic;margin-bottom:14px}',
+    '.entry{margin-bottom:18px;padding:14px 16px;border:1px solid #e6ddc8;border-radius:4px;background:#fdf9f2;border-left:3px solid #c08c28}',
+    '.et{font-family:\'Cinzel\',serif;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#9a6e18;margin-bottom:5px}',
+    '.meta{font-size:12px;color:#857060;margin-top:8px}',
+    'hr{border:none;border-top:1px solid #e6ddc8;margin:28px 0}',
+    '@media print{body{margin:20px;padding:0}.entry{page-break-inside:avoid}}',
+  ].join('');
+  const styleTag  = '<' + 'style>' + exportCSS + '<' + '/style>';
+  const scriptEnd = '<' + '/head>';
+  const gFonts = '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">';
+  const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + esc(t.name||'GDD') + '</title>'
+    + gFonts + styleTag + scriptEnd
+    + '<body><h1>' + esc(t.name||p.name||'GDD') + '</h1>'
+    + '<p style="color:#857060;font-style:italic;margin-bottom:24px">'
+    + [t.genre,t.pitch,t.studio,t.platform].filter(Boolean).map(esc).join(' · ')
+    + ' · ' + new Date().toLocaleDateString() + '</p>'
+    + body + '<' + '/body><' + '/html>';
   dl(html, (t.name||'GDD').replace(/\s+/g,'_')+'.html', 'text/html');
   toast('Exported as HTML');
 }
@@ -2972,9 +3508,9 @@ function dl(content, name, type) {
   a.download = name; a.click();
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    MODALS
-═══════════════════════════════════════════════════════ */
+=== */
 function openM(id) { document.getElementById(id).classList.add('open'); }
 function closeM(id) { document.getElementById(id).classList.remove('open'); }
 
@@ -2990,9 +3526,9 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    TOAST
-═══════════════════════════════════════════════════════ */
+=== */
 function toast(msg, type='ok') {
   const el = document.getElementById('toast');
   el.textContent = msg;
@@ -3000,14 +3536,26 @@ function toast(msg, type='ok') {
   setTimeout(() => el.classList.remove('show'), 2800);
 }
 
-/* ═══════════════════════════════════════════════════════
+/* ===
    RENDER ALL & INIT
-═══════════════════════════════════════════════════════ */
-/* ═══════════════════════════════════════════════════════
+=== */
+/* ===
    APP CHANGELOG DATA & FUNCTION
-═══════════════════════════════════════════════════════ */
+=== */
 const APP_VERSIONS = [
-  { v:'4.1', date:'Latest', tag:'Bug Fixes & Polish',
+  { v:'4.2', date:'Latest', tag:'Flowchart & Sections',
+    changes:[
+      {k:'fix', t:'Visible // comment text inside entry cards removed'},
+      {k:'add', t:'Flowchart: curved bezier edges instead of straight lines'},
+      {k:'add', t:'Flowchart: double-click any node to rename inline'},
+      {k:'add', t:'Flowchart: double-click any edge to edit its label'},
+      {k:'add', t:'Flowchart: resize handles on selected nodes (drag SE/E/S corners)'},
+      {k:'add', t:'Playtesting Log section — log sessions, feedback, and what changed'},
+      {k:'add', t:'Economy & Systems section — resources, currencies, balance'},
+      {k:'add', t:'Emotional Journey section — the feeling arc from start to finish'},
+    ]
+  },
+  { v:'4.1', date:'Previous', tag:'Bug Fixes & Polish',
     changes:[
       {k:'fix', t:'Delete button moved to card header — always visible, no need to open card'},
       {k:'fix', t:'Team member inputs no longer wipe when adding a new member'},
@@ -3103,6 +3651,832 @@ function renderAll() {
   updateStorageBar();
 }
 
+/* ===
+   FLOWCHART BUILDER ENGINE
+=== */
+const FC = {
+  nodes: [], edges: [], selected: null,
+  tool: 'select', connectFrom: null,
+  history: [], entryIdx: null,
+  pan: {x:0, y:0}, zoom: 1,
+  dragging: null, dragOffset: {x:0, y:0}, dragType: null,
+  lastMouse: {x:0, y:0}, type: 'flowchart',
+  resizing: null,
+};
+
+const FC_COLORS = {
+  rect:          { fill:'#fff',    stroke:'#4e4030' },
+  rounded:       { fill:'#e8f0e8', stroke:'#304830' },
+  diamond:       { fill:'#f5ecd7', stroke:'#9a6e18' },
+  oval:          { fill:'#272018', stroke:'#e4b040', text:'#e4b040' },
+  parallelogram: { fill:'#e8f4f8', stroke:'#0d4848' },
+  note:          { fill:'#fdf6e3', stroke:'#c08c28' },
+};
+
+let _fcDragNodeType = null;
+let _fcDragNodeLabel = null;
+
+function openFCModal(entryIdx) {
+  FC.entryIdx = entryIdx;
+  const sec = secData();
+  const entry = sec && sec.entries[entryIdx];
+  // Load saved state if exists
+  if (entry && entry.flowchart && entry.flowchart.nodes) {
+    FC.nodes = JSON.parse(JSON.stringify(entry.flowchart.nodes));
+    FC.edges = JSON.parse(JSON.stringify(entry.flowchart.edges || []));
+  } else {
+    FC.nodes = [];
+    FC.edges = [];
+  }
+  FC.selected = null;
+  FC.history = [];
+  FC.pan = {x:0, y:0};
+  FC.zoom = 1;
+  FC.tool = 'select';
+  document.getElementById('fc-modal').classList.add('open');
+  fcSetTool('select');
+  fcRender();
+  fcUpdateStatus();
+  fcUpdateCodePanel();
+  // Init mermaid
+  try { mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'loose' }); } catch(e) {}
+}
+
+function closeFCModal() {
+  document.getElementById('fc-modal').classList.remove('open');
+}
+
+function fcSave() {
+  const sec = secData();
+  if (!sec || FC.entryIdx === null || !sec.entries[FC.entryIdx]) return;
+  const svgEl = document.getElementById('fc-canvas');
+  const svgStr = svgEl ? svgEl.outerHTML : '';
+  sec.entries[FC.entryIdx].flowchart = {
+    nodes: JSON.parse(JSON.stringify(FC.nodes)),
+    edges: JSON.parse(JSON.stringify(FC.edges)),
+    svg: svgStr,
+  };
+  scheduleSave();
+  // Update button state
+  renderContent();
+  toast('Diagram saved to entry');
+}
+
+function fcSetTool(t) {
+  FC.tool = t;
+  FC.connectFrom = null;
+  document.querySelectorAll('[id^="fc-tool-"]').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('fc-tool-' + t);
+  if (btn) btn.classList.add('active');
+  const hints = {
+    select: 'Click to select · Drag to move · Delete key removes selected',
+    connect: 'Click source node, then click target node to draw an arrow',
+  };
+  document.getElementById('fc-hint-text').textContent = hints[t] || '';
+  const canvas = document.getElementById('fc-canvas');
+  if (canvas) canvas.style.cursor = t === 'connect' ? 'crosshair' : 'default';
+}
+
+function fcSetType(t) {
+  FC.type = t;
+  fcUpdateCodePanel();
+}
+
+function fcSwitchTab(tab) {
+  ['props','code'].forEach(t => {
+    document.getElementById('fc-tab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('fc-panel-' + t).classList.toggle('active', t === tab);
+  });
+  if (tab === 'code') fcUpdateCodePanel();
+}
+
+//  Rendering 
+function fcRender() {
+  const nodesLayer = document.getElementById('fc-nodes-layer');
+  const edgesLayer = document.getElementById('fc-edges-layer');
+  if (!nodesLayer || !edgesLayer) return;
+
+  // Apply transform
+  nodesLayer.setAttribute('transform', `translate(${FC.pan.x},${FC.pan.y}) scale(${FC.zoom})`);
+  edgesLayer.setAttribute('transform', `translate(${FC.pan.x},${FC.pan.y}) scale(${FC.zoom})`);
+
+  // Render edges with curved bezier paths
+  edgesLayer.innerHTML = '';
+  FC.edges.forEach(edge => {
+    const from = FC.nodes.find(n => n.id === edge.from);
+    const to   = FC.nodes.find(n => n.id === edge.to);
+    if (!from || !to) return;
+    // Connect from bottom of source to top of target when below, else center-to-center
+    const fx = from.x + from.w/2, fy = from.y + from.h/2;
+    const tx = to.x + to.w/2,   ty = to.y + to.h/2;
+    // Bezier control points for smooth curve
+    const dy = ty - fy;
+    const cp1y = fy + dy * 0.4;
+    const cp2y = ty - dy * 0.4;
+    const d = `M ${fx} ${fy} C ${fx} ${cp1y}, ${tx} ${cp2y}, ${tx} ${ty}`;
+    const isSelected = FC.selected === edge.id;
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('data-edge-id', edge.id);
+    g.style.cursor = 'pointer';
+    // Invisible hit area
+    const hitPath = document.createElementNS('http://www.w3.org/2000/svg','path');
+    hitPath.setAttribute('d', d); hitPath.setAttribute('fill','none');
+    hitPath.setAttribute('stroke','transparent'); hitPath.setAttribute('stroke-width','12');
+    g.appendChild(hitPath);
+    // Visible path
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', d); path.setAttribute('fill','none');
+    path.setAttribute('class', 'fc-edge' + (isSelected ? ' selected' : ''));
+    path.setAttribute('marker-end', isSelected ? 'url(#arrowhead-selected)' : 'url(#arrowhead)');
+    g.appendChild(path);
+    if (edge.label) {
+      const mx = (fx+tx)/2, my = (fy+ty)/2 - 8;
+      const bg = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      const lblW = edge.label.length * 6 + 10;
+      bg.setAttribute('x', mx - lblW/2); bg.setAttribute('y', my - 10);
+      bg.setAttribute('width', lblW); bg.setAttribute('height', 16);
+      bg.setAttribute('fill','#fff'); bg.setAttribute('rx','3');
+      bg.setAttribute('stroke', 'var(--br)');
+      g.appendChild(bg);
+      const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+      lbl.setAttribute('x', mx); lbl.setAttribute('y', my + 2);
+      lbl.setAttribute('text-anchor','middle');
+      lbl.setAttribute('class','fc-edge-label');
+      lbl.textContent = edge.label;
+      g.appendChild(lbl);
+    }
+    g.addEventListener('click', () => fcSelectEdge(edge.id));
+    g.addEventListener('dblclick', () => fcEditEdgeLabel(edge.id));
+    edgesLayer.appendChild(g);
+  });
+
+  // Render nodes
+  nodesLayer.innerHTML = '';
+  FC.nodes.forEach(node => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','fc-node' + (FC.selected === node.id ? ' selected' : ''));
+    g.setAttribute('data-node-id', node.id);
+    g.style.cursor = FC.tool === 'connect' ? 'crosshair' : 'move';
+
+    const fill = node.color || FC_COLORS[node.shape]?.fill || '#fff';
+    const stroke = FC_COLORS[node.shape]?.stroke || 'var(--ink3)';
+    const textColor = node.textColor || FC_COLORS[node.shape]?.text || 'var(--ink)';
+
+    if (node.shape === 'rect') {
+      const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x', node.x); r.setAttribute('y', node.y);
+      r.setAttribute('width', node.w); r.setAttribute('height', node.h);
+      r.setAttribute('rx','2'); r.setAttribute('fill',fill); r.setAttribute('stroke',stroke);
+      g.appendChild(r);
+    } else if (node.shape === 'rounded') {
+      const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x', node.x); r.setAttribute('y', node.y);
+      r.setAttribute('width', node.w); r.setAttribute('height', node.h);
+      r.setAttribute('rx','16'); r.setAttribute('fill',fill); r.setAttribute('stroke',stroke);
+      g.appendChild(r);
+    } else if (node.shape === 'diamond') {
+      const cx = node.x + node.w/2, cy = node.y + node.h/2;
+      const pts = `${cx},${node.y} ${node.x+node.w},${cy} ${cx},${node.y+node.h} ${node.x},${cy}`;
+      const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      p.setAttribute('points',pts); p.setAttribute('fill',fill); p.setAttribute('stroke',stroke);
+      g.appendChild(p);
+    } else if (node.shape === 'oval') {
+      const el = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+      el.setAttribute('cx', node.x+node.w/2); el.setAttribute('cy', node.y+node.h/2);
+      el.setAttribute('rx', node.w/2); el.setAttribute('ry', node.h/2);
+      el.setAttribute('fill',fill); el.setAttribute('stroke',stroke);
+      g.appendChild(el);
+    } else if (node.shape === 'parallelogram') {
+      const off = 12;
+      const pts = `${node.x+off},${node.y} ${node.x+node.w},${node.y} ${node.x+node.w-off},${node.y+node.h} ${node.x},${node.y+node.h}`;
+      const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      p.setAttribute('points',pts); p.setAttribute('fill',fill); p.setAttribute('stroke',stroke);
+      g.appendChild(p);
+    } else if (node.shape === 'note') {
+      const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x', node.x); r.setAttribute('y', node.y);
+      r.setAttribute('width', node.w); r.setAttribute('height', node.h);
+      r.setAttribute('rx','4'); r.setAttribute('fill',fill); r.setAttribute('stroke',stroke);
+      r.setAttribute('stroke-dasharray','4,3');
+      g.appendChild(r);
+    }
+
+    // Label — wrap if too long
+    const words = (node.label||'').split(' ');
+    const lineH = 18, maxW = node.w - 16;
+    let lines = [], cur = '';
+    words.forEach(w => {
+      const test = cur ? cur + ' ' + w : w;
+      if (test.length * 7 > maxW && cur) { lines.push(cur); cur = w; }
+      else cur = test;
+    });
+    if (cur) lines.push(cur);
+    const totalH = lines.length * lineH;
+    const startY = node.y + node.h/2 - totalH/2 + lineH/2 + 3;
+    lines.forEach((line, li) => {
+      const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x', node.x + node.w/2);
+      t.setAttribute('y', startY + li * lineH);
+      t.setAttribute('text-anchor','middle');
+      t.setAttribute('dominant-baseline','middle');
+      t.setAttribute('class','fc-node-text');
+      t.setAttribute('fill', textColor);
+      t.style.fontSize = '13px';
+      t.style.fontFamily = 'Crimson Pro, Georgia, serif';
+      t.textContent = line;
+      g.appendChild(t);
+    });
+
+    // Events
+    g.addEventListener('mousedown', e => fcNodeMousedown(e, node.id));
+    g.addEventListener('click', e => { e.stopPropagation(); fcNodeClick(node.id); });
+    g.addEventListener('dblclick', e => { e.stopPropagation(); fcInlineRename(node.id); });
+    nodesLayer.appendChild(g);
+
+    // Resize handles — shown only when selected
+    if (FC.selected === node.id && FC.tool === 'select') {
+      const handles = [
+        { cx: node.x + node.w, cy: node.y + node.h, dir: 'se' },
+        { cx: node.x + node.w, cy: node.y + node.h/2, dir: 'e'  },
+        { cx: node.x + node.w/2, cy: node.y + node.h, dir: 's'  },
+      ];
+      handles.forEach(h => {
+        const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        rect.setAttribute('x', h.cx - 5); rect.setAttribute('y', h.cy - 5);
+        rect.setAttribute('width', 10); rect.setAttribute('height', 10);
+        rect.setAttribute('rx', 2);
+        rect.setAttribute('fill', 'var(--gold2)'); rect.setAttribute('stroke', '#fff');
+        rect.setAttribute('stroke-width', '1.5');
+        rect.style.cursor = h.dir + '-resize';
+        rect.addEventListener('mousedown', e => {
+          e.stopPropagation();
+          FC.resizing = { id: node.id, dir: h.dir, startX: e.clientX, startY: e.clientY, startW: node.w, startH: node.h };
+        });
+        nodesLayer.appendChild(rect);
+      });
+    }
+  });
+
+  fcUpdateStatus();
+}
+
+//  Node interactions 
+function fcNodeClick(nodeId) {
+  if (FC.tool === 'connect') {
+    if (!FC.connectFrom) {
+      FC.connectFrom = nodeId;
+      document.getElementById('fc-hint-text').textContent = 'Now click the target node…';
+      // Highlight source
+      const g = document.querySelector(`[data-node-id="${nodeId}"]`);
+      if (g) g.classList.add('selected');
+    } else if (FC.connectFrom !== nodeId) {
+      // Create edge
+      fcPushHistory();
+      const label = prompt('Edge label (optional):') || '';
+      FC.edges.push({ id: uid(), from: FC.connectFrom, to: nodeId, label });
+      FC.connectFrom = null;
+      document.getElementById('fc-hint-text').textContent = 'Click source node to start a connection';
+      fcRender(); fcUpdateCodePanel();
+    } else {
+      FC.connectFrom = null;
+    }
+    return;
+  }
+  fcSelectNode(nodeId);
+}
+
+function fcSelectNode(nodeId) {
+  FC.selected = nodeId;
+  const node = FC.nodes.find(n => n.id === nodeId);
+  fcRender();
+  // Update properties panel
+  document.getElementById('fc-no-sel').style.display = 'none';
+  document.getElementById('fc-sel-props').style.display = 'block';
+  if (node) {
+    document.getElementById('fc-prop-label').value = node.label || '';
+    document.getElementById('fc-prop-shape').value = node.shape || 'rect';
+    document.getElementById('fc-prop-note').value = node.note || '';
+  }
+}
+
+function fcSelectEdge(edgeId) {
+  if (FC.tool === 'connect') return;
+  FC.selected = edgeId;
+  fcRender();
+  document.getElementById('fc-no-sel').style.display = 'block';
+  document.getElementById('fc-sel-props').style.display = 'none';
+}
+
+function fcNodeMousedown(e, nodeId) {
+  if (FC.tool === 'connect') return;
+  e.stopPropagation();
+  const node = FC.nodes.find(n => n.id === nodeId);
+  if (!node) return;
+  const svgRect = document.getElementById('fc-canvas').getBoundingClientRect();
+  FC.dragging = nodeId;
+  FC.dragType = 'node';
+  FC.dragOffset = {
+    x: (e.clientX - svgRect.left - FC.pan.x) / FC.zoom - node.x,
+    y: (e.clientY - svgRect.top  - FC.pan.y) / FC.zoom - node.y,
+  };
+}
+
+//  Canvas mouse events 
+function fcInitCanvasEvents() {
+  const wrap = document.getElementById('fc-canvas-wrap');
+  const svg  = document.getElementById('fc-canvas');
+  if (!wrap || !svg) return;
+
+  svg.addEventListener('mousedown', e => {
+    if (e.target === svg || e.target.tagName === 'g' && !e.target.hasAttribute('data-node-id')) {
+      FC.dragging = '__canvas';
+      FC.dragType = 'canvas';
+      FC.lastMouse = {x: e.clientX, y: e.clientY};
+      svg.style.cursor = 'grabbing';
+    }
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (!FC.dragging && !FC.resizing) return;
+    const svgRect = svg.getBoundingClientRect();
+    if (FC.resizing) {
+      const node = FC.nodes.find(n => n.id === FC.resizing.id);
+      if (!node) return;
+      const dx = (e.clientX - FC.resizing.startX) / FC.zoom;
+      const dy = (e.clientY - FC.resizing.startY) / FC.zoom;
+      if (FC.resizing.dir === 'se' || FC.resizing.dir === 'e') node.w = Math.max(60, FC.resizing.startW + dx);
+      if (FC.resizing.dir === 'se' || FC.resizing.dir === 's') node.h = Math.max(32, FC.resizing.startH + dy);
+      node.w = Math.round(node.w / 20) * 20;
+      node.h = Math.round(node.h / 20) * 20;
+      fcRender();
+    } else if (FC.dragType === 'node') {
+      const node = FC.nodes.find(n => n.id === FC.dragging);
+      if (node) {
+        node.x = Math.round(((e.clientX - svgRect.left - FC.pan.x) / FC.zoom - FC.dragOffset.x) / 20) * 20;
+        node.y = Math.round(((e.clientY - svgRect.top  - FC.pan.y) / FC.zoom - FC.dragOffset.y) / 20) * 20;
+        fcRender();
+      }
+    } else if (FC.dragType === 'canvas') {
+      FC.pan.x += e.clientX - FC.lastMouse.x;
+      FC.pan.y += e.clientY - FC.lastMouse.y;
+      FC.lastMouse = {x: e.clientX, y: e.clientY};
+      fcRender();
+    }
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (FC.resizing) { FC.resizing = null; fcUpdateCodePanel(); scheduleSave(); }
+    if (FC.dragging && FC.dragType === 'node') { fcUpdateCodePanel(); scheduleSave(); }
+    FC.dragging = null; FC.dragType = null;
+    if (svg) svg.style.cursor = FC.tool === 'connect' ? 'crosshair' : 'default';
+  });
+
+  // Scroll to zoom
+  wrap.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    FC.zoom = Math.max(0.3, Math.min(3, FC.zoom * delta));
+    fcRender();
+  }, { passive: false });
+
+  // Click canvas to deselect
+  svg.addEventListener('click', e => {
+    if (e.target === svg) {
+      FC.selected = null;
+      FC.connectFrom = null;
+      document.getElementById('fc-no-sel').style.display = 'block';
+      document.getElementById('fc-sel-props').style.display = 'none';
+      fcRender();
+    }
+  });
+
+  // Delete key
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('fc-modal').classList.contains('open')) return;
+    if (e.key === 'Delete' || e.key === 'Backspace') {
+      const active = document.activeElement;
+      if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+      fcDeleteSelected();
+    }
+  });
+}
+
+//  Node operations 
+function fcAddNode(shape, label) {
+  fcPushHistory();
+  const wrap = document.getElementById('fc-canvas-wrap');
+  const cx = wrap ? wrap.clientWidth  / 2 : 300;
+  const cy = wrap ? wrap.clientHeight / 2 : 200;
+  const w = shape === 'diamond' ? 120 : 140;
+  const h = shape === 'diamond' ? 72  : 48;
+  const node = {
+    id: uid(),
+    x: Math.round(((cx - FC.pan.x) / FC.zoom - w/2) / 20) * 20,
+    y: Math.round(((cy - FC.pan.y) / FC.zoom - h/2) / 20) * 20,
+    w, h, shape, label: label || shape,
+    color: null, textColor: null, note: '',
+  };
+  FC.nodes.push(node);
+  fcRender();
+  fcUpdateCodePanel();
+  fcSelectNode(node.id);
+}
+
+function fcDragStart(e, shape, label) {
+  _fcDragNodeType = shape;
+  _fcDragNodeLabel = label;
+}
+
+function fcCanvasDrop(e) {
+  e.preventDefault();
+  if (!_fcDragNodeType) return;
+  const svg = document.getElementById('fc-canvas');
+  const rect = svg.getBoundingClientRect();
+  const x = Math.round(((e.clientX - rect.left - FC.pan.x) / FC.zoom) / 20) * 20;
+  const y = Math.round(((e.clientY - rect.top  - FC.pan.y) / FC.zoom) / 20) * 20;
+  const w = _fcDragNodeType === 'diamond' ? 120 : 140;
+  const h = _fcDragNodeType === 'diamond' ? 72  : 48;
+  fcPushHistory();
+  const node = { id: uid(), x, y, w, h, shape: _fcDragNodeType, label: _fcDragNodeLabel, color:null, textColor:null, note:'' };
+  FC.nodes.push(node);
+  fcRender(); fcUpdateCodePanel(); fcSelectNode(node.id);
+  _fcDragNodeType = null; _fcDragNodeLabel = null;
+}
+
+function fcDeleteSelected() {
+  if (!FC.selected) return;
+  fcPushHistory();
+  FC.nodes = FC.nodes.filter(n => n.id !== FC.selected);
+  FC.edges = FC.edges.filter(e => e.from !== FC.selected && e.to !== FC.selected && e.id !== FC.selected);
+  FC.selected = null;
+  document.getElementById('fc-no-sel').style.display = 'block';
+  document.getElementById('fc-sel-props').style.display = 'none';
+  fcRender(); fcUpdateCodePanel();
+}
+
+function fcInlineRename(nodeId) {
+  const node = FC.nodes.find(n => n.id === nodeId);
+  if (!node) return;
+  // Show a floating input over the node on the canvas
+  const svg = document.getElementById('fc-canvas');
+  const wrap = document.getElementById('fc-canvas-wrap');
+  if (!svg || !wrap) return;
+  const svgRect = svg.getBoundingClientRect();
+  const cx = (node.x + node.w/2) * FC.zoom + FC.pan.x + svgRect.left - wrap.getBoundingClientRect().left;
+  const cy = (node.y + node.h/2) * FC.zoom + FC.pan.y + svgRect.top  - wrap.getBoundingClientRect().top;
+  const inp = document.createElement('input');
+  inp.value = node.label || '';
+  inp.style.cssText = `position:absolute;left:${cx - 70}px;top:${cy - 14}px;width:140px;text-align:center;
+    font-family:Crimson Pro,serif;font-size:14px;padding:4px 8px;border:2px solid var(--gold2);
+    border-radius:4px;background:#fff;color:var(--ink);z-index:999;outline:none;box-shadow:0 2px 12px rgba(0,0,0,.18)`;
+  wrap.style.position = 'relative';
+  wrap.appendChild(inp);
+  inp.focus(); inp.select();
+  const finish = () => {
+    const val = inp.value.trim();
+    if (val) { node.label = val; fcUpdateNodeLabel(val); }
+    inp.remove(); fcRender(); fcUpdateCodePanel();
+    // Update properties panel if open
+    const lbl = document.getElementById('fc-prop-label');
+    if (lbl) lbl.value = node.label || '';
+  };
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter') finish();
+    if (e.key === 'Escape') { inp.remove(); }
+  });
+  inp.addEventListener('blur', finish);
+}
+
+function fcEditEdgeLabel(edgeId) {
+  const edge = FC.edges.find(e => e.id === edgeId);
+  if (!edge) return;
+  const val = prompt('Edge label (leave blank to remove):', edge.label || '');
+  if (val === null) return;
+  edge.label = val.trim();
+  fcRender(); fcUpdateCodePanel();
+}
+
+function fcUpdateNodeLabel(val) {
+  const node = FC.nodes.find(n => n.id === FC.selected);
+  if (!node) return;
+  node.label = val;
+  fcRender(); fcUpdateCodePanel();
+}
+function fcUpdateNodeShape(val) {
+  const node = FC.nodes.find(n => n.id === FC.selected);
+  if (!node) return;
+  node.shape = val;
+  if (val === 'diamond') { node.w = 120; node.h = 72; }
+  else { node.w = 140; node.h = 48; }
+  fcRender(); fcUpdateCodePanel();
+}
+function fcUpdateNodeNote(val) {
+  const node = FC.nodes.find(n => n.id === FC.selected);
+  if (!node) return;
+  node.note = val;
+}
+function fcSetNodeColor(fill, text) {
+  const node = FC.nodes.find(n => n.id === FC.selected);
+  if (!node) return;
+  node.color = fill; node.textColor = text;
+  // Update swatch active state
+  document.querySelectorAll('.fc-color-swatch').forEach(s => {
+    s.classList.toggle('active', s.style.background === fill);
+  });
+  fcRender();
+}
+
+//  Templates 
+function fcAddTemplate(type) {
+  fcPushHistory();
+  FC.nodes = []; FC.edges = [];
+  if (type === 'gameloop') {
+    const nodes = [
+      { id:'n1', x:200, y:40,  w:140, h:48, shape:'oval',    label:'Start Session' },
+      { id:'n2', x:200, y:140, w:140, h:48, shape:'rounded', label:'Player Action' },
+      { id:'n3', x:200, y:240, w:140, h:48, shape:'rect',    label:'Game Response' },
+      { id:'n4', x:200, y:340, w:120, h:72, shape:'diamond', label:'Win/Lose?' },
+      { id:'n5', x:420, y:340, w:120, h:48, shape:'oval',    label:'End Session' },
+    ];
+    const edges = [
+      { id:'e1', from:'n1', to:'n2', label:'' },
+      { id:'e2', from:'n2', to:'n3', label:'' },
+      { id:'e3', from:'n3', to:'n4', label:'' },
+      { id:'e4', from:'n4', to:'n2', label:'No' },
+      { id:'e5', from:'n4', to:'n5', label:'Yes' },
+    ];
+    nodes.forEach(n => { n.color=null; n.textColor=null; n.note=''; });
+    FC.nodes = nodes; FC.edges = edges;
+  } else if (type === 'decision') {
+    const nodes = [
+      { id:'n1', x:180, y:40,  w:140, h:48, shape:'rect',    label:'Situation' },
+      { id:'n2', x:180, y:140, w:120, h:72, shape:'diamond', label:'Condition?' },
+      { id:'n3', x:60,  y:280, w:120, h:48, shape:'rounded', label:'Path A' },
+      { id:'n4', x:300, y:280, w:120, h:48, shape:'rounded', label:'Path B' },
+    ];
+    const edges = [
+      { id:'e1', from:'n1', to:'n2', label:'' },
+      { id:'e2', from:'n2', to:'n3', label:'Yes' },
+      { id:'e3', from:'n2', to:'n4', label:'No' },
+    ];
+    nodes.forEach(n => { n.color=null; n.textColor=null; n.note=''; });
+    FC.nodes = nodes; FC.edges = edges;
+  } else if (type === 'statemachine') {
+    const nodes = [
+      { id:'n1', x:60,  y:60,  w:120, h:48, shape:'oval',    label:'Idle' },
+      { id:'n2', x:240, y:60,  w:120, h:48, shape:'rounded', label:'Moving' },
+      { id:'n3', x:150, y:180, w:120, h:48, shape:'rounded', label:'Attacking' },
+      { id:'n4', x:150, y:300, w:120, h:48, shape:'rounded', label:'Dead' },
+    ];
+    const edges = [
+      { id:'e1', from:'n1', to:'n2', label:'Input' },
+      { id:'e2', from:'n2', to:'n1', label:'Stop' },
+      { id:'e3', from:'n1', to:'n3', label:'Attack' },
+      { id:'e4', from:'n2', to:'n3', label:'Attack' },
+      { id:'e5', from:'n3', to:'n1', label:'Done' },
+      { id:'e6', from:'n3', to:'n4', label:'HP=0' },
+    ];
+    nodes.forEach(n => { n.color=null; n.textColor=null; n.note=''; });
+    FC.nodes = nodes; FC.edges = edges;
+  }
+  FC.pan = {x:60, y:20}; FC.zoom = 1;
+  fcRender(); fcUpdateCodePanel();
+}
+
+//  Mermaid code panel 
+function fcUpdateCodePanel() {
+  const ta = document.getElementById('fc-code-ta');
+  if (!ta) return;
+  const shapeMap = { rect:'[{l}]', rounded:'({l})', diamond:'{{{l}}}', oval:'([{l}])', parallelogram:'[/{l}/]', note:'[/{l}\\]' };
+  let code = 'flowchart TD\n';
+  FC.nodes.forEach(n => {
+    const tmpl = shapeMap[n.shape] || '[{l}]';
+    const shape = tmpl.replace('{l}', (n.label||n.id).replace(/"/g,"'"));
+    code += `  ${n.id}${shape}\n`;
+  });
+  FC.edges.forEach(e => {
+    const lbl = e.label ? `|${e.label}|` : '';
+    code += `  ${e.from} -->${lbl} ${e.to}\n`;
+  });
+  ta.value = code;
+}
+
+async function fcRenderFromCode() {
+  const code = document.getElementById('fc-code-ta').value.trim();
+  const out = document.getElementById('fc-render-out');
+  if (!code) return;
+  out.innerHTML = '<div style="color:var(--ink4);font-size:13px">Rendering…</div>';
+  try {
+    const { svg } = await mermaid.render('fc-mermaid-' + Date.now(), code);
+    out.innerHTML = svg;
+  } catch(e) {
+    out.innerHTML = `<div style="color:var(--crimson2);font-size:13px">⚠ Syntax error: ${esc(e.message)}</div>`;
+  }
+}
+
+function fcExportSVG() {
+  const svg = document.getElementById('fc-canvas');
+  if (!svg) return;
+  const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'diagram.svg';
+  a.click();
+  toast('SVG exported');
+}
+
+//  History 
+function fcPushHistory() {
+  FC.history.push({
+    nodes: JSON.parse(JSON.stringify(FC.nodes)),
+    edges: JSON.parse(JSON.stringify(FC.edges)),
+  });
+  if (FC.history.length > 30) FC.history.shift();
+}
+function fcUndo() {
+  if (!FC.history.length) return;
+  const prev = FC.history.pop();
+  FC.nodes = prev.nodes; FC.edges = prev.edges;
+  FC.selected = null;
+  fcRender(); fcUpdateCodePanel();
+}
+function fcClear() {
+  if (!FC.nodes.length || confirm('Clear the diagram? This cannot be undone.')) {
+    fcPushHistory();
+    FC.nodes = []; FC.edges = []; FC.selected = null;
+    fcRender(); fcUpdateCodePanel();
+  }
+}
+
+function fcUpdateStatus() {
+  const nc = document.getElementById('fc-node-count');
+  const ec = document.getElementById('fc-edge-count');
+  if (nc) nc.textContent = FC.nodes.length;
+  if (ec) ec.textContent = FC.edges.length;
+}
+
+// Initialize canvas events once DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  fcInitCanvasEvents();
+  try { mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'loose' }); } catch(e) {}
+});
+
+/* == THEME SYSTEM == */
+const THEMES = [
+  {
+    id: 'parchment', name: 'Parchment', genre: 'Fantasy / Medieval',
+    sidebar: '#272018', main: '#f9f4eb', accent: '#c08c28', text: '#e4b040',
+    card: '#f0e9d8', line: '#9a6e18',
+  },
+  {
+    id: 'terminal', name: 'Terminal', genre: 'Sci-Fi / Cyberpunk',
+    sidebar: '#111811', main: '#0d120d', accent: '#00ff88', text: '#44ffaa',
+    card: '#162016', line: '#00cc66',
+  },
+  {
+    id: 'light', name: 'Clean Light', genre: 'Indie / Professional',
+    sidebar: '#f5f5fa', main: '#ffffff', accent: '#5555ee', text: '#6666ff',
+    card: '#ebebf5', line: '#4444cc',
+  },
+  {
+    id: 'slate', name: 'Slate', genre: 'Modern Studio',
+    sidebar: '#1a1d27', main: '#1e2130', accent: '#5599ff', text: '#66aaff',
+    card: '#252840', line: '#4488ff',
+  },
+  {
+    id: 'manuscript', name: 'Manuscript', genre: 'Horror / Gothic',
+    sidebar: '#110909', main: '#140b0b', accent: '#aa2828', text: '#cc3333',
+    card: '#1e1010', line: '#882020',
+  },
+];
+
+function applyThemeById(id) {
+  document.documentElement.setAttribute('data-theme', id === 'parchment' ? '' : id);
+  S.currentTheme = id;
+  localStorage.setItem('codex_theme', id);
+  const t = THEMES.find(t => t.id === id);
+  const disp = document.getElementById('theme-name-display');
+  if (disp && t) disp.textContent = t.name + ' — ' + t.genre;
+}
+
+function openThemePicker() {
+  const grid = document.getElementById('theme-grid');
+  const cur = S.currentTheme || 'parchment';
+  grid.innerHTML = THEMES.map(t => `
+    <div class="theme-card ${t.id === cur ? 'active' : ''}" onclick="selectTheme('${t.id}')">
+      <div class="theme-preview">
+        <div class="tp-sidebar" style="background:${t.sidebar}">
+          ${[1,2,3,4].map(() => `<div style="height:6px;margin:5px 4px 0;background:${t.accent};opacity:.25;border-radius:1px"></div>`).join('')}
+        </div>
+        <div class="tp-main" style="background:${t.main}">
+          <div class="tp-hdr" style="background:${t.accent};opacity:.7"></div>
+          <div class="tp-line" style="background:${t.text}"></div>
+          <div class="tp-line s" style="background:${t.text}"></div>
+          <div class="tp-card" style="background:${t.card};border:1px solid ${t.line};border-left:3px solid ${t.accent}"></div>
+        </div>
+      </div>
+      <div class="theme-name" style="background:${t.card};color:${t.text}">
+        <div style="font-family:var(--fd)">${t.name}</div>
+        <div style="font-size:8px;opacity:.6;margin-top:2px">${t.genre}</div>
+      </div>
+    </div>
+  `).join('');
+  openM('m-theme-picker');
+}
+
+function selectTheme(id) {
+  applyThemeById(id);
+  // Update active state in grid
+  document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector(`.theme-card[onclick="selectTheme('${id}')"]`);
+  if (card) card.classList.add('active');
+  toast('Theme: ' + (THEMES.find(t => t.id === id)?.name || id));
+}
+
+/* == BUG REPORT == */
+function openBugReport() {
+  document.getElementById('bug-desc').value = '';
+  generateBugReport();
+  openM('m-bug');
+}
+
+function generateBugReport() {
+  const p = proj();
+  const t = p ? (p.theme || {}) : {};
+  const all = [...SECTIONS, ...S.customSections];
+
+  const storageUsed = (() => {
+    try {
+      let bytes = 0;
+      for (const k in localStorage) {
+        if (Object.prototype.hasOwnProperty.call(localStorage, k))
+          bytes += (localStorage[k].length + k.length) * 2;
+      }
+      return Math.round(bytes / 1024) + 'KB';
+    } catch(e) { return 'unknown'; }
+  })();
+
+  const report = [
+    '=== CODEX BUG REPORT ===',
+    'Generated: ' + new Date().toISOString(),
+    'App Version: v4.2',
+    'Theme: ' + (S.currentTheme || 'parchment'),
+    '',
+    '--- USER DESCRIPTION ---',
+    '(fill in after opening report)',
+    '',
+    '--- ENVIRONMENT ---',
+    'User Agent: ' + navigator.userAgent,
+    'Screen: ' + screen.width + 'x' + screen.height,
+    'Viewport: ' + window.innerWidth + 'x' + window.innerHeight,
+    'Storage Used: ' + storageUsed,
+    'API Key Set: ' + (S.apiKey ? 'yes' : 'no'),
+    '',
+    '--- PROJECT STATE ---',
+    'Project: ' + (t.name || p?.name || 'none'),
+    'Current Section: ' + S.section,
+    'Projects Count: ' + Object.keys(S.projects).length,
+    'Custom Sections: ' + S.customSections.length,
+    '',
+    '--- SECTION SUMMARY ---',
+    ...all.map(sec => {
+      const d = p?.data?.[sec.key];
+      const count = d?.entries?.length || 0;
+      const words = d?.entries?.reduce((a, e) => a + wc(e.content), 0) || 0;
+      return `${sec.title}: ${count} entries, ${words} words`;
+    }),
+    '',
+    '--- AI SESSION ---',
+    'Calls this session: ' + S.cost.calls.length,
+    'Tokens in: ' + S.cost.sIn.toLocaleString(),
+    'Tokens out: ' + S.cost.sOut.toLocaleString(),
+    'Session cost: ' + (S.cost.sIn * 3/1e6 + S.cost.sOut * 15/1e6).toFixed(6) + ' USD',
+    '',
+    '=== END REPORT ===',
+  ].join('\n');
+
+  document.getElementById('bug-body').textContent = report;
+}
+
+function copyBugReport() {
+  const desc = document.getElementById('bug-desc').value.trim();
+  let report = document.getElementById('bug-body').textContent;
+  if (desc) report = report.replace('(fill in after opening report)', desc);
+  navigator.clipboard.writeText(report).then(() => {
+    const btn = document.getElementById('bug-copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = '📋 Copy Report'; btn.classList.remove('ok'); }, 2200);
+  }).catch(() => {
+    // Fallback for browsers that block clipboard
+    const ta = document.createElement('textarea');
+    ta.value = report; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    toast('Report copied!');
+  });
+}
+
 function init() {
   loadS();
   const ids = Object.keys(S.projects);
@@ -3113,6 +4487,9 @@ function init() {
   } else if (!S.projId || !S.projects[S.projId]) {
     S.projId = ids[ids.length-1];
   }
+  // Load saved theme
+  const savedTheme = localStorage.getItem('codex_theme') || 'parchment';
+  applyThemeById(savedTheme);
   renderAll();
   updateStorageBar();
 }
