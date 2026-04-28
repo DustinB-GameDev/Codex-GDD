@@ -649,7 +649,13 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   background: rgba(249,244,235,.6);
   flex-wrap: wrap;
   align-items: center;
+  /* Hidden until editor focused */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .18s ease, opacity .14s;
 }
+.ed-tb.visible { max-height: 48px; opacity: 1; }
 .edbtn {
   font-family: var(--fm);
   font-size: 11px;
@@ -686,8 +692,30 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .rich-ed .xref:hover { background: rgba(13,72,72,.14); }
 
 /* Tags row */
-.tags-row { display: flex; align-items: center; gap: 6px; padding: 6px 20px; border-top: 1px dashed var(--br); flex-wrap: wrap; }
+.tags-row { display: flex; align-items: center; gap: 6px; padding: 8px 20px; flex-wrap: wrap; }
 .tags-lbl { font-family: var(--fd); font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink4); flex-shrink: 0; }
+
+/* Progressive disclosure panels */
+.disc-panel {
+  display: none;
+  border-top: 1px solid var(--br);
+  background: rgba(248,243,234,.45);
+  animation: slideDown .18s ease;
+}
+.disc-panel.open { display: block; }
+@keyframes slideDown { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+
+/* Disclosure trigger buttons in card footer */
+.disc-btn {
+  font-family: var(--fd); font-size: 8px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--br2); background: transparent;
+  color: var(--ink4); transition: all var(--t); white-space: nowrap;
+}
+.disc-btn:hover { background: var(--parch3); color: var(--ink2); border-color: var(--gold2); }
+.disc-btn.has { color: var(--gold); border-color: rgba(154,110,24,.32); background: rgba(154,110,24,.06); }
+.disc-btn.has:hover { background: rgba(154,110,24,.12); }
 .tag-ch { display: inline-flex; align-items: center; gap: 4px; font-family: var(--fd); font-size: 8px; letter-spacing: .07em; padding: 2px 8px; border-radius: 10px; background: rgba(154,110,24,.07); color: var(--gold); border: 1px solid rgba(154,110,24,.18); }
 .tag-ch button { background: none; border: none; cursor: pointer; color: var(--gold); font-size: 10px; padding: 0; line-height: 1; opacity: .5; }
 .tag-ch button:hover { opacity: 1; }
@@ -695,7 +723,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .tag-inp::placeholder { color: var(--ink4); }
 
 /* Image section */
-.img-sec { border-top: 1px dashed var(--br); padding: 10px 20px 12px; background: rgba(249,244,235,.45); }
+.img-sec { padding: 10px 20px 12px; }
 .img-sec-lbl { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink4); margin-bottom: 8px; }
 .img-gallery { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-start; }
 .img-thumb { position: relative; width: 100px; height: 80px; border-radius: var(--r); overflow: hidden; border: 1px solid var(--br2); flex-shrink: 0; cursor: zoom-in; transition: all var(--t); }
@@ -710,7 +738,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .img-dz-lbl { font-family: var(--fd); font-size: 7px; letter-spacing: .08em; text-transform: uppercase; text-align: center; }
 
 /* Links section */
-.lnk-sec { border-top: 1px dashed var(--br); padding: 8px 20px 10px; }
+.lnk-sec { padding: 8px 20px 10px; }
 .lnk-lbl { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink4); margin-bottom: 7px; }
 .lnk-list { display: flex; flex-direction: column; gap: 5px; }
 .lnk-item { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: var(--r); border: 1px solid var(--br); background: var(--parch2); transition: all var(--t); }
@@ -921,6 +949,159 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   .entry-card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
 }
 
+/* ── Storage Bar ── */
+.storage-bar-wrap {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 24px; background: var(--parch2);
+  border-bottom: 1px solid var(--br); flex-shrink: 0;
+}
+.storage-lbl { font-family: var(--fd); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink4); flex-shrink: 0; }
+.storage-track { flex: 1; height: 3px; background: var(--parch4); border-radius: 2px; overflow: hidden; max-width: 120px; }
+.storage-fill { height: 100%; border-radius: 2px; background: var(--teal3); transition: width .4s; }
+.storage-fill.warn { background: var(--gold2); }
+.storage-fill.crit { background: var(--crimson3); }
+.storage-pct { font-family: var(--fm); font-size: 10px; color: var(--ink4); flex-shrink: 0; min-width: 36px; }
+.storage-tip { font-family: var(--fd); font-size: 8px; letter-spacing: .07em; color: var(--ink4); flex-shrink: 0; }
+.storage-tip.warn { color: var(--gold2); font-weight: 700; cursor: pointer; }
+.storage-tip.crit { color: var(--crimson3); font-weight: 700; cursor: pointer; }
+
+/* ── Reading Mode ── */
+#content-area.reading-mode { padding: 28px 0; align-items: center; display: flex; flex-direction: column; }
+#content-area.reading-mode .entry-card,
+#content-area.reading-mode .add-bar,
+#content-area.reading-mode .empty-state { max-width: 680px; width: 100%; }
+#content-area.reading-mode .ed-tb { display: none; }
+#content-area.reading-mode .rich-ed { font-size: 17px; line-height: 1.95; padding: 20px 28px; }
+#content-area.reading-mode .card-ft .btn.danger,
+#content-area.reading-mode .lock-toggle { display: none; }
+#content-area.reading-mode .tags-row,
+#content-area.reading-mode .img-sec,
+#content-area.reading-mode .lnk-sec { opacity: 0.5; pointer-events: none; }
+.hbtn.read-active { background: rgba(13,72,72,.22); color: var(--teal4); border-color: rgba(13,72,72,.50); }
+
+/* ── More Dropdown ── */
+.more-wrap { position: relative; }
+.more-menu {
+  position: absolute; top: calc(100% + 6px); right: 0;
+  background: var(--ink2); border: 1px solid rgba(228,176,64,.18);
+  border-radius: var(--r); min-width: 180px; z-index: 70;
+  display: none; box-shadow: 0 8px 24px rgba(19,17,13,.45);
+  overflow: hidden;
+}
+.more-menu.open { display: block; }
+.more-item {
+  display: block; width: 100%;
+  font-family: var(--fd); font-size: 9px; font-weight: 700;
+  letter-spacing: .10em; text-transform: uppercase;
+  padding: 10px 16px; cursor: pointer;
+  color: rgba(228,176,64,.52); background: transparent;
+  border: none; text-align: left; transition: all var(--t);
+  border-bottom: 1px solid rgba(228,176,64,.07);
+}
+.more-item:last-child { border-bottom: none; }
+.more-item:hover { color: var(--gold3); background: rgba(228,176,64,.06); }
+
+/* ── Token Cost Badge ── */
+.cost-chip {
+  font-family: var(--fm); font-size: 10px;
+  color: var(--teal3); background: rgba(13,72,72,.08);
+  border: 1px solid rgba(13,72,72,.20); padding: 1px 8px;
+  border-radius: 2px; cursor: pointer; transition: all var(--t);
+  display: none;
+}
+.cost-chip:hover { background: rgba(13,72,72,.16); }
+
+/* ── AI Cost Strip ── */
+.ai-cost-strip {
+  display: flex; align-items: center; gap: 16px;
+  padding: 5px 0 7px; border-bottom: 1px solid rgba(228,176,64,.10);
+  margin-bottom: 8px; flex-wrap: wrap;
+}
+.ai-cost-item { font-family: var(--fm); font-size: 9px; color: rgba(228,176,64,.35); display: flex; align-items: center; gap: 4px; }
+.ai-cost-val { color: rgba(228,176,64,.65); }
+.ai-cost-val.hi { color: var(--teal4); }
+
+/* ── Cost Modal rows ── */
+.cost-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--br); }
+.cost-row:last-child { border-bottom: none; }
+.cost-row-lbl { font-size: 14px; color: var(--ink3); }
+.cost-row-val { font-family: var(--fm); font-size: 13px; color: var(--ink2); font-weight: 600; }
+.cost-row-val.green { color: var(--teal3); }
+.cost-bar { height: 3px; background: var(--parch3); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+.cost-bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal3), var(--teal4)); border-radius: 2px; transition: width .5s; }
+
+/* ── Activity Changelog Feed on Dashboard ── */
+.dash-activity-label {
+  font-family: var(--fd); font-size: 9px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ink3);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+}
+.dash-activity-label::after { content: ''; flex: 1; height: 1px; background: var(--br); }
+.cl-feed { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--br); border-radius: var(--r); overflow: hidden; }
+.cl-item { display: flex; gap: 14px; align-items: flex-start; padding: 8px 16px; border-bottom: 1px solid var(--br); }
+.cl-item:last-child { border-bottom: none; }
+.cl-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.cl-dot.entry { background: var(--teal3); }
+.cl-dot.snap  { background: var(--gold2); }
+.cl-dot.ai    { background: var(--crimson2); }
+.cl-dot.note  { background: var(--sage2); }
+.cl-dot.proj  { background: var(--amber2); }
+.cl-msg { font-size: 13px; color: var(--ink2); line-height: 1.4; }
+.cl-time { font-family: var(--fd); font-size: 8px; letter-spacing: .07em; color: var(--ink4); margin-top: 2px; }
+
+/* ── Pinned Section Note ── */
+.pinned-note {
+  margin: 8px 24px 0;
+  padding: 10px 14px;
+  background: rgba(228,176,64,.06);
+  border: 1px solid rgba(228,176,64,.22);
+  border-left: 3px solid var(--gold2);
+  border-radius: var(--r);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.pinned-icon { font-size: 13px; flex-shrink: 0; color: var(--gold2); margin-top: 2px; }
+.pinned-text {
+  font-size: 14px; color: var(--ink2); font-family: var(--fb);
+  flex: 1; line-height: 1.55; outline: none; min-width: 0;
+}
+.pinned-text:empty::before { content: 'Add a pinned note for this section…'; color: var(--ink4); font-style: italic; pointer-events: none; }
+.pinned-rm {
+  background: none; border: none; cursor: pointer; color: var(--ink4);
+  font-size: 12px; padding: 0; opacity: .35; flex-shrink: 0; transition: opacity var(--t);
+}
+.pinned-rm:hover { opacity: 1; color: var(--crimson2); }
+
+/* ── Status Badges ── */
+.status-sel {
+  font-family: var(--fd); font-size: 8px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 10px; cursor: pointer;
+  border: 1px solid transparent; flex-shrink: 0; transition: all var(--t);
+}
+.st-concept  { background: rgba(138,80,16,.08);  color: var(--amber2); border-color: rgba(138,80,16,.18); }
+.st-progress { background: rgba(13,72,72,.08);   color: var(--teal2);  border-color: rgba(13,72,72,.18); }
+.st-approved { background: rgba(48,72,48,.10);   color: var(--sage2);  border-color: rgba(48,72,48,.20); }
+.st-cut      { background: rgba(118,18,18,.08);  color: var(--crimson2); border-color: rgba(118,18,18,.16); text-decoration: line-through; }
+
+/* ── Priority Flags ── */
+.priority-sel {
+  font-family: var(--fd); font-size: 8px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 10px; cursor: pointer;
+  border: 1px solid transparent; flex-shrink: 0; transition: all var(--t);
+}
+.pr-must { background: rgba(158,30,30,.08); color: var(--crimson2); border-color: rgba(158,30,30,.16); }
+.pr-nice { background: rgba(154,110,24,.07); color: var(--gold);    border-color: rgba(154,110,24,.16); }
+.pr-cut  { background: rgba(80,64,48,.07);  color: var(--ink4);    border-color: rgba(80,64,48,.14); }
+
+/* ── Word Count Ring ── */
+.wc-ring { position: relative; width: 22px; height: 22px; flex-shrink: 0; }
+.wc-ring svg { width: 22px; height: 22px; transform: rotate(-90deg); }
+.wc-ring-bg   { fill: none; stroke: var(--parch3); stroke-width: 3; }
+.wc-ring-fill { fill: none; stroke: var(--teal3); stroke-width: 3; stroke-linecap: round; transition: stroke-dasharray .4s; }
+.wc-ring-fill.done { stroke: var(--sage3); }
+.wc-ring-pct  { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--fd); font-size: 5px; color: var(--ink4); }
+
 </style>
 </head>
 <body>
@@ -935,10 +1116,17 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     <div class="hdr-proj" id="hdr-proj">Untitled Project</div>
     <div class="hdr-r">
       <button class="hbtn" onclick="goHome()">◈ Dashboard</button>
-      <button class="hbtn" onclick="openOnePager()">◉ Pitch View</button>
+      <button class="hbtn" id="read-btn" onclick="toggleReadMode()">◉ Read</button>
       <button class="hbtn" onclick="toggleHist()">⊙ History</button>
-      <button class="hbtn" onclick="openExport()">↓ Export</button>
-      <button class="hbtn" onclick="openSettings()">⚙ Settings</button>
+      <div class="more-wrap" id="more-wrap">
+        <button class="hbtn" onclick="toggleMore()">⋯ More</button>
+        <div class="more-menu" id="more-menu">
+          <button class="more-item" onclick="openOnePager();closeMore()">◈ Pitch View</button>
+          <button class="more-item" onclick="openExport();closeMore()">↓ Export / Import</button>
+          <button class="more-item" onclick="openSettings();closeMore()">⚙ Settings</button>
+          <button class="more-item" onclick="openChangelog();closeMore()">📋 App Changelog</button>
+        </div>
+      </div>
       <button class="hbtn gold" onclick="openAI()">✦ Ask Claude</button>
     </div>
   </header>
@@ -982,6 +1170,14 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
       <button class="tbedit" onclick="openTheme()">Edit Theme</button>
     </div>
 
+    <!-- Storage Bar -->
+    <div class="storage-bar-wrap" id="storage-bar-wrap">
+      <div class="storage-lbl">Storage</div>
+      <div class="storage-track"><div class="storage-fill" id="storage-fill" style="width:0%"></div></div>
+      <div class="storage-pct" id="storage-pct">0%</div>
+      <div class="storage-tip" id="storage-tip">of ~5MB localStorage</div>
+    </div>
+
     <div id="sec-hdr" class="grain">
       <div class="sh-cat" id="sh-cat">Dashboard</div>
       <div class="sh-title" id="sh-title">Overview</div>
@@ -1004,6 +1200,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
       <div class="stat" id="st-notes">0 AI notes</div>
       <div class="stat" id="st-words">0 words</div>
       <div class="stat" id="st-total" style="margin-left:auto">Total: 0 words</div>
+      <span class="cost-chip" id="cost-chip" onclick="openCostModal()" title="Session AI cost — click for details">$0.0000</span>
     </div>
 
     <div id="content-area"></div>
@@ -1019,6 +1216,12 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
         No API key set. <a onclick="openSettings()">Open Settings</a> to add your Anthropic API key.
       </div>
       <div class="ai-keyarea" id="ai-keyarea">
+        <div class="ai-cost-strip" id="ai-cost-strip">
+          <div class="ai-cost-item">Last: <span class="ai-cost-val" id="cost-last">—</span></div>
+          <div class="ai-cost-item">Session: <span class="ai-cost-val hi" id="cost-sess">$0.0000</span></div>
+          <div class="ai-cost-item">In: <span class="ai-cost-val" id="cost-in">0</span></div>
+          <div class="ai-cost-item">Out: <span class="ai-cost-val" id="cost-out">0</span></div>
+        </div>
         <div class="ai-tone-row">
           <span class="ai-tone-lbl">Reviewer Tone</span>
           <button class="tone-btn" id="tone-encouraging" onclick="setTone('encouraging')">Encouraging</button>
@@ -1079,6 +1282,24 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
         <option value="note">Note — Ideas, references, scratchpad</option>
       </select>
     </div>
+    <div style="display:flex;gap:10px">
+      <div class="fld" style="flex:1"><label class="fld-lbl">Status</label>
+        <select class="fld-sel" id="em-status">
+          <option value="concept">Concept</option>
+          <option value="progress">In Progress</option>
+          <option value="approved">Approved</option>
+          <option value="cut">Cut</option>
+        </select>
+      </div>
+      <div class="fld" style="flex:1"><label class="fld-lbl">Priority</label>
+        <select class="fld-sel" id="em-priority">
+          <option value="must">Must Have</option>
+          <option value="nice">Nice to Have</option>
+          <option value="cut">Cut</option>
+        </select>
+      </div>
+    </div>
+    <div class="fld"><label class="fld-lbl">Word Count Target (optional)</label><input class="fld-inp" id="em-wc-target" type="number" placeholder="e.g. 200 — shows a progress ring" min="0"></div>
     <div class="fld"><label class="fld-lbl">Initial Content (optional)</label><textarea class="fld-ta" id="em-content" placeholder="Start writing…"></textarea></div>
     <div class="modal-acts"><button class="btn" onclick="closeM('m-entry')">Cancel</button><button class="btn primary" onclick="confirmEntry()">Add Entry</button></div>
   </div>
@@ -1127,6 +1348,8 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     <div class="fld"><label class="fld-lbl">Key Status</label><div id="key-status" style="font-family:var(--fm);font-size:12px;color:var(--ink4)">No key configured</div></div>
     <div class="modal-sec-hd">Danger Zone</div>
     <div class="fld"><button class="btn danger" style="width:100%" onclick="clearAll()">Clear All Data (irreversible)</button></div>
+    <div class="modal-sec-hd">About</div>
+    <div class="fld"><button class="btn" style="width:100%;text-align:center" onclick="closeM('m-settings');openChangelog()">📋 View App Changelog</button></div>
     <div class="modal-acts"><button class="btn" onclick="closeM('m-settings')">Cancel</button><button class="btn primary" onclick="saveSettings()">Save</button></div>
   </div>
 </div>
@@ -1142,7 +1365,25 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
       <button class="btn" style="text-align:center" onclick="exportJSON()">↓ JSON — Full backup</button>
       <button class="btn" style="text-align:center" onclick="window.print()">⎙ Print / Save as PDF</button>
     </div>
+    <div class="modal-sec-hd">Import</div>
+    <button class="btn teal" style="width:100%;text-align:center" onclick="closeM('m-export');openImport()">↑ Import JSON Backup</button>
     <div class="modal-acts"><button class="btn" onclick="closeM('m-export')">Close</button></div>
+  </div>
+</div>
+
+<!-- Import JSON -->
+<div class="overlay" id="m-import">
+  <div class="modal">
+    <div class="modal-title">↑ Import JSON Backup</div>
+    <p style="font-size:14px;color:var(--ink3);margin-bottom:16px;line-height:1.6">Paste a JSON backup exported from The Codex. It will be added as a new project — nothing existing will be overwritten.</p>
+    <div class="fld">
+      <label class="fld-lbl">Paste JSON here</label>
+      <textarea class="fld-ta" id="import-json" placeholder='{"project": { "name": "...", ... }}' style="min-height:130px;font-family:var(--fm);font-size:12px"></textarea>
+    </div>
+    <div class="modal-acts">
+      <button class="btn" onclick="closeM('m-import')">Cancel</button>
+      <button class="btn primary" onclick="confirmImport()">Import Project</button>
+    </div>
   </div>
 </div>
 
@@ -1162,6 +1403,29 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     <div class="fld"><label class="fld-lbl">Label</label><input class="fld-inp" id="lm-label" placeholder="e.g. Character Concepts (Figma)"></div>
     <div class="fld"><label class="fld-lbl">URL</label><input class="fld-inp" id="lm-url" placeholder="https://…"></div>
     <div class="modal-acts"><button class="btn" onclick="closeM('m-link')">Cancel</button><button class="btn primary" onclick="confirmLink()">Attach</button></div>
+  </div>
+</div>
+
+<!-- App Changelog -->
+<div class="overlay" id="m-changelog">
+  <div class="modal" style="width:560px">
+    <div class="modal-title">📋 App Changelog</div>
+    <p style="font-size:13px;color:var(--ink4);font-style:italic;margin-bottom:16px">Every version of The Codex and what changed.</p>
+    <div id="changelog-content"></div>
+    <div class="modal-acts"><button class="btn primary" onclick="closeM('m-changelog')">Close</button></div>
+  </div>
+</div>
+
+<!-- Cost Modal -->
+<div class="overlay" id="m-cost">
+  <div class="modal">
+    <div class="modal-title">💰 Session Cost Estimator</div>
+    <p style="font-size:14px;color:var(--ink3);margin-bottom:16px;line-height:1.6">Claude Sonnet 4.6: <strong>$3.00</strong>/M input tokens · <strong>$15.00</strong>/M output tokens. A typical review costs a fraction of a cent.</p>
+    <div id="cost-modal-rows"></div>
+    <div class="modal-acts">
+      <button class="btn danger sm" onclick="resetCost()">Reset Counter</button>
+      <button class="btn primary" onclick="closeM('m-cost')">Close</button>
+    </div>
   </div>
 </div>
 
@@ -1220,6 +1484,8 @@ let S = {
   tone: 'balanced',
   projects: {},
   customSections: [],
+  readMode: false,
+  cost: { sIn: 0, sOut: 0, calls: [], lastIn: 0, lastOut: 0 },
 };
 
 let _ppOpen = false;
@@ -1227,23 +1493,80 @@ let _histOpen = false;
 let _autoSave = null;
 let _linkEntry = null;
 
+// Sonnet 4.6 pricing
+const PRICE_IN  = 3.00  / 1_000_000;
+const PRICE_OUT = 15.00 / 1_000_000;
+const fmt$ = n => '$' + n.toFixed(4);
+
 /* ═══════════════════════════════════════════════════════
    STORAGE
 ═══════════════════════════════════════════════════════ */
 function saveS() {
   try {
-    localStorage.setItem('codex_v3', JSON.stringify({
+    const data = JSON.stringify({
       projId: S.projId,
       projects: S.projects,
       customSections: S.customSections,
-    }));
-  } catch(e) { toast('Save failed — storage may be full', 'err'); }
+    });
+    localStorage.setItem('codex_v4', data);
+    updateStorageBar();
+  } catch(e) {
+    if (e.name === 'QuotaExceededError' || e.code === 22) {
+      toast('⚠ Storage full! Export your JSON backup, then remove some images to free space.', 'err');
+    } else {
+      toast('Save failed: ' + e.message, 'err');
+    }
+    updateStorageBar();
+  }
+}
+
+function updateStorageBar() {
+  try {
+    let used = 0;
+    for (const k in localStorage) {
+      if (Object.prototype.hasOwnProperty.call(localStorage, k)) {
+        used += (localStorage[k].length + k.length) * 2; // UTF-16 bytes
+      }
+    }
+    const MAX = 5 * 1024 * 1024; // 5MB typical browser limit
+    const pct = Math.min(Math.round(used / MAX * 100), 100);
+    const fill = document.getElementById('storage-fill');
+    const pctEl = document.getElementById('storage-pct');
+    const tip = document.getElementById('storage-tip');
+    if (!fill) return;
+    fill.style.width = pct + '%';
+    fill.className = 'storage-fill' + (pct >= 90 ? ' crit' : pct >= 70 ? ' warn' : '');
+    if (pctEl) pctEl.textContent = pct + '%';
+    if (tip) {
+      const usedKB = Math.round(used / 1024);
+      if (pct >= 90) {
+        tip.textContent = '⚠ Nearly full — export JSON & remove images';
+        tip.className = 'storage-tip crit';
+        tip.onclick = openExport;
+      } else if (pct >= 70) {
+        tip.textContent = usedKB + 'KB — consider exporting a backup';
+        tip.className = 'storage-tip warn';
+        tip.onclick = null;
+      } else {
+        tip.textContent = usedKB + 'KB of ~5MB';
+        tip.className = 'storage-tip';
+        tip.onclick = null;
+      }
+    }
+  } catch(e) {}
 }
 
 function loadS() {
   try {
-    const r = localStorage.getItem('codex_v3');
-    if (r) { const d = JSON.parse(r); S.projId = d.projId; S.projects = d.projects||{}; S.customSections = d.customSections||[]; }
+    // Try v4 first, fall back to v3 migration
+    let r = localStorage.getItem('codex_v4');
+    if (!r) r = localStorage.getItem('codex_v3'); // migrate
+    if (r) {
+      const d = JSON.parse(r);
+      S.projId = d.projId;
+      S.projects = d.projects || {};
+      S.customSections = d.customSections || [];
+    }
     S.apiKey = localStorage.getItem('codex_apikey') || '';
   } catch(e) {}
 }
@@ -1301,6 +1624,106 @@ function linkIcon(url) {
   if (url.includes('miro') || url.includes('mural')) return '🗺';
   return '🔗';
 }
+
+function timeAgo(ts) {
+  const d = Date.now() - ts, m = Math.floor(d/60000), h = Math.floor(d/3600000);
+  if (d < 60000) return 'just now';
+  if (m < 60) return m + 'm ago';
+  if (h < 24) return h + 'h ago';
+  return new Date(ts).toLocaleDateString('en-US', {month:'short', day:'numeric'});
+}
+
+/* ── Changelog Logger ── */
+function logChange(msg, type = 'entry') {
+  const p = proj(); if (!p) return;
+  if (!p.changelog) p.changelog = [];
+  p.changelog.unshift({ msg, type, time: Date.now() });
+  if (p.changelog.length > 60) p.changelog.pop();
+}
+
+/* ── Token Cost Tracking ── */
+function trackCost(inputTokens, outputTokens) {
+  S.cost.sIn  += inputTokens;
+  S.cost.sOut += outputTokens;
+  S.cost.lastIn  = inputTokens;
+  S.cost.lastOut = outputTokens;
+  const callCost = inputTokens * PRICE_IN + outputTokens * PRICE_OUT;
+  S.cost.calls.push({ inputTokens, outputTokens, cost: callCost, time: Date.now() });
+  updateCostDisplay();
+}
+function sessCost() { return S.cost.sIn * PRICE_IN + S.cost.sOut * PRICE_OUT; }
+function updateCostDisplay() {
+  const total = sessCost();
+  const chip = document.getElementById('cost-chip');
+  if (chip) { chip.textContent = fmt$(total); chip.style.display = 'inline-block'; }
+  const lastCost = S.cost.lastIn * PRICE_IN + S.cost.lastOut * PRICE_OUT;
+  const el = id => document.getElementById(id);
+  if (el('cost-last'))  el('cost-last').textContent  = fmt$(lastCost) + ' (' + S.cost.lastIn + 'in/' + S.cost.lastOut + 'out)';
+  if (el('cost-sess'))  el('cost-sess').textContent  = fmt$(total);
+  if (el('cost-in'))    el('cost-in').textContent    = S.cost.sIn.toLocaleString();
+  if (el('cost-out'))   el('cost-out').textContent   = S.cost.sOut.toLocaleString();
+}
+function openCostModal() {
+  const total = sessCost();
+  const maxCost = Math.max(...S.cost.calls.map(c => c.cost), 0.0001);
+  const rows = S.cost.calls.slice(0, 10).map((c, i) => `
+    <div class="cost-row">
+      <div>
+        <div class="cost-row-lbl">Call ${S.cost.calls.length - i} — ${timeAgo(c.time)}</div>
+        <div class="cost-bar"><div class="cost-bar-fill" style="width:${Math.round(c.cost/maxCost*100)}%"></div></div>
+      </div>
+      <div class="cost-row-val">${fmt$(c.cost)}</div>
+    </div>`).join('');
+  document.getElementById('cost-modal-rows').innerHTML = `
+    <div class="cost-row" style="background:rgba(13,72,72,.05);border-radius:var(--r);padding:10px 14px;margin-bottom:12px">
+      <div>
+        <div class="cost-row-lbl" style="font-weight:600;color:var(--ink)">Session Total</div>
+        <div style="font-size:12px;color:var(--ink4)">${S.cost.calls.length} calls · ${S.cost.sIn.toLocaleString()} in / ${S.cost.sOut.toLocaleString()} out tokens</div>
+      </div>
+      <div class="cost-row-val green">${fmt$(total)}</div>
+    </div>
+    ${rows || '<div style="color:var(--ink4);font-style:italic;font-size:14px">No AI calls yet this session.</div>'}`;
+  openM('m-cost');
+}
+function resetCost() {
+  S.cost = { sIn: 0, sOut: 0, calls: [], lastIn: 0, lastOut: 0 };
+  const chip = document.getElementById('cost-chip');
+  if (chip) chip.style.display = 'none';
+  updateCostDisplay();
+  closeM('m-cost'); toast('Cost counter reset');
+}
+
+/* ── Reading Mode ── */
+function toggleReadMode() {
+  S.readMode = !S.readMode;
+  document.getElementById('content-area').classList.toggle('reading-mode', S.readMode);
+  const btn = document.getElementById('read-btn');
+  btn.classList.toggle('read-active', S.readMode);
+  btn.textContent = S.readMode ? '✕ Read' : '◉ Read';
+}
+
+/* ── Keyboard Shortcuts ── */
+document.addEventListener('keydown', e => {
+  // Ctrl/Cmd + S — Save
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    collectEdits(); saveS(); setSaveDot('saved'); toast('Saved ✓');
+  }
+  // Ctrl/Cmd + / — Focus search
+  if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+    e.preventDefault();
+    document.getElementById('sb-search').focus();
+  }
+  // Ctrl/Cmd + K — Open AI panel
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault(); openAI();
+  }
+  // Escape — Close modals / panels
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.overlay.open').forEach(el => el.classList.remove('open'));
+    closeProjPanel(); closeLB(); closeOnePager();
+  }
+});
 
 function catClass(cat) {
   const map = { Core:'cat-core', Gameplay:'cat-gameplay', World:'cat-world', Technical:'cat-technical', Production:'cat-production' };
@@ -1428,6 +1851,7 @@ function switchSection(key) {
   const ver = p && p.data && p.data[key] ? (p.data[key].version||'1.0') : '1.0';
   document.getElementById('sh-ver').textContent = 'v' + ver;
   document.getElementById('sh-acts').innerHTML = `
+    <button class="btn sm" onclick="togglePin()" title="Pin a note to this section">📌 Pin</button>
     <button class="btn sm" onclick="openAddEntry()">+ Entry</button>
     <button class="btn sm" onclick="snapshot()">Snapshot</button>
     <button class="btn sm ai" onclick="reviewSection()">✦ Review</button>
@@ -1519,6 +1943,22 @@ function renderDashboard() {
     html += '</div>';
   });
 
+  // Activity changelog
+  const cl = p.changelog || [];
+  if (cl.length) {
+    html += `<div class="dash-activity-label">Recent Activity</div>
+    <div class="cl-feed">
+      ${cl.slice(0, 12).map(c => `
+        <div class="cl-item">
+          <div class="cl-dot ${c.type||'entry'}"></div>
+          <div>
+            <div class="cl-msg">${esc(c.msg)}</div>
+            <div class="cl-time">${timeAgo(c.time)}</div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+  }
+
   area.innerHTML = html;
 }
 
@@ -1527,6 +1967,9 @@ function renderDashboard() {
 ═══════════════════════════════════════════════════════ */
 function renderContent() {
   if (S.section === '__home') { renderDashboard(); return; }
+  // Remove any existing pinned note bar first
+  const oldPin = document.getElementById('pinned-note-bar');
+  if (oldPin) oldPin.remove();
   const area = document.getElementById('content-area');
   const p = proj();
   if (!p) { area.innerHTML = buildEmpty('No project loaded','Create or select a project.',[]); return; }
@@ -1535,13 +1978,15 @@ function renderContent() {
   if (!entries.length) {
     const def = getDef(S.section);
     area.innerHTML = buildEmpty(def.title + ' is empty', 'Add your first entry below.', def.qs) + buildAddBar();
-    return;
+  } else {
+    let html = '';
+    entries.forEach((e, i) => { html += buildCard(e, i); });
+    html += buildAddBar();
+    area.innerHTML = html;
+    updateProgress();
   }
-  let html = '';
-  entries.forEach((e, i) => { html += buildCard(e, i); });
-  html += buildAddBar();
-  area.innerHTML = html;
-  updateProgress();
+  // Restore pinned note if one exists for this section
+  renderPin();
 }
 
 function buildEmpty(title, sub, qs) {
@@ -1567,7 +2012,24 @@ function buildAddBar() {
 
 function buildCard(entry, idx) {
   const type = entry.type || 'core';
+  const status = entry.status || 'concept';
+  const priority = entry.priority || 'must';
   const locked = !!entry.locked;
+  const wcTarget = entry.wcTarget || 0;
+  const wcCur = wc(entry.content);
+
+  // WC ring SVG
+  let ringHtml = '';
+  if (wcTarget > 0) {
+    const pct = Math.min(wcCur / wcTarget, 1);
+    const circ = 2 * Math.PI * 8;
+    const dash = circ * pct;
+    const done = pct >= 1;
+    ringHtml = `<div class="wc-ring" title="${wcCur}/${wcTarget} words (${Math.round(pct*100)}%)">
+      <svg viewBox="0 0 22 22"><circle class="wc-ring-bg" cx="11" cy="11" r="8"/><circle class="wc-ring-fill ${done?'done':''}" cx="11" cy="11" r="8" stroke-dasharray="${dash.toFixed(2)} ${circ.toFixed(2)}" stroke-dashoffset="0"/></svg>
+      <div class="wc-ring-pct">${Math.round(pct*100)}%</div>
+    </div>`;
+  }
 
   const tagHtml = (entry.tags||[]).map(t => `<span class="card-tag-chip">${esc(t)}</span>`).join('');
 
@@ -1615,6 +2077,18 @@ function buildCard(entry, idx) {
         <input class="card-title" value="${esc(entry.title||'')}" placeholder="Entry title…"
           onclick="event.stopPropagation()" onchange="updateTitle(${idx},this.value)"
           ${locked?'disabled':''}>
+        ${ringHtml}
+        <select class="status-sel st-${esc(status)}" onclick="event.stopPropagation()" onchange="updateStatus(${idx},this.value)" ${locked?'disabled':''}>
+          <option value="concept"  ${status==='concept' ?'selected':''}>Concept</option>
+          <option value="progress" ${status==='progress'?'selected':''}>In Progress</option>
+          <option value="approved" ${status==='approved'?'selected':''}>Approved</option>
+          <option value="cut"      ${status==='cut'     ?'selected':''}>Cut</option>
+        </select>
+        <select class="priority-sel pr-${esc(priority)}" onclick="event.stopPropagation()" onchange="updatePriority(${idx},this.value)" ${locked?'disabled':''}>
+          <option value="must" ${priority==='must'?'selected':''}>Must</option>
+          <option value="nice" ${priority==='nice'?'selected':''}>Nice</option>
+          <option value="cut"  ${priority==='cut' ?'selected':''}>Cut</option>
+        </select>
         <select class="type-sel ts-${esc(type)}" onclick="event.stopPropagation()" onchange="updateType(${idx},this.value)" ${locked?'disabled':''}>
           <option value="core"     ${type==='core'?'selected':''}>Core</option>
           <option value="mechanic" ${type==='mechanic'?'selected':''}>Mechanic</option>
@@ -1625,70 +2099,89 @@ function buildCard(entry, idx) {
         ${locked ? `<span class="card-lock-icon" title="Locked">🔒</span>` : ''}
         ${hasCmts ? `<span class="card-ai-chip">${entry.comments.length} note${entry.comments.length>1?'s':''}</span>` : ''}
         ${(entry.tags||[]).length ? `<div class="card-tags">${tagHtml}</div>` : ''}
+        ${!locked ? `<button class="btn sm danger" onclick="event.stopPropagation();deleteEntry(${idx})" style="margin-left:auto;flex-shrink:0">✕ Delete</button>` : ''}
         <span class="card-chev ${entry.open?'open':''}" id="chev-${idx}">▶</span>
       </div>
 
       <div class="card-body ${entry.open?'open':''}" id="body-${idx}">
         ${!locked ? `
-        <div class="ed-tb">
-          <button class="edbtn" onclick="fmt('bold')"><b>B</b></button>
-          <button class="edbtn" onclick="fmt('italic')"><i>I</i></button>
-          <button class="edbtn" onclick="fmt('underline')"><u>U</u></button>
+        <div class="ed-tb" id="tb-${idx}">
+          <button class="edbtn" onmousedown="event.preventDefault();fmt('bold')"><b>B</b></button>
+          <button class="edbtn" onmousedown="event.preventDefault();fmt('italic')"><i>I</i></button>
+          <button class="edbtn" onmousedown="event.preventDefault();fmt('underline')"><u>U</u></button>
           <div class="ed-sep"></div>
-          <button class="edbtn" onclick="fmtBlock('h3')">H3</button>
-          <button class="edbtn" onclick="fmt('insertUnorderedList')">• List</button>
-          <button class="edbtn" onclick="fmt('insertOrderedList')">1. List</button>
+          <button class="edbtn" onmousedown="event.preventDefault();fmtBlock('h3')">H3</button>
+          <button class="edbtn" onmousedown="event.preventDefault();fmt('insertUnorderedList')">• List</button>
+          <button class="edbtn" onmousedown="event.preventDefault();fmt('insertOrderedList')">1. List</button>
           <div class="ed-sep"></div>
-          <button class="edbtn" onclick="fmt('removeFormat')">✕ fmt</button>
-          <button class="edbtn" onclick="insertXref(${idx})" title="Insert cross-reference">[[ref]]</button>
+          <button class="edbtn" onmousedown="event.preventDefault();fmt('removeFormat')">✕ fmt</button>
+          <button class="edbtn" onmousedown="event.preventDefault();insertXref(${idx})" title="Insert cross-reference">[[ref]]</button>
         </div>
         ` : ''}
 
-        <div class="rich-ed ${locked?'':''}"
+        <div class="rich-ed"
           contenteditable="${locked?'false':'true'}"
           data-idx="${idx}"
           data-ph="Write your content here…"
-          id="editor-${idx}">${entry.content||''}</div>
+          id="editor-${idx}"
+          onfocus="showToolbar(${idx})"
+          onblur="hideToolbar(${idx})">${entry.content||''}</div>
 
-        <!-- Tags -->
-        ${!locked ? `
-        <div class="tags-row">
-          <span class="tags-lbl">Tags</span>
-          ${(entry.tags||[]).map((t,ti) => `<span class="tag-ch">${esc(t)}<button onclick="removeTag(${idx},${ti})">×</button></span>`).join('')}
-          <input class="tag-inp" placeholder="add tag…"
-            onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addTag(${idx},this)}"
-            onclick="event.stopPropagation()">
-        </div>` : ''}
-
-        <!-- Images -->
-        <div class="img-sec">
-          <div class="img-sec-lbl">Images &amp; Concept Art</div>
-          <div class="img-gallery" id="gallery-${idx}">
-            ${imgHtml}
-            ${!locked ? `
-            <div class="img-dz" onclick="triggerImg(${idx})" ondragover="event.preventDefault()" ondrop="handleDrop(event,${idx})">
-              <div class="img-dz-icon">+</div>
-              <div class="img-dz-lbl">Add Image</div>
-            </div>
-            <input type="file" accept="image/*" id="imgf-${idx}" style="display:none" onchange="handleImgFile(event,${idx})">
-            ` : ''}
+        <!-- Tags panel — hidden by default -->
+        <div class="disc-panel" id="disc-tags-${idx}">
+          <div class="tags-row">
+            <span class="tags-lbl">Tags</span>
+            ${(entry.tags||[]).map((t,ti) => `<span class="tag-ch">${esc(t)}<button onclick="removeTag(${idx},${ti})">×</button></span>`).join('')}
+            ${!locked ? `<input class="tag-inp" placeholder="add tag…"
+              onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addTag(${idx},this)}"
+              onclick="event.stopPropagation()">` : ''}
           </div>
         </div>
 
-        <!-- Links -->
-        <div class="lnk-sec">
-          <div class="lnk-lbl">Attached Links &amp; Docs</div>
-          <div class="lnk-list">${lnkHtml}</div>
-          ${!locked ? `<div style="margin-top:6px"><button class="btn sm" onclick="openLink(${idx})">+ Attach Link</button></div>` : ''}
+        <!-- Images panel — hidden by default -->
+        <div class="disc-panel" id="disc-imgs-${idx}">
+          <div class="img-sec">
+            <div class="img-sec-lbl">Images &amp; Concept Art</div>
+            <div class="img-gallery" id="gallery-${idx}">
+              ${imgHtml}
+              ${!locked ? `
+              <div class="img-dz" onclick="triggerImg(${idx})" ondragover="event.preventDefault()" ondrop="handleDrop(event,${idx})">
+                <div class="img-dz-icon">+</div>
+                <div class="img-dz-lbl">Add Image</div>
+              </div>
+              <input type="file" accept="image/*" id="imgf-${idx}" style="display:none" onchange="handleImgFile(event,${idx})">
+              ` : ''}
+            </div>
+          </div>
+        </div>
+
+        <!-- Links panel — hidden by default -->
+        <div class="disc-panel" id="disc-lnks-${idx}">
+          <div class="lnk-sec">
+            <div class="lnk-lbl">Attached Links &amp; Docs</div>
+            <div class="lnk-list">${lnkHtml}</div>
+            ${!locked ? `<div style="margin-top:6px"><button class="btn sm" onclick="openLink(${idx})">+ Attach Link</button></div>` : ''}
+          </div>
         </div>
 
         ${hasCmts ? `<div class="ai-cmts">${cmtHtml}</div>` : ''}
 
         <div class="card-ft">
           <span class="card-meta">Edited ${entry.edited||'just now'}</span>
-          ${!locked ? `<button class="btn sm ai" onclick="reviewEntry(${idx})">✦ Review</button>` : ''}
+          ${!locked ? `
+          <button class="disc-btn ${(entry.tags||[]).length?'has':''}" onclick="toggleDisc(${idx},'tags')" title="Tags">
+            🏷 Tags${(entry.tags||[]).length ? ' ('+entry.tags.length+')' : ''}
+          </button>
+          <button class="disc-btn ${(entry.images||[]).length?'has':''}" onclick="toggleDisc(${idx},'imgs')" title="Images">
+            🖼 Images${(entry.images||[]).length ? ' ('+entry.images.length+')' : ''}
+          </button>
+          <button class="disc-btn ${(entry.links||[]).length?'has':''}" onclick="toggleDisc(${idx},'lnks')" title="Links">
+            🔗 Links${(entry.links||[]).length ? ' ('+entry.links.length+')' : ''}
+          </button>
+          <button class="btn sm ai" onclick="reviewEntry(${idx})">✦ Review</button>
+          <button class="btn sm" onclick="duplicateEntry(${idx})" title="Duplicate entry">⧉</button>
+          ` : ''}
           <button class="lock-toggle" onclick="toggleLock(${idx})" title="${locked?'Unlock':'Lock'}">${locked?'🔒':'🔓'}</button>
-          ${!locked ? `<button class="btn sm danger" onclick="deleteEntry(${idx})">Remove</button>` : ''}
         </div>
       </div>
     </div>
@@ -1707,10 +2200,45 @@ function toggleCard(idx) {
   if (chev) chev.classList.toggle('open', sec.entries[idx].open);
 }
 
+/* ── Focus Toolbar ── */
+function showToolbar(idx) {
+  const tb = document.getElementById('tb-' + idx);
+  if (tb) tb.classList.add('visible');
+}
+function hideToolbar(idx) {
+  // Small delay so clicking toolbar buttons doesn't hide it first
+  setTimeout(() => {
+    const tb = document.getElementById('tb-' + idx);
+    if (tb) tb.classList.remove('visible');
+  }, 180);
+}
+
+/* ── Progressive Disclosure Panels ── */
+function toggleDisc(idx, panel) {
+  const el = document.getElementById('disc-' + panel + '-' + idx);
+  if (!el) return;
+  el.classList.toggle('open');
+}
+
+/* ── More Dropdown ── */
+let _moreOpen = false;
+function toggleMore() {
+  _moreOpen = !_moreOpen;
+  document.getElementById('more-menu').classList.toggle('open', _moreOpen);
+}
+function closeMore() {
+  _moreOpen = false;
+  const m = document.getElementById('more-menu');
+  if (m) m.classList.remove('open');
+}
+
 function openAddEntry(type) {
   if (!proj()) { toast('Create a project first'); return; }
   document.getElementById('em-title').value = '';
   document.getElementById('em-content').value = '';
+  document.getElementById('em-wc-target').value = '';
+  document.getElementById('em-status').value = 'concept';
+  document.getElementById('em-priority').value = 'must';
   if (type) document.getElementById('em-type').value = type;
   openM('m-entry');
 }
@@ -1719,11 +2247,15 @@ function openAddEntryType(t) { openAddEntry(t); }
 function confirmEntry() {
   const title = document.getElementById('em-title').value.trim() || 'Untitled Entry';
   const type = document.getElementById('em-type').value;
+  const status = document.getElementById('em-status').value;
+  const priority = document.getElementById('em-priority').value;
+  const wcTarget = parseInt(document.getElementById('em-wc-target').value) || 0;
   const content = document.getElementById('em-content').value.trim();
   const sec = secData();
-  sec.entries.push({ title, type, content, open:true, edited:'just now', comments:[], tags:[], images:[], links:[], locked:false });
+  sec.entries.push({ title, type, status, priority, wcTarget, content, open:true, edited:'just now', comments:[], tags:[], images:[], links:[], locked:false });
   closeM('m-entry');
   renderContent(); renderNav(); updateStats(); scheduleSave();
+  logChange(`Added entry "${title}" to ${getDef(S.section).title}`, 'entry');
 }
 
 function deleteEntry(idx) {
@@ -1731,6 +2263,21 @@ function deleteEntry(idx) {
   const sec = secData(); if (!sec) return;
   sec.entries.splice(idx, 1);
   renderContent(); renderNav(); updateStats(); scheduleSave();
+}
+
+function duplicateEntry(idx) {
+  collectEdits();
+  const sec = secData(); if (!sec || !sec.entries[idx]) return;
+  const orig = sec.entries[idx];
+  const copy = JSON.parse(JSON.stringify(orig));
+  copy.title = copy.title + ' (copy)';
+  copy.open = true;
+  copy.comments = [];
+  copy.edited = 'just now';
+  sec.entries.splice(idx + 1, 0, copy);
+  renderContent(); renderNav(); updateStats(); scheduleSave();
+  logChange('Duplicated entry "' + orig.title + '"', 'entry');
+  toast('Entry duplicated');
 }
 
 function updateTitle(idx, val) {
@@ -1744,6 +2291,94 @@ function updateType(idx, val) {
   const card = document.getElementById('card-' + idx);
   if (card) card.dataset.type = val;
   scheduleSave();
+}
+function updateStatus(idx, val) {
+  const sec = secData(); if (!sec || !sec.entries[idx]) return;
+  sec.entries[idx].status = val;
+  // Update badge class live without full re-render
+  const sel = document.querySelector(`#card-${idx} .status-sel`);
+  if (sel) sel.className = `status-sel st-${val}`;
+  scheduleSave();
+}
+function updatePriority(idx, val) {
+  const sec = secData(); if (!sec || !sec.entries[idx]) return;
+  sec.entries[idx].priority = val;
+  const sel = document.querySelector(`#card-${idx} .priority-sel`);
+  if (sel) sel.className = `priority-sel pr-${val}`;
+  scheduleSave();
+}
+
+/* ── Pinned Section Notes ── */
+function togglePin() {
+  const p = proj(); if (!p) return;
+  if (!p.pinnedNotes) p.pinnedNotes = {};
+  const existing = document.getElementById('pinned-note-bar');
+  if (existing) {
+    existing.remove();
+    delete p.pinnedNotes[S.section];
+    scheduleSave();
+    return;
+  }
+  if (p.pinnedNotes[S.section] === undefined) p.pinnedNotes[S.section] = '';
+  renderPin();
+  scheduleSave();
+}
+function renderPin() {
+  const p = proj(); if (!p || !p.pinnedNotes) return;
+  if (p.pinnedNotes[S.section] === undefined) return;
+  const old = document.getElementById('pinned-note-bar'); if (old) old.remove();
+  const el = document.createElement('div');
+  el.id = 'pinned-note-bar';
+  el.className = 'pinned-note';
+  el.innerHTML = `
+    <div class="pinned-icon">📌</div>
+    <div class="pinned-text" contenteditable="true" id="pinned-content">${esc(p.pinnedNotes[S.section])}</div>
+    <button class="pinned-rm" onclick="togglePin()" title="Remove pin">✕</button>
+  `;
+  const contentArea = document.getElementById('content-area');
+  contentArea.insertAdjacentElement('beforebegin', el);
+  const content = document.getElementById('pinned-content');
+  content.addEventListener('input', () => {
+    p.pinnedNotes[S.section] = content.innerText;
+    scheduleSave();
+  });
+  content.focus();
+}
+
+/* ── Import JSON ── */
+function openImport() {
+  document.getElementById('import-json').value = '';
+  openM('m-import');
+}
+function confirmImport() {
+  const raw = document.getElementById('import-json').value.trim();
+  try {
+    const parsed = JSON.parse(raw);
+    const importedProj = parsed.project || parsed;
+    if (!importedProj || !importedProj.name) throw new Error('Invalid format — expected a Codex JSON backup.');
+    const newId = uid();
+    importedProj.id = newId;
+    importedProj.name = importedProj.name + ' (imported)';
+    importedProj.created = Date.now();
+    if (!importedProj.changelog) importedProj.changelog = [];
+    if (!importedProj.history) importedProj.history = {};
+    if (!importedProj.pinnedNotes) importedProj.pinnedNotes = {};
+    S.projects[newId] = importedProj;
+    // Also import custom sections if present
+    if (parsed.customSections && parsed.customSections.length) {
+      parsed.customSections.forEach(cs => {
+        if (!S.customSections.find(x => x.key === cs.key)) S.customSections.push(cs);
+      });
+    }
+    S.projId = newId;
+    saveS();
+    closeM('m-import');
+    renderAll();
+    toast('Imported: ' + importedProj.name);
+    logChange('Project imported from JSON backup', 'proj');
+  } catch(e) {
+    toast('Import failed: ' + e.message, 'err');
+  }
 }
 function toggleLock(idx) {
   const sec = secData(); if (!sec || !sec.entries[idx]) return;
@@ -1858,7 +2493,24 @@ document.addEventListener('input', e => {
   if (e.target.classList.contains('rich-ed')) {
     const idx = parseInt(e.target.dataset.idx);
     const sec = secData();
-    if (sec && !isNaN(idx) && sec.entries[idx] !== undefined) sec.entries[idx].content = e.target.innerHTML;
+    if (sec && !isNaN(idx) && sec.entries[idx] !== undefined) {
+      sec.entries[idx].content = e.target.innerHTML;
+      // Live WC ring update
+      const entry = sec.entries[idx];
+      if (entry.wcTarget > 0) {
+        const cur = wc(entry.content);
+        const pct = Math.min(cur / entry.wcTarget, 1);
+        const circ = 2 * Math.PI * 8;
+        const dash = circ * pct;
+        const fill = document.querySelector(`#card-${idx} .wc-ring-fill`);
+        const label = document.querySelector(`#card-${idx} .wc-ring-pct`);
+        if (fill) {
+          fill.setAttribute('stroke-dasharray', `${dash.toFixed(2)} ${circ.toFixed(2)}`);
+          fill.classList.toggle('done', pct >= 1);
+        }
+        if (label) label.textContent = Math.round(pct * 100) + '%';
+      }
+    }
     updateStats(); scheduleSave();
   }
 });
@@ -1968,14 +2620,29 @@ function renderTeamRows(team) {
       <button class="team-rm" onclick="removeTeamRow(${i})">✕</button>
     </div>`).join('');
 }
+
+function collectTeamInputs() {
+  // Read current values from DOM before re-rendering
+  const p = proj(); if (!p || !p.theme.team) return;
+  p.theme.team.forEach((m, i) => {
+    const nameEl = document.getElementById('tm-name-' + i);
+    const roleEl = document.getElementById('tm-role-' + i);
+    if (nameEl) m.name = nameEl.value;
+    if (roleEl) m.role = roleEl.value;
+  });
+}
+
 function addTeamRow() {
   const p = proj(); if (!p) return;
   if (!p.theme.team) p.theme.team = [];
+  collectTeamInputs(); // save what's already typed
   p.theme.team.push({ name:'', role:'' });
   renderTeamRows(p.theme.team);
 }
+
 function removeTeamRow(i) {
   const p = proj(); if (!p) return;
+  collectTeamInputs(); // save what's already typed
   p.theme.team.splice(i, 1);
   renderTeamRows(p.theme.team);
 }
@@ -2096,6 +2763,8 @@ async function callClaude(userMsg, maxTok=1000) {
   });
   const data = await res.json();
   if (data.error) throw new Error(data.error.message);
+  // Track token usage for cost estimator
+  if (data.usage) trackCost(data.usage.input_tokens || 0, data.usage.output_tokens || 0);
   return data.content[0].text;
 }
 
@@ -2312,11 +2981,12 @@ function closeM(id) { document.getElementById(id).classList.remove('open'); }
 document.addEventListener('click', e => {
   if (e.target.classList.contains('overlay')) closeM(e.target.id);
   if (_ppOpen && !document.getElementById('proj-panel').contains(e.target) && e.target.id!=='proj-toggle') closeProjPanel();
+  if (_moreOpen && !e.target.closest('#more-wrap')) closeMore();
 });
 document.addEventListener('keydown', e => {
   if (e.key==='Escape') {
     document.querySelectorAll('.overlay.open').forEach(el => el.classList.remove('open'));
-    closeProjPanel(); closeLB(); closeOnePager();
+    closeProjPanel(); closeLB(); closeOnePager(); closeMore();
   }
 });
 
@@ -2333,11 +3003,104 @@ function toast(msg, type='ok') {
 /* ═══════════════════════════════════════════════════════
    RENDER ALL & INIT
 ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   APP CHANGELOG DATA & FUNCTION
+═══════════════════════════════════════════════════════ */
+const APP_VERSIONS = [
+  { v:'4.1', date:'Latest', tag:'Bug Fixes & Polish',
+    changes:[
+      {k:'fix', t:'Delete button moved to card header — always visible, no need to open card'},
+      {k:'fix', t:'Team member inputs no longer wipe when adding a new member'},
+      {k:'fix', t:'Storage full error now shows a clear warning with export prompt'},
+      {k:'add', t:'Storage bar — live usage display below the project theme bar'},
+      {k:'add', t:'App Changelog panel — this panel right here'},
+      {k:'fix', t:'localStorage key migrated to codex_v4 to avoid old data conflicts'},
+    ]
+  },
+  { v:'4.0', date:'Previous', tag:'Major Update',
+    changes:[
+      {k:'add', t:'Reading mode — clean centered column, hides toolbars'},
+      {k:'add', t:'Token cost estimator — live session cost badge and breakdown panel'},
+      {k:'add', t:'Keyboard shortcuts — Ctrl+S, Ctrl+/, Ctrl+K, Escape'},
+      {k:'add', t:'Duplicate entry button — copies any entry and places it below'},
+      {k:'add', t:'Activity changelog on dashboard — colored dot feed of recent changes'},
+      {k:'add', t:'Pinned section notes — 📌 a note above any section'},
+      {k:'add', t:'Status badges — Concept, In Progress, Approved, Cut'},
+      {k:'add', t:'Priority flags — Must Have, Nice to Have, Cut'},
+      {k:'add', t:'Word count target ring — SVG ring fills as you write'},
+      {k:'add', t:'Import JSON — paste a backup to load it as a new project'},
+    ]
+  },
+  { v:'3.0', date:'Earlier', tag:'Feature Release',
+    changes:[
+      {k:'add', t:'Dashboard with project stats and section cards'},
+      {k:'add', t:'Version history snapshots per section'},
+      {k:'add', t:'AI tone selector — Encouraging, Balanced, Ruthless'},
+      {k:'add', t:'Market Pulse — one-click market analysis'},
+      {k:'add', t:'AI comments save to entries with Resolve / Dismiss'},
+      {k:'add', t:'Team members in project settings'},
+      {k:'add', t:'Entry locking — prevent accidental edits'},
+      {k:'add', t:'Cross-reference [[ref]] tool'},
+      {k:'add', t:'One-pager pitch view'},
+      {k:'add', t:'Image drag-and-drop with lightbox preview'},
+      {k:'add', t:'Link attachments with auto-detected service icons'},
+      {k:'add', t:'Tag system per entry'},
+      {k:'add', t:'Activity changelog on dashboard'},
+      {k:'add', t:'Collapsible sidebar groups'},
+    ]
+  },
+  { v:'2.0', date:'Earlier', tag:'Design Overhaul',
+    changes:[
+      {k:'add', t:'Warm parchment + dark ink design system'},
+      {k:'add', t:'Multi-project support'},
+      {k:'add', t:'Auto-save with localStorage persistence'},
+      {k:'add', t:'Claude AI review integration'},
+      {k:'add', t:'Section-specific guiding questions in empty states'},
+      {k:'add', t:'Rich text editor with formatting toolbar'},
+      {k:'add', t:'Export — Markdown, HTML, JSON, Print'},
+      {k:'add', t:'Search across all sections and entries'},
+      {k:'add', t:'18 pre-built GDD sections'},
+    ]
+  },
+  { v:'1.0', date:'Launch', tag:'Initial Release',
+    changes:[
+      {k:'add', t:'Single-file GDD app — no install, no build tools'},
+      {k:'add', t:'Basic sections with rich text editing'},
+      {k:'add', t:'localStorage persistence'},
+      {k:'add', t:'Cinzel + Crimson Pro typography'},
+      {k:'add', t:'Dark sidebar + parchment layout'},
+    ]
+  },
+];
+
+function openChangelog() {
+  const el = document.getElementById('changelog-content');
+  const iconMap = { add:'→', fix:'✓', remove:'✕' };
+  const colorMap = { add:'color:var(--teal3)', fix:'color:var(--gold2)', remove:'color:var(--crimson2)' };
+  el.innerHTML = APP_VERSIONS.map(v => `
+    <div style="margin-bottom:16px;border:1px solid var(--br);border-radius:var(--r);overflow:hidden">
+      <div style="background:var(--parch2);padding:9px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--br)">
+        <span style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink2);letter-spacing:.05em">v${esc(v.v)}</span>
+        <span style="font-family:var(--fd);font-size:9px;color:var(--ink4);letter-spacing:.07em">${esc(v.date)}</span>
+        <span style="font-family:var(--fd);font-size:8px;padding:2px 8px;border-radius:2px;background:rgba(154,110,24,.10);color:var(--gold);border:1px solid rgba(154,110,24,.20);margin-left:auto">${esc(v.tag)}</span>
+      </div>
+      <div style="padding:8px 14px;display:flex;flex-direction:column;gap:4px">
+        ${v.changes.map(c => `
+          <div style="font-size:13px;color:var(--ink3);padding-left:18px;position:relative;line-height:1.45">
+            <span style="position:absolute;left:0;font-size:10px;${colorMap[c.k]||''}">${iconMap[c.k]||'→'}</span>
+            ${esc(c.t)}
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+  openM('m-changelog');
+}
+
 function renderAll() {
   applyTheme(); renderNav();
   if (S.section === '__home') { goHome(); }
   else { switchSection(S.section); }
   updateAIState();
+  updateStorageBar();
 }
 
 function init() {
@@ -2345,12 +3108,13 @@ function init() {
   const ids = Object.keys(S.projects);
   if (!ids.length) {
     const id = uid();
-    S.projects[id] = { id, name:'My First Game', theme:{name:'My First Game',genre:'',pitch:'',studio:'',platform:'',audience:'',team:[]}, data:{}, history:{}, created:Date.now() };
+    S.projects[id] = { id, name:'My First Game', theme:{name:'My First Game',genre:'',pitch:'',studio:'',platform:'',audience:'',team:[]}, data:{}, history:{}, changelog:[], created:Date.now() };
     S.projId = id; saveS();
   } else if (!S.projId || !S.projects[S.projId]) {
     S.projId = ids[ids.length-1];
   }
   renderAll();
+  updateStorageBar();
 }
 
 init();
