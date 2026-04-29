@@ -277,8 +277,10 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .sb-ico { font-size: 11px; width: 14px; text-align: center; flex-shrink: 0; }
 .sb-lbl { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sb-badge { font-family: var(--fd); font-size: 8px; background: rgba(192,57,43,.46); color: #ffd8d8; padding: 1px 5px; border-radius: 2px; flex-shrink: 0; }
-.sb-pct { font-family: var(--fd); font-size: 8px; color: rgba(255,255,255,.28); flex-shrink: 0; }
-.sb-pct.full { color: var(--teal3); }
+.sb-pct { font-family: var(--fm); font-size: 8px; color: rgba(255,255,255,.28); flex-shrink: 0; }
+.sb-pct.mid  { color: var(--amber2); }
+.sb-pct.good { color: var(--teal3); }
+.sb-pct.full { color: #4ade80; font-weight: 700; }
 
 .sb-div {
   height: 1px;
@@ -347,8 +349,12 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .sh-sub { font-size: 13px; color: var(--ink3); font-style: italic; margin-top: 3px; line-height: 1.55; }
 .sh-row { display: flex; align-items: center; gap: 8px; margin-top: 9px; flex-wrap: wrap; }
 .sh-ver { font-family: var(--fd); font-size: 9px; letter-spacing: .10em; padding: 2px 9px; border-radius: 10px; background: rgba(13,72,72,.09); color: var(--teal3); }
-.sh-prog { flex: 1; height: 3px; background: var(--parch4); border-radius: 2px; min-width: 60px; max-width: 110px; }
-.sh-prog-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--teal2), var(--teal4)); transition: width .4s ease; }
+.sh-prog { flex: 1; height: 4px; background: var(--parch4); border-radius: 2px; min-width: 60px; max-width: 110px; }
+.sh-prog-fill { height: 100%; border-radius: 2px; transition: width .4s ease, background .4s ease; background: #9ca3af; }
+.sh-prog-fill.tier-low  { background: linear-gradient(90deg, #6b7280, #9ca3af); }
+.sh-prog-fill.tier-mid  { background: linear-gradient(90deg, var(--amber2), var(--amber3)); }
+.sh-prog-fill.tier-good { background: linear-gradient(90deg, var(--teal2), var(--teal4)); }
+.sh-prog-fill.tier-full { background: linear-gradient(90deg, #10b981, #4ade80); }
 .sh-pct { font-family: var(--fd); font-size: 9px; color: var(--ink4); }
 .sh-acts { display: flex; gap: 6px; margin-left: auto; }
 
@@ -843,7 +849,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 
 .ai-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .ai-title { font-family: var(--fd); font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--gold3); flex: 1; }
-.ai-tag { font-family: var(--fd); font-size: 8px; letter-spacing: .08em; padding: 2px 8px; border-radius: 2px; background: rgba(88,101,242,.07); color: rgba(88,101,242,.40); border: 1px solid rgba(88,101,242,.16); }
+.ai-tag { font-family: var(--fd); font-size: 8px; letter-spacing: .08em; padding: 2px 8px; border-radius: 2px; background: rgba(255,255,255,.12); color: rgba(255,255,255,.80); border: 1px solid rgba(255,255,255,.22); }
 
 /* Tone selector */
 .ai-tone-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
@@ -854,7 +860,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .tone-btn.market { border-color: rgba(13,72,72,.45); color: var(--teal3); background: rgba(13,72,72,.10); margin-left: 8px; }
 .tone-btn.market:hover { background: rgba(13,72,72,.18); }
 
-.ai-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,.42); font-size: 16px; padding: 0; line-height: 1; }
+.ai-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,.60); font-size: 18px; padding: 0; line-height: 1; font-weight: 700; }
 .ai-close:hover { color: var(--gold3); }
 .ai-nokey { font-family: var(--fb); font-size: 14px; color: rgba(255,255,255,.58); font-style: italic; display: none; }
 .ai-nokey.show { display: block; }
@@ -881,15 +887,15 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 /* ===
    VERSION HISTORY PANEL
 === */
-#hist-panel { position: fixed; right: 0; top: var(--header); bottom: 0; width: 290px; background: var(--ink); border-left: 1px solid rgba(88,101,242,.12); z-index: 55; transform: translateX(100%); transition: transform .24s ease; display: flex; flex-direction: column; box-shadow: -8px 0 28px rgba(0,0,0,.22); }
+#hist-panel { position: fixed; right: 0; top: var(--header); bottom: 0; width: 290px; background: var(--ink); border-left: 1px solid rgba(255,255,255,.10); z-index: 55; transform: translateX(100%); transition: transform .24s ease; display: flex; flex-direction: column; box-shadow: -8px 0 28px rgba(0,0,0,.22); }
 #hist-panel.open { transform: translateX(0); }
-.hp-hdr { padding: 16px 18px; border-bottom: 1px solid rgba(88,101,242,.10); display: flex; align-items: center; }
+.hp-hdr { padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,.10); display: flex; align-items: center; }
 .hp-title { font-family: var(--fd); font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--gold3); flex: 1; }
-.hp-close { background: none; border: none; cursor: pointer; color: rgba(88,101,242,.28); font-size: 16px; padding: 0; }
+.hp-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,.55); font-size: 18px; padding: 0; font-weight: 700; }
 .hp-close:hover { color: var(--gold3); }
 .hp-list { flex: 1; overflow-y: auto; padding: 6px 0; }
-.hp-item { padding: 10px 18px; border-bottom: 1px solid rgba(88,101,242,.05); }
-.hp-item:hover { background: rgba(88,101,242,.04); }
+.hp-item { padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.hp-item:hover { background: rgba(255,255,255,.05); }
 .hp-ver { font-family: var(--fd); font-size: 11px; font-weight: 700; color: var(--gold3); letter-spacing: .10em; }
 .hp-date { font-family: var(--fd); font-size: 9px; color: rgba(255,255,255,.38); margin-top: 2px; }
 .hp-prev { font-size: 12px; color: rgba(255,255,255,.50); margin-top: 3px; font-style: italic; }
@@ -944,7 +950,10 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .overlay { position: fixed; inset: 0; background: rgba(19,17,13,.70); z-index: 90; display: none; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
 .overlay.open { display: flex; }
 .modal { background: var(--parch); border: 1px solid var(--br2); border-top: 3px solid var(--gold2); border-radius: var(--r); padding: 26px; width: 500px; max-width: 95vw; max-height: 92vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(19,17,13,.42); }
-.modal-title { font-family: var(--fd); font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 20px; letter-spacing: .04em; }
+.modal-title { font-family: var(--fd); font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 20px; letter-spacing: .04em; display: flex; align-items: center; }
+.modal-title span { flex: 1; }
+.modal-x { background: none; border: none; cursor: pointer; color: var(--ink4); font-size: 20px; font-weight: 700; padding: 0; line-height: 1; margin-left: auto; transition: color var(--t); flex-shrink: 0; }
+.modal-x:hover { color: var(--crimson2); }
 .modal-sec-hd { font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--ink3); margin: 20px 0 10px; padding-bottom: 5px; border-bottom: 1px solid var(--br); }
 .fld { margin-bottom: 14px; }
 .fld-lbl { font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: var(--ink3); display: block; margin-bottom: 5px; }
@@ -997,22 +1006,100 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .storage-tip.warn { color: var(--gold2); font-weight: 700; cursor: pointer; }
 .storage-tip.crit { color: var(--crimson3); font-weight: 700; cursor: pointer; }
 
-/*  Reading Mode  */
-#content-area.reading-mode { padding: 28px 0; align-items: center; display: flex; flex-direction: column; }
-#content-area.reading-mode .entry-card,
-#content-area.reading-mode .add-bar,
-#content-area.reading-mode .empty-state { max-width: 680px; width: 100%; }
-#content-area.reading-mode .ed-tb { display: none; }
-#content-area.reading-mode .rich-ed { font-size: 17px; line-height: 1.95; padding: 20px 28px; }
-#content-area.reading-mode .card-ft .btn.danger,
-#content-area.reading-mode .lock-toggle { display: none; }
-#content-area.reading-mode .tags-row,
-#content-area.reading-mode .img-sec,
-#content-area.reading-mode .lnk-sec { opacity: 0.5; pointer-events: none; }
-.hbtn.read-active { background: rgba(13,72,72,.22); color: var(--teal4); border-color: rgba(13,72,72,.50); }
+/*  Reading Mode — replaced with overlay (see .rm-overlay) */
+.hbtn.read-active { background: rgba(88,101,242,.22); color: #fff; border-color: rgba(88,101,242,.50); }
+
+/* Reading Overlay */
+.rm-overlay {
+  position: fixed; inset: 0; z-index: 115;
+  background: #f8f9fa; display: none; flex-direction: column;
+  overflow: hidden;
+}
+.rm-overlay.open { display: flex; }
+
+.rm-topbar {
+  display: flex; align-items: center; gap: 12px; padding: 12px 24px;
+  background: #fff; border-bottom: 1px solid #e8eaed; flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.rm-title { font-family: var(--fd); font-size: 13px; font-weight: 700; color: #1e1f22; flex: 1; letter-spacing: .04em; }
+.rm-section-name { font-family: var(--fd); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #6d6f78; }
+.rm-btn {
+  font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: var(--r); cursor: pointer;
+  border: 1px solid #dde1e7; background: transparent; color: #383a40;
+  transition: all var(--t); white-space: nowrap;
+}
+.rm-btn:hover { background: #f2f3f5; border-color: #c4c9d4; }
+.rm-btn.primary { background: var(--gold2); color: #fff; border-color: var(--gold2); }
+.rm-btn.primary:hover { background: var(--gold3); }
+.rm-btn.close { background: rgba(192,57,43,.12); color: #c0392b; border-color: rgba(192,57,43,.30); }
+.rm-btn.close:hover { background: rgba(192,57,43,.22); color: #e74c3c; }
+
+.rm-body {
+  flex: 1; overflow-y: auto;
+  display: flex; justify-content: center;
+  padding: 48px 24px 80px;
+}
+.rm-doc {
+  width: 100%; max-width: 720px;
+}
+.rm-doc-title {
+  font-family: var(--fd); font-size: 32px; font-weight: 800;
+  color: #1e1f22; margin-bottom: 4px; letter-spacing: -.01em; line-height: 1.15;
+}
+.rm-doc-sub {
+  font-family: var(--fb); font-size: 15px; color: #6d6f78;
+  font-style: italic; margin-bottom: 8px; line-height: 1.5;
+}
+.rm-doc-meta {
+  display: flex; gap: 16px; margin-bottom: 40px; padding-bottom: 20px;
+  border-bottom: 2px solid #e8eaed; flex-wrap: wrap;
+}
+.rm-doc-meta-item { font-family: var(--fd); font-size: 9px; letter-spacing: .10em; text-transform: uppercase; color: #949ba4; }
+
+.rm-entry {
+  margin-bottom: 48px; padding-bottom: 40px;
+  border-bottom: 1px solid #e8eaed;
+}
+.rm-entry:last-child { border-bottom: none; }
+.rm-entry-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.rm-entry-title {
+  font-family: var(--fd); font-size: 22px; font-weight: 700;
+  color: #1e1f22; letter-spacing: -.01em; line-height: 1.2;
+}
+.rm-entry-badge {
+  font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .10em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 20px;
+  flex-shrink: 0;
+}
+.rm-entry-badge.concept     { background: #f2f3f5; color: #6d6f78; }
+.rm-entry-badge.in-progress { background: #fffbeb; color: #92400e; }
+.rm-entry-badge.approved    { background: #f0fdf4; color: #166534; }
+.rm-entry-badge.cut         { background: #fff1f2; color: #9f1239; }
+.rm-entry-body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 16px; line-height: 1.85; color: #374151;
+}
+.rm-entry-body p { margin-bottom: 14px; }
+.rm-entry-body strong { color: #1e1f22; font-weight: 700; }
+.rm-entry-body em { color: #4b5563; }
+.rm-entry-body h3 { font-size: 17px; font-weight: 700; color: #1e1f22; margin: 20px 0 8px; }
+.rm-entry-body ul { padding-left: 20px; margin-bottom: 14px; }
+.rm-entry-body li { margin-bottom: 5px; }
+.rm-entry-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+.rm-entry-tag { font-family: var(--fd); font-size: 9px; letter-spacing: .07em; padding: 3px 9px; border-radius: 20px; background: #f2f3f5; color: #6d6f78; }
+.rm-empty { text-align: center; padding: 60px 20px; color: #6d6f78; font-style: italic; font-family: var(--fb); font-size: 16px; }
+
+@media print {
+  .rm-topbar { display: none; }
+  .rm-overlay { position: static; }
+  .rm-body { padding: 0; }
+  .rm-entry { break-inside: avoid; }
+}
 
 /*  More Dropdown  */
-.more-wrap { position: relative; }
+.more-wrap { position: relative; display: flex; align-items: center; }
 .more-menu {
   position: absolute; top: calc(100% + 6px); right: 0;
   background: #2b2d31; border: 1px solid rgba(255,255,255,.12);
@@ -1050,7 +1137,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   margin-bottom: 8px; flex-wrap: wrap;
 }
 .ai-cost-item { font-family: var(--fm); font-size: 9px; color: rgba(255,255,255,.48); display: flex; align-items: center; gap: 4px; }
-.ai-cost-val { color: rgba(88,101,242,.60); }
+.ai-cost-val { color: rgba(255,255,255,.72); }
 .ai-cost-val.hi { color: var(--teal4); }
 
 /*  Cost Modal rows  */
@@ -1167,6 +1254,12 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .fc-tool-btn.active { background: var(--gold); color: var(--parch); border-color: var(--gold); }
 .fc-tool-btn.danger { color: var(--crimson2); border-color: rgba(158,30,30,.28); }
 .fc-tool-btn.danger:hover { background: rgba(158,30,30,.06); }
+.fc-tool-btn.close-btn {
+  background: rgba(192,57,43,.15); color: #ff8080;
+  border-color: rgba(192,57,43,.45); font-weight: 700;
+  padding: 4px 14px;
+}
+.fc-tool-btn.close-btn:hover { background: rgba(192,57,43,.28); color: #ffaaaa; border-color: rgba(192,57,43,.70); }
 .fc-spacer { flex: 1; }
 .fc-hint { font-family: var(--fd); font-size: 8px; letter-spacing: .07em; color: var(--ink4); flex-shrink: 0; }
 
@@ -1629,7 +1722,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   display: flex; align-items: center; gap: 10px; flex-shrink: 0;
 }
 .al-title { font-family: var(--fd); font-size: 13px; font-weight: 700; color: #fff; flex: 1; letter-spacing: .04em; }
-.al-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,.45); font-size: 18px; padding: 0; line-height: 1; }
+.al-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,.65); font-size: 20px; padding: 0; line-height: 1; font-weight: 700; }
 .al-close:hover { color: #fff; }
 
 .al-filters {
@@ -1753,6 +1846,11 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .mm-tool-btn:hover { background: var(--parch3); border-color: var(--gold2); }
 .mm-tool-btn.danger { color: var(--crimson2); border-color: rgba(158,30,30,.28); }
 .mm-tool-btn.danger:hover { background: rgba(158,30,30,.06); }
+.mm-tool-btn.close-btn {
+  background: rgba(192,57,43,.15); color: #ff8080;
+  border-color: rgba(192,57,43,.45); font-weight: 700; padding: 4px 14px;
+}
+.mm-tool-btn.close-btn:hover { background: rgba(192,57,43,.28); color: #ffaaaa; border-color: rgba(192,57,43,.70); }
 .mm-spacer { flex: 1; }
 .mm-hint { font-family: var(--fd); font-size: 8px; letter-spacing: .07em; color: var(--ink4); flex-shrink: 0; }
 
@@ -1855,6 +1953,11 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .sm-btn.primary:hover { background: var(--gold3); }
 .sm-btn.danger { color: rgba(255,100,100,.80); border-color: rgba(255,100,100,.28); }
 .sm-btn.danger:hover { background: rgba(255,100,100,.10); color: rgba(255,150,150,1); }
+.sm-btn.close-btn {
+  background: rgba(192,57,43,.20); color: #ff8888;
+  border-color: rgba(192,57,43,.55); font-weight: 700; padding: 5px 16px;
+}
+.sm-btn.close-btn:hover { background: rgba(192,57,43,.35); color: #ffaaaa; border-color: rgba(192,57,43,.80); }
 
 /* Sub-bar: level info + tools */
 .sm-subbar {
@@ -1922,8 +2025,8 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   display: flex; align-items: center; gap: 8px;
 }
 .sm-props-title { font-family: var(--fd); font-size: 11px; font-weight: 700; color: var(--ink2); flex: 1; letter-spacing: .04em; }
-.sm-props-close { background: none; border: none; cursor: pointer; color: var(--ink4); font-size: 16px; padding: 0; line-height: 1; }
-.sm-props-close:hover { color: var(--ink); }
+.sm-props-close { background: none; border: none; cursor: pointer; color: var(--ink3); font-size: 18px; padding: 0; line-height: 1; font-weight: 700; }
+.sm-props-close:hover { color: var(--crimson2); }
 .sm-props-body { flex: 1; overflow-y: auto; padding: 12px 14px; }
 .sm-prop-lbl { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink4); display: block; margin-bottom: 4px; margin-top: 10px; }
 .sm-prop-lbl:first-child { margin-top: 0; }
@@ -1961,6 +2064,456 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   to   { opacity: 1; transform: scale(1); }
 }
 .sm-canvas-wrap.drilling { animation: smDrillIn .22s ease; }
+
+/* ── KANBAN BOARD ──────────────────────────────── */
+#content-area.kanban-mode { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+
+.kb-board {
+  display: flex; gap: 0; flex: 1; overflow-x: auto; overflow-y: hidden;
+  padding: 16px; gap: 12px; min-height: 0;
+}
+
+/* Column */
+.kb-col {
+  display: flex; flex-direction: column; min-width: 240px; max-width: 280px;
+  flex: 1; background: var(--parch2); border-radius: var(--r);
+  border: 1px solid var(--parch4); overflow: hidden; flex-shrink: 0;
+}
+.kb-col-hdr {
+  display: flex; align-items: center; gap: 8px; padding: 10px 12px;
+  border-bottom: 2px solid transparent; flex-shrink: 0;
+}
+.kb-col-hdr.backlog  { border-color: var(--ink4); }
+.kb-col-hdr.progress { border-color: var(--amber2); }
+.kb-col-hdr.approved { border-color: var(--sage2); }
+.kb-col-hdr.cut      { border-color: var(--crimson2); }
+
+.kb-col-icon { font-size: 14px; flex-shrink: 0; }
+.kb-col-name {
+  font-family: var(--fd); font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; flex: 1;
+  color: var(--ink2);
+}
+.kb-col-count {
+  font-family: var(--fm); font-size: 10px; color: var(--ink4);
+  background: var(--parch3); padding: 1px 7px; border-radius: 20px;
+  flex-shrink: 0;
+}
+
+/* Cards list */
+.kb-cards {
+  flex: 1; overflow-y: auto; padding: 8px;
+  display: flex; flex-direction: column; gap: 6px;
+  min-height: 60px;
+}
+.kb-cards.drag-over { background: rgba(88,101,242,.05); border-radius: var(--r); }
+
+/* Kanban card */
+.kb-card {
+  background: #fff; border: 1px solid var(--parch4);
+  border-radius: var(--r); padding: 10px 12px;
+  cursor: grab; transition: all var(--t);
+  border-left: 3px solid transparent;
+  user-select: none; position: relative;
+}
+.kb-card:hover { box-shadow: 0 3px 10px var(--sh2); transform: translateY(-1px); border-color: var(--parch3); }
+.kb-card.dragging { opacity: .45; transform: rotate(1.5deg); cursor: grabbing; }
+.kb-card.drag-target { outline: 2px dashed var(--gold2); outline-offset: 2px; }
+
+.kb-card[data-status="concept"]     { border-left-color: var(--ink4); }
+.kb-card[data-status="in-progress"] { border-left-color: var(--amber2); }
+.kb-card[data-status="approved"]    { border-left-color: var(--sage2); }
+.kb-card[data-status="cut"]         { border-left-color: var(--crimson2); }
+
+.kb-card-title {
+  font-family: var(--fb); font-size: 13px; font-weight: 600; color: var(--ink);
+  margin-bottom: 5px; line-height: 1.3;
+  overflow: hidden; text-overflow: ellipsis;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.kb-card-meta { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+.kb-card-type {
+  font-family: var(--fd); font-size: 7px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 3px;
+  background: var(--parch2); color: var(--ink4); border: 1px solid var(--parch4);
+}
+.kb-card-priority {
+  font-family: var(--fd); font-size: 7px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 3px;
+}
+.kb-card-priority.must  { background: rgba(158,30,30,.08); color: var(--crimson2); }
+.kb-card-priority.nice  { background: rgba(0,109,119,.08); color: var(--teal2); }
+.kb-card-priority.cut   { background: rgba(0,0,0,.05); color: var(--ink4); }
+.kb-card-words { font-family: var(--fm); font-size: 9px; color: var(--ink5); margin-left: auto; }
+.kb-card-open {
+  position: absolute; top: 8px; right: 8px;
+  background: none; border: none; cursor: pointer; color: var(--ink5);
+  font-size: 11px; padding: 0; opacity: 0; transition: opacity var(--t);
+}
+.kb-card:hover .kb-card-open { opacity: 1; }
+.kb-card-open:hover { color: var(--gold2); }
+
+/* Preview of content in card */
+.kb-card-preview {
+  font-size: 11px; color: var(--ink4); line-height: 1.5; margin-top: 4px;
+  overflow: hidden; text-overflow: ellipsis;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  font-family: var(--fb);
+}
+
+/* Add card button at bottom of column */
+.kb-add {
+  font-family: var(--fd); font-size: 9px; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; padding: 7px; width: 100%;
+  background: transparent; border: none; border-top: 1px solid var(--parch4);
+  color: var(--ink4); cursor: pointer; transition: all var(--t); flex-shrink: 0;
+}
+.kb-add:hover { color: var(--gold2); background: rgba(88,101,242,.03); }
+
+/* Toggle button active state */
+.btn.sm.kanban-active { background: var(--gold2); color: #fff; border-color: var(--gold2); }
+
+/* ── GUIDING QUESTIONS PANEL ──────────────────── */
+.gq-panel {
+  position: fixed; top: var(--header); right: 0; bottom: 0; width: 320px;
+  background: var(--ink); border-left: 1px solid rgba(255,255,255,.10);
+  box-shadow: -6px 0 24px rgba(0,0,0,.40); z-index: 54;
+  display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform .22s ease;
+}
+.gq-panel.open { transform: translateX(0); }
+.gq-hdr {
+  padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,.08);
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+.gq-title { font-family: var(--fd); font-size: 12px; font-weight: 700; color: #fff; flex: 1; letter-spacing: .05em; }
+.gq-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,.65); font-size: 20px; padding: 0; font-weight: 700; }
+.gq-close:hover { color: #fff; }
+.gq-body { flex: 1; overflow-y: auto; padding: 16px; }
+.gq-intro { font-family: var(--fb); font-size: 13px; color: rgba(255,255,255,.55); font-style: italic; margin-bottom: 16px; line-height: 1.6; }
+.gq-q {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.gq-q:last-child { border-bottom: none; }
+.gq-num { font-family: var(--fm); font-size: 10px; color: var(--gold3); flex-shrink: 0; margin-top: 2px; min-width: 18px; }
+.gq-text { font-family: var(--fb); font-size: 14px; color: rgba(255,255,255,.82); line-height: 1.55; }
+
+/* ── DESIGN PILLARS CUSTOM UI ─────────────────── */
+.pillars-wrap {
+  padding: 24px; display: flex; flex-direction: column; gap: 20px;
+}
+.pillars-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
+}
+.pillar-card {
+  border-radius: 12px; padding: 28px 24px; position: relative;
+  border: 1px solid var(--parch4); background: #fff;
+  transition: all var(--t); overflow: hidden; cursor: default;
+  display: flex; flex-direction: column; gap: 10px;
+  min-height: 180px;
+}
+.pillar-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+}
+.pillar-card:hover { box-shadow: 0 8px 28px var(--sh2); transform: translateY(-2px); }
+.pillar-num {
+  font-family: var(--fm); font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; color: var(--ink5); text-transform: uppercase;
+}
+.pillar-name {
+  font-family: var(--fd); font-size: 24px; font-weight: 800;
+  color: var(--ink); line-height: 1.1; letter-spacing: -.01em;
+  word-break: break-word;
+}
+.pillar-name[contenteditable="true"] {
+  outline: none; border-bottom: 2px solid var(--gold2);
+  padding-bottom: 2px; cursor: text;
+}
+.pillar-name[contenteditable="true"]:focus { background: rgba(88,101,242,.04); border-radius: 4px; padding: 2px 4px; }
+.pillar-desc {
+  font-family: var(--fb); font-size: 14px; color: var(--ink3);
+  line-height: 1.65; flex: 1;
+}
+.pillar-desc[contenteditable="true"] { outline: none; cursor: text; border-radius: 4px; }
+.pillar-desc[contenteditable="true"]:focus { background: rgba(88,101,242,.03); padding: 2px 4px; outline: 1px dashed var(--parch4); }
+.pillar-actions {
+  display: flex; gap: 8px; align-items: center; margin-top: 8px;
+  padding-top: 10px; border-top: 1px solid var(--parch3);
+  opacity: .45; transition: opacity var(--t);
+}
+.pillar-card:hover .pillar-actions { opacity: 1; }
+.pillar-act-btn {
+  font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--parch4); background: var(--parch2); color: var(--ink3);
+  transition: all var(--t);
+}
+.pillar-act-btn:hover { background: var(--parch3); border-color: var(--gold2); color: var(--ink); }
+.pillar-act-btn.danger { color: var(--crimson2); border-color: rgba(192,57,43,.22); background: rgba(192,57,43,.04); }
+.pillar-act-btn.danger:hover { background: rgba(192,57,43,.10); border-color: var(--crimson2); }
+
+/* Pillar color accents — top bar per pillar index */
+.pillar-card[data-pidx="0"]::before { background: linear-gradient(90deg, #5865f2, #7289da); }
+.pillar-card[data-pidx="1"]::before { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
+.pillar-card[data-pidx="2"]::before { background: linear-gradient(90deg, #10b981, #34d399); }
+.pillar-card[data-pidx="3"]::before { background: linear-gradient(90deg, #f59e0b, #fcd34d); }
+.pillar-card[data-pidx="4"]::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+.pillar-card[data-pidx="5"]::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+
+.pillar-add-card {
+  border-radius: 12px; padding: 28px 24px; min-height: 180px;
+  border: 2px dashed var(--parch4); background: transparent;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; cursor: pointer; transition: all var(--t); color: var(--ink4);
+}
+.pillar-add-card:hover { border-color: var(--gold2); color: var(--gold2); background: rgba(88,101,242,.02); }
+.pillar-add-icon { font-size: 28px; opacity: .5; }
+.pillar-add-lbl { font-family: var(--fd); font-size: 10px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; }
+
+.pillars-empty { text-align: center; padding: 60px 20px; }
+.pillars-empty-icon { font-size: 40px; opacity: .25; margin-bottom: 12px; }
+.pillars-empty-title { font-family: var(--fd); font-size: 18px; font-weight: 700; color: var(--ink3); margin-bottom: 6px; }
+.pillars-empty-sub { font-family: var(--fb); font-size: 14px; color: var(--ink4); font-style: italic; }
+
+/* ── OVERVIEW HERO ────────────────────────────── */
+.overview-hero {
+  background: linear-gradient(135deg, #1e1f22 0%, #2b2d31 60%, #313338 100%);
+  border-bottom: 3px solid var(--gold2);
+  padding: 32px 32px 28px; margin-bottom: 0; position: relative; overflow: hidden;
+}
+.overview-hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(88,101,242,.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.overview-hero::after {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(88,101,242,.20) 0%, transparent 70%);
+  pointer-events: none;
+}
+.oh-label { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: var(--gold3); margin-bottom: 10px; opacity: .80; }
+.oh-pitch {
+  font-family: var(--fb); font-size: 21px; font-style: italic; font-weight: 300;
+  color: #ffffff; line-height: 1.60; max-width: 680px; margin-bottom: 20px;
+  min-height: 32px; position: relative; z-index: 1;
+  text-shadow: 0 1px 8px rgba(0,0,0,.25);
+}
+.oh-pitch[contenteditable="true"] {
+  outline: none; border-bottom: 2px solid rgba(88,101,242,.55);
+  padding-bottom: 2px; cursor: text;
+}
+.oh-pitch:empty::before { content: attr(data-placeholder); color: rgba(255,255,255,.32); font-style: italic; }
+.oh-meta { display: flex; gap: 24px; flex-wrap: wrap; position: relative; z-index: 1; }
+.oh-meta-item { display: flex; flex-direction: column; gap: 3px; }
+.oh-meta-lbl { font-family: var(--fd); font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+.oh-meta-val { font-family: var(--fd); font-size: 13px; color: rgba(255,255,255,.88); font-weight: 600; }
+.oh-edit-hint { font-family: var(--fd); font-size: 8px; letter-spacing: .08em; color: rgba(255,255,255,.28); margin-top: 16px; position: relative; z-index: 1; }
+
+/* ── ENTRY TEMPLATES ─────────────────────────── */
+.tpl-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px; margin-bottom: 4px;
+}
+.tpl-card {
+  border: 1px solid var(--parch4); border-radius: var(--r);
+  padding: 12px 14px; cursor: pointer; transition: all var(--t);
+  background: var(--parch2); position: relative; overflow: hidden;
+}
+.tpl-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gold2);
+}
+.tpl-card:hover { border-color: var(--gold2); background: var(--parch); box-shadow: 0 3px 12px var(--sh); transform: translateY(-1px); }
+.tpl-card.blank { border-style: dashed; background: transparent; }
+.tpl-card.blank::before { display: none; }
+.tpl-card.blank:hover { border-color: var(--gold2); background: var(--parch2); }
+.tpl-icon { font-size: 18px; margin-bottom: 6px; }
+.tpl-name { font-family: var(--fd); font-size: 11px; font-weight: 700; color: var(--ink2); letter-spacing: .03em; margin-bottom: 3px; }
+.tpl-desc { font-family: var(--fb); font-size: 11px; color: var(--ink4); line-height: 1.45; font-style: italic; }
+.tpl-section-label { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink4); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.tpl-section-label::after { content: ''; flex: 1; height: 1px; background: var(--parch4); }
+
+/* ── COMPLETED SECTION ────────────────────────── */
+.completed-divider {
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 24px 10px; margin-top: 8px;
+}
+.completed-divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--sage2), transparent); }
+.completed-divider-label {
+  font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--sage2);
+  display: flex; align-items: center; gap: 6px;
+}
+.completed-divider-count {
+  font-family: var(--fm); font-size: 9px; color: var(--sage2);
+  background: rgba(39,174,96,.12); padding: 1px 8px; border-radius: 20px;
+  border: 1px solid rgba(39,174,96,.22);
+}
+
+/* Completed entries have a green left border tint */
+.entry-card.is-approved {
+  border-left: 3px solid var(--sage2);
+  opacity: 0.85;
+}
+.entry-card.is-approved:hover { opacity: 1; }
+
+/* Completed global view */
+.cv-wrap { padding: 20px 24px; }
+.cv-empty { text-align: center; padding: 60px 20px; color: var(--ink4); font-style: italic; font-family: var(--fb); font-size: 15px; }
+.cv-empty-icon { font-size: 32px; margin-bottom: 12px; opacity: .3; }
+.cv-section-hd {
+  font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink4); margin: 20px 0 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.cv-section-hd::after { content: ''; flex: 1; height: 1px; background: var(--parch4); }
+.cv-section-hd:first-child { margin-top: 0; }
+.cv-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  background: #fff; border: 1px solid var(--parch4); border-left: 3px solid var(--sage2);
+  border-radius: var(--r); margin-bottom: 6px; transition: all var(--t);
+}
+.cv-item:hover { box-shadow: 0 2px 8px var(--sh); border-color: var(--parch3); }
+.cv-item-icon { font-size: 13px; flex-shrink: 0; color: var(--sage2); }
+.cv-item-info { flex: 1; min-width: 0; }
+.cv-item-title { font-family: var(--fb); font-size: 14px; font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cv-item-meta { font-family: var(--fd); font-size: 8px; letter-spacing: .06em; color: var(--ink4); margin-top: 2px; }
+.cv-item-wc { font-family: var(--fm); font-size: 9px; color: var(--ink5); flex-shrink: 0; }
+.cv-item-goto { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: var(--r); cursor: pointer; border: 1px solid var(--parch4); background: transparent; color: var(--ink4); transition: all var(--t); flex-shrink: 0; }
+.cv-item-goto:hover { border-color: var(--gold2); color: var(--gold2); }
+.cv-item-revert { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: var(--r); cursor: pointer; border: 1px solid rgba(158,30,30,.22); background: transparent; color: var(--crimson2); transition: all var(--t); flex-shrink: 0; }
+.cv-item-revert:hover { background: rgba(158,30,30,.06); border-color: var(--crimson2); }
+
+/* ── ONBOARDING WIZARD ───────────────────────── */
+.ob-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: #0a0a0f;
+  display: none; align-items: center; justify-content: center;
+  transition: opacity .5s ease;
+}
+.ob-overlay.open { display: flex; }
+.ob-overlay.fade-out { opacity: 0; pointer-events: none; }
+.ob-overlay.open { display: flex; }
+
+.ob-modal {
+  background: var(--parch); border-radius: 16px;
+  width: 560px; max-width: 94vw;
+  box-shadow: 0 32px 80px rgba(0,0,0,.55);
+  overflow: hidden; display: flex; flex-direction: column;
+  animation: obIn .28s cubic-bezier(.22,1,.36,1);
+}
+@keyframes obIn {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Progress strip at top */
+.ob-progress {
+  height: 3px; background: var(--parch3);
+  position: relative; flex-shrink: 0;
+}
+.ob-progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--gold2), var(--gold3));
+  transition: width .35s ease; border-radius: 0 2px 2px 0;
+}
+
+/* Step content */
+.ob-body {
+  padding: 36px 40px 28px; flex: 1;
+}
+.ob-step-num {
+  font-family: var(--fm); font-size: 10px; letter-spacing: .14em;
+  color: var(--gold2); margin-bottom: 10px; text-transform: uppercase;
+}
+.ob-title {
+  font-family: var(--fd); font-size: 26px; font-weight: 800;
+  color: var(--ink); line-height: 1.15; margin-bottom: 8px;
+  letter-spacing: -.01em;
+}
+.ob-sub {
+  font-family: var(--fb); font-size: 15px; color: var(--ink3);
+  line-height: 1.6; margin-bottom: 24px;
+}
+
+/* Fields */
+.ob-field { margin-bottom: 16px; }
+.ob-label {
+  font-family: var(--fd); font-size: 9px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink3); display: block; margin-bottom: 6px;
+}
+.ob-inp, .ob-sel {
+  width: 100%; font-family: var(--fb); font-size: 15px;
+  padding: 10px 14px; border: 2px solid var(--parch4);
+  background: #fff; border-radius: 8px; color: var(--ink);
+  outline: none; transition: border-color var(--t);
+}
+.ob-inp:focus, .ob-sel:focus { border-color: var(--gold2); }
+.ob-inp::placeholder { color: var(--ink5); }
+
+/* Theme grid in wizard */
+.ob-theme-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.ob-theme-card {
+  border: 2px solid var(--parch4); border-radius: 10px;
+  cursor: pointer; overflow: hidden; transition: all var(--t);
+  position: relative;
+}
+.ob-theme-card:hover { border-color: var(--gold2); transform: translateY(-2px); box-shadow: 0 6px 18px var(--sh2); }
+.ob-theme-card.active { border-color: var(--gold2); }
+.ob-theme-card.active::after {
+  content: '✓'; position: absolute; top: 6px; right: 8px;
+  font-size: 13px; font-weight: 800; color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+.ob-theme-preview { height: 52px; display: flex; overflow: hidden; }
+.ob-tp-sidebar { width: 28px; flex-shrink: 0; }
+.ob-tp-main { flex: 1; padding: 5px 7px; }
+.ob-tp-hdr { height: 6px; border-radius: 2px; margin-bottom: 4px; opacity: .8; }
+.ob-tp-line { height: 3px; border-radius: 2px; margin-bottom: 3px; opacity: .5; }
+.ob-tp-card { height: 14px; border-radius: 2px; margin-top: 3px; opacity: .6; }
+.ob-theme-name {
+  font-family: var(--fd); font-size: 9px; font-weight: 700;
+  text-align: center; padding: 5px 4px; background: var(--parch2);
+  color: var(--ink2); letter-spacing: .05em;
+}
+
+/* Start section picker */
+.ob-section-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.ob-section-card {
+  border: 2px solid var(--parch4); border-radius: 8px;
+  padding: 12px 14px; cursor: pointer; transition: all var(--t);
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--parch2);
+}
+.ob-section-card:hover { border-color: var(--gold2); background: var(--parch); transform: translateY(-1px); }
+.ob-section-card.active { border-color: var(--gold2); background: var(--parch); }
+.ob-section-card.active .ob-sc-icon { background: var(--gold2); color: #fff; }
+.ob-sc-icon {
+  font-size: 16px; width: 32px; height: 32px; border-radius: 8px;
+  background: var(--parch3); display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; transition: all var(--t);
+}
+.ob-sc-info { flex: 1; min-width: 0; }
+.ob-sc-name { font-family: var(--fd); font-size: 11px; font-weight: 700; color: var(--ink2); letter-spacing: .03em; }
+.ob-sc-desc { font-family: var(--fb); font-size: 11px; color: var(--ink4); margin-top: 2px; font-style: italic; line-height: 1.35; }
+
+/* Footer */
+.ob-footer {
+  padding: 16px 40px 28px; display: flex; align-items: center;
+  gap: 12px; border-top: 1px solid var(--parch3);
+}
+.ob-skip { font-family: var(--fd); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink4); cursor: pointer; flex: 1; transition: color var(--t); border: 1px solid var(--parch4); background: transparent; padding: 8px 14px; border-radius: var(--r); }
+.ob-skip:hover { color: var(--ink2); border-color: var(--parch3); background: var(--parch2); }
+.ob-back { font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; padding: 10px 20px; border-radius: 8px; cursor: pointer; border: 1px solid var(--parch4); background: transparent; color: var(--ink3); transition: all var(--t); }
+.ob-back:hover { background: var(--parch2); border-color: var(--parch3); }
+.ob-next { font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; padding: 10px 24px; border-radius: 8px; cursor: pointer; border: none; background: var(--gold2); color: #fff; transition: background var(--t); }
+.ob-next:hover { background: var(--gold3); }
 
 </style>
 </head>
@@ -2026,6 +2579,12 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
       <span class="sb-lbl">Systems Map</span>
     </div>
 
+    <!-- Completed View link -->
+    <div class="sb-home" id="sbi-__completed" onclick="openCompleted()">
+      <span class="sb-ico">✓</span>
+      <span class="sb-lbl">Completed</span>
+    </div>
+
     <div id="sb-nav"></div>
 
     <div class="sb-footer">
@@ -2059,6 +2618,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
         <div class="sh-prog"><div class="sh-prog-fill" id="sh-prog" style="width:0%"></div></div>
         <span class="sh-pct" id="sh-pct">0%</span>
         <div class="sh-acts" id="sh-acts">
+          <button class="btn sm" id="btn-kanban-toggle" onclick="toggleKanban()" title="Switch to Kanban view">⊞ Board</button>
           <button class="btn sm" onclick="openAddEntry()">+ Entry</button>
           <button class="btn sm" onclick="snapshot()">Snapshot</button>
           <button class="btn sm ai" onclick="reviewSection()">✦ Review</button>
@@ -2142,45 +2702,61 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 
 <!-- Add Entry -->
 <div class="overlay" id="m-entry">
-  <div class="modal">
-    <div class="modal-title">Add New Entry</div>
-    <div class="fld"><label class="fld-lbl">Entry Title</label><input class="fld-inp" id="em-title" placeholder="e.g. Core Combat Loop"></div>
-    <div class="fld"><label class="fld-lbl">Type</label>
-      <select class="fld-sel" id="em-type">
-        <option value="core">Core — Foundational design decisions</option>
-        <option value="mechanic">Mechanic — How something works</option>
-        <option value="lore">Lore — World, story, characters</option>
-        <option value="tech">Technical — Engine, code, specs</option>
-        <option value="note">Note — Ideas, references, scratchpad</option>
-      </select>
-    </div>
-    <div style="display:flex;gap:10px">
-      <div class="fld" style="flex:1"><label class="fld-lbl">Status</label>
-        <select class="fld-sel" id="em-status">
-          <option value="concept">Concept</option>
-          <option value="progress">In Progress</option>
-          <option value="approved">Approved</option>
-          <option value="cut">Cut</option>
-        </select>
-      </div>
-      <div class="fld" style="flex:1"><label class="fld-lbl">Priority</label>
-        <select class="fld-sel" id="em-priority">
-          <option value="must">Must Have</option>
-          <option value="nice">Nice to Have</option>
-          <option value="cut">Cut</option>
-        </select>
+  <div class="modal" style="width:580px;max-width:96vw">
+    <div class="modal-title">id="m-entry-title"><span>Add New Entry</span><button class="modal-x" onclick="closeM('m-entry')">✕</button></div>
+
+    <!-- Step 1: Template picker -->
+    <div id="tpl-step">
+      <div id="tpl-grid-wrap"></div>
+      <div class="modal-acts">
+        <button class="btn" onclick="closeM('m-entry')">Cancel</button>
       </div>
     </div>
-    <div class="fld"><label class="fld-lbl">Word Count Target (optional)</label><input class="fld-inp" id="em-wc-target" type="number" placeholder="e.g. 200 — shows a progress ring" min="0"></div>
-    <div class="fld"><label class="fld-lbl">Initial Content (optional)</label><textarea class="fld-ta" id="em-content" placeholder="Start writing…"></textarea></div>
-    <div class="modal-acts"><button class="btn" onclick="closeM('m-entry')">Cancel</button><button class="btn primary" onclick="confirmEntry()">Add Entry</button></div>
+
+    <!-- Step 2: Entry details (shown after template selected) -->
+    <div id="entry-step" style="display:none">
+      <div class="fld"><label class="fld-lbl">Entry Title</label><input class="fld-inp" id="em-title" placeholder="e.g. Core Combat Loop"></div>
+      <div class="fld"><label class="fld-lbl">Type</label>
+        <select class="fld-sel" id="em-type">
+          <option value="core">Core — Foundational design decisions</option>
+          <option value="mechanic">Mechanic — How something works</option>
+          <option value="lore">Lore — World, story, characters</option>
+          <option value="tech">Technical — Engine, code, specs</option>
+          <option value="note">Note — Ideas, references, scratchpad</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:10px">
+        <div class="fld" style="flex:1"><label class="fld-lbl">Status</label>
+          <select class="fld-sel" id="em-status">
+            <option value="concept">Concept</option>
+            <option value="in-progress">In Progress</option>
+            <option value="approved">Approved</option>
+            <option value="cut">Cut</option>
+          </select>
+        </div>
+        <div class="fld" style="flex:1"><label class="fld-lbl">Priority</label>
+          <select class="fld-sel" id="em-priority">
+            <option value="must">Must Have</option>
+            <option value="nice">Nice to Have</option>
+            <option value="cut">Cut</option>
+          </select>
+        </div>
+      </div>
+      <div class="fld"><label class="fld-lbl">Word Count Target (optional)</label><input class="fld-inp" id="em-wc-target" type="number" placeholder="e.g. 200" min="0"></div>
+      <div class="fld"><label class="fld-lbl">Content</label><textarea class="fld-ta" id="em-content" placeholder="Start writing…" style="min-height:100px"></textarea></div>
+      <div class="modal-acts">
+        <button class="btn" onclick="entryBackToTemplates()">← Templates</button>
+        <button class="btn" onclick="closeM('m-entry')">Cancel</button>
+        <button class="btn primary" onclick="confirmEntry()">Add Entry</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- Add Section -->
 <div class="overlay" id="m-section">
   <div class="modal">
-    <div class="modal-title">Add Custom Section</div>
+    <div class="modal-title"><span>Add Custom Section</span><button class="modal-x" onclick="closeM('m-addsec')">✕</button></div>
     <div class="fld"><label class="fld-lbl">Section Name</label><input class="fld-inp" id="sm-name" placeholder="e.g. Economy Design"></div>
     <div class="fld"><label class="fld-lbl">Category Group</label>
       <select class="fld-sel" id="sm-cat">
@@ -2196,7 +2772,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- Theme / Project Settings -->
 <div class="overlay" id="m-theme">
   <div class="modal">
-    <div class="modal-title">Project Settings</div>
+    <div class="modal-title"><span>Project Settings</span><button class="modal-x" onclick="closeM('m-proj')">✕</button></div>
     <div class="modal-sec-hd">Identity</div>
     <div class="fld"><label class="fld-lbl">Project Name / Codename</label><input class="fld-inp" id="tm-name" placeholder="Project Nova"></div>
     <div class="fld"><label class="fld-lbl">Genre &amp; Tone</label><input class="fld-inp" id="tm-genre" placeholder="e.g. Dark Fantasy, Sci-Fi Shooter, Cozy Farming Sim…"></div>
@@ -2214,7 +2790,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- Settings -->
 <div class="overlay" id="m-settings">
   <div class="modal">
-    <div class="modal-title">Settings</div>
+    <div class="modal-title"><span>Settings</span><button class="modal-x" onclick="closeM('m-settings')">✕</button></div>
     <div class="modal-sec-hd">Appearance</div>
     <div class="fld">
       <label class="fld-lbl">Theme</label>
@@ -2228,8 +2804,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     <div class="fld"><label class="fld-lbl">Key Status</label><div id="key-status" style="font-family:var(--fm);font-size:12px;color:var(--ink4)">No key configured</div></div>
     <div class="modal-sec-hd">Support</div>
     <div class="fld" style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn" style="flex:1;text-align:center" onclick="closeM('m-settings');openBugReport()">🐛 Submit Bug Report</button>
-      <button class="btn" style="flex:1;text-align:center" onclick="closeM('m-settings');openChangelog()">📋 App Changelog</button>
+      <button class="btn" style="flex:1;text-align:center" onclick="closeM('m-settings');obStart()">✦ Setup Wizard</button>
+      <button class="btn" style="flex:1;text-align:center" onclick="closeM('m-settings');openBugReport()">🐛 Bug Report</button>
+      <button class="btn" style="flex:1;text-align:center" onclick="closeM('m-settings');openChangelog()">📋 Changelog</button>
     </div>
     <div class="modal-sec-hd">Danger Zone</div>
     <div class="fld"><button class="btn danger" style="width:100%" onclick="clearAll()">Clear All Data (irreversible)</button></div>
@@ -2240,7 +2817,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- Theme Picker -->
 <div class="overlay" id="m-theme-picker">
   <div class="modal" style="width:560px">
-    <div class="modal-title">🎨 Choose Your Theme</div>
+    <div class="modal-title"><span>🎨 Choose Your Theme</span><button class="modal-x" onclick="closeM('m-theme-picker')">✕</button></div>
     <p style="font-size:13px;color:var(--ink4);font-style:italic;margin-bottom:16px">Each theme is designed to match a genre and feel — not just a color swap. Pick what fits your game.</p>
     <div class="theme-grid" id="theme-grid"></div>
     <div class="modal-acts"><button class="btn primary" onclick="closeM('m-theme-picker')">Done</button></div>
@@ -2250,7 +2827,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- Bug Report -->
 <div class="overlay" id="m-bug">
   <div class="modal">
-    <div class="modal-title">🐛 Bug Report</div>
+    <div class="modal-title"><span>🐛 Bug Report</span><button class="modal-x" onclick="closeM('m-bug')">✕</button></div>
     <p style="font-size:14px;color:var(--ink3);margin-bottom:12px;line-height:1.6">This report captures your current state so the developer can reproduce the issue. Copy it and send it directly.</p>
     <div class="fld">
       <label class="fld-lbl">Describe the problem (optional)</label>
@@ -2268,7 +2845,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- Export -->
 <div class="overlay" id="m-export">
   <div class="modal">
-    <div class="modal-title">Export Document</div>
+    <div class="modal-title"><span>Export Document</span><button class="modal-x" onclick="closeM('m-export')">✕</button></div>
     <p style="font-size:14px;color:var(--ink3);margin-bottom:18px;font-style:italic">Export your full GDD across all sections.</p>
     <div style="display:flex;flex-direction:column;gap:8px">
       <button class="btn primary" style="text-align:center" onclick="exportMD()">↓ Markdown (.md) — Best for GitHub</button>
@@ -2285,7 +2862,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- Import JSON -->
 <div class="overlay" id="m-import">
   <div class="modal">
-    <div class="modal-title">↑ Import JSON Backup</div>
+    <div class="modal-title"><span>↑ Import JSON Backup</span><button class="modal-x" onclick="closeM('m-import')">✕</button></div>
     <p style="font-size:14px;color:var(--ink3);margin-bottom:16px;line-height:1.6">Paste a JSON backup exported from The Codex. It will be added as a new project — nothing existing will be overwritten.</p>
     <div class="fld">
       <label class="fld-lbl">Paste JSON here</label>
@@ -2301,7 +2878,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- New Project -->
 <div class="overlay" id="m-newproj">
   <div class="modal">
-    <div class="modal-title">New Project</div>
+    <div class="modal-title"><span>New Project</span><button class="modal-x" onclick="closeM('m-newproj')">✕</button></div>
     <div class="fld"><label class="fld-lbl">Project Name</label><input class="fld-inp" id="np-name" placeholder="My Game"></div>
     <div class="modal-acts"><button class="btn" onclick="closeM('m-newproj')">Cancel</button><button class="btn primary" onclick="confirmNewProj()">Create</button></div>
   </div>
@@ -2310,7 +2887,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- Add Link -->
 <div class="overlay" id="m-link">
   <div class="modal">
-    <div class="modal-title">Attach a Link</div>
+    <div class="modal-title"><span>Attach a Link</span><button class="modal-x" onclick="closeM('m-link')">✕</button></div>
     <div class="fld"><label class="fld-lbl">Label</label><input class="fld-inp" id="lm-label" placeholder="e.g. Character Concepts (Figma)"></div>
     <div class="fld"><label class="fld-lbl">URL</label><input class="fld-inp" id="lm-url" placeholder="https://…"></div>
     <div class="modal-acts"><button class="btn" onclick="closeM('m-link')">Cancel</button><button class="btn primary" onclick="confirmLink()">Attach</button></div>
@@ -2320,7 +2897,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- App Changelog -->
 <div class="overlay" id="m-changelog">
   <div class="modal" style="width:560px">
-    <div class="modal-title">📋 App Changelog</div>
+    <div class="modal-title"><span>📋 App Changelog</span><button class="modal-x" onclick="closeM('m-changelog')">✕</button></div>
     <p style="font-size:13px;color:var(--ink4);font-style:italic;margin-bottom:16px">Every version of The Codex and what changed.</p>
     <div id="changelog-content"></div>
     <div class="modal-acts"><button class="btn primary" onclick="closeM('m-changelog')">Close</button></div>
@@ -2330,7 +2907,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 <!-- Cost Modal -->
 <div class="overlay" id="m-cost">
   <div class="modal">
-    <div class="modal-title">💰 Session Cost Estimator</div>
+    <div class="modal-title"><span>💰 Session Cost Estimator</span><button class="modal-x" onclick="closeM('m-cost')">✕</button></div>
     <p style="font-size:14px;color:var(--ink3);margin-bottom:16px;line-height:1.6">Claude Sonnet 4.6: <strong>$3.00</strong>/M input tokens · <strong>$15.00</strong>/M output tokens. A typical review costs a fraction of a cent.</p>
     <div id="cost-modal-rows"></div>
     <div class="modal-acts">
@@ -2363,48 +2940,74 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
       <div class="fc-sep"></div>
       <button class="fc-tool-btn" onclick="fcExportSVG()">↓ SVG</button>
       <button class="fc-tool-btn" onclick="fcSave()">Save to Entry</button>
-      <button class="fc-tool-btn danger" onclick="closeFCModal()">✕ Close</button>
+      <button class="fc-tool-btn close-btn" onclick="closeFCModal()">✕ Close</button>
     </div>
 
     <div class="fc-body">
 
       <!-- Palette -->
       <div class="fc-palette">
-        <div class="fc-palette-label">Process</div>
-        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'rect','Process')" onclick="fcAddNode('rect','Process')">
-          <span class="fc-shape">▭</span> Process
-        </div>
-        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'rounded','Action')" onclick="fcAddNode('rounded','Action')">
-          <span class="fc-shape">▢</span> Action
-        </div>
-
-        <div class="fc-palette-label">Decision</div>
-        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'diamond','Decision')" onclick="fcAddNode('diamond','Decision')">
-          <span class="fc-shape">◇</span> Decision
-        </div>
-
         <div class="fc-palette-label">Flow</div>
         <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'oval','Start')" onclick="fcAddNode('oval','Start')">
-          <span class="fc-shape">⬭</span> Start/End
+          <svg width="32" height="18" viewBox="0 0 32 18"><ellipse cx="16" cy="9" rx="14" ry="7" fill="#1e1f22" stroke="#5865f2" stroke-width="1.5"/></svg>
+          Start/End
         </div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'rect','Process')" onclick="fcAddNode('rect','Process')">
+          <svg width="32" height="18" viewBox="0 0 32 18"><rect x="2" y="3" width="28" height="12" rx="2" fill="#f8f9ff" stroke="#5865f2" stroke-width="1.5"/><rect x="2" y="3" width="4" height="12" rx="2" fill="#5865f2"/></svg>
+          Process
+        </div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'rounded','Action')" onclick="fcAddNode('rounded','Action')">
+          <svg width="32" height="18" viewBox="0 0 32 18"><rect x="2" y="3" width="28" height="12" rx="6" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/></svg>
+          Action
+        </div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'diamond','Decision')" onclick="fcAddNode('diamond','Decision')">
+          <svg width="32" height="18" viewBox="0 0 32 18"><polygon points="16,1 30,9 16,17 2,9" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/></svg>
+          Decision
+        </div>
+
+        <div class="fc-palette-label">Data</div>
         <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'parallelogram','Input')" onclick="fcAddNode('parallelogram','Input/Output')">
-          <span class="fc-shape">▱</span> Input/Output
+          <svg width="32" height="18" viewBox="0 0 32 18"><polygon points="6,3 30,3 26,15 2,15" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="1.5"/></svg>
+          Input/Output
         </div>
-
-        <div class="fc-palette-label">Annotation</div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'cylinder','Database')" onclick="fcAddNode('cylinder','Database')">
+          <svg width="32" height="18" viewBox="0 0 32 18"><rect x="4" y="6" width="24" height="8" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.5"/><ellipse cx="16" cy="6" rx="12" ry="4" fill="#f5e6ff" stroke="#a855f7" stroke-width="1.5"/><ellipse cx="16" cy="14" rx="12" ry="4" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.5"/></svg>
+          Database
+        </div>
         <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'note','Note')" onclick="fcAddNode('note','Note')">
-          <span class="fc-shape">📝</span> Note
+          <svg width="32" height="18" viewBox="0 0 32 18"><polygon points="2,2 24,2 30,8 30,16 2,16" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/><polygon points="24,2 30,8 24,8" fill="#ca8a04" fill-opacity="0.25" stroke="#ca8a04" stroke-width="1"/></svg>
+          Note
         </div>
 
-        <div class="fc-palette-label">Quick Add</div>
+        <div class="fc-palette-label">Special</div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'hexagon','Trigger')" onclick="fcAddNode('hexagon','Trigger')">
+          <svg width="32" height="18" viewBox="0 0 32 18"><polygon points="2,9 7,2 25,2 30,9 25,16 7,16" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.5"/></svg>
+          Trigger
+        </div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'cloud','External')" onclick="fcAddNode('cloud','External')">
+          <svg width="32" height="18" viewBox="0 0 32 18"><rect x="2" y="3" width="28" height="12" rx="8" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4,2"/></svg>
+          External
+        </div>
+        <div class="fc-node-template" draggable="true" ondragstart="fcDragStart(event,'subprocess','Sub-Process')" onclick="fcAddNode('subprocess','Sub-Process')">
+          <svg width="32" height="18" viewBox="0 0 32 18"><rect x="1" y="2" width="30" height="14" rx="3" fill="#f8f9ff" stroke="#6366f1" stroke-width="2.5"/><rect x="5" y="6" width="22" height="6" rx="1" fill="none" stroke="#6366f1" stroke-width="1"/></svg>
+          Sub-Process
+        </div>
+
+        <div class="fc-palette-label">Templates</div>
         <div class="fc-node-template" onclick="fcAddTemplate('gameloop')" style="font-size:11px">
-          <span class="fc-shape">∞</span> Game Loop
+          ∞ Game Loop
         </div>
         <div class="fc-node-template" onclick="fcAddTemplate('decision')" style="font-size:11px">
-          <span class="fc-shape">◇</span> Decision Tree
+          ◇ Decision Tree
         </div>
         <div class="fc-node-template" onclick="fcAddTemplate('statemachine')" style="font-size:11px">
-          <span class="fc-shape">⊙</span> State Machine
+          ⊙ State Machine
+        </div>
+        <div class="fc-node-template" onclick="fcAddTemplate('inputsystem')" style="font-size:11px">
+          ⌨ Input System
+        </div>
+        <div class="fc-node-template" onclick="fcAddTemplate('uiflow')" style="font-size:11px">
+          □ UI Flow
         </div>
       </div>
 
@@ -2442,21 +3045,33 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
             <input class="fc-prop-inp" id="fc-prop-label" oninput="fcUpdateNodeLabel(this.value)" placeholder="Node label…">
             <label class="fc-prop-lbl">Shape</label>
             <select class="fc-prop-sel" id="fc-prop-shape" onchange="fcUpdateNodeShape(this.value)">
-              <option value="rect">Process (Rectangle)</option>
-              <option value="rounded">Action (Rounded)</option>
-              <option value="diamond">Decision (Diamond)</option>
-              <option value="oval">Start/End (Oval)</option>
-              <option value="parallelogram">Input/Output</option>
-              <option value="note">Note</option>
+              <option value="oval">⬭ Start/End (Oval)</option>
+              <option value="rect">▭ Process (Rectangle)</option>
+              <option value="rounded">▢ Action (Rounded)</option>
+              <option value="diamond">◇ Decision (Diamond)</option>
+              <option value="parallelogram">▱ Input/Output</option>
+              <option value="cylinder">⬛ Database (Cylinder)</option>
+              <option value="hexagon">⬡ Trigger (Hexagon)</option>
+              <option value="cloud">☁ External (Cloud)</option>
+              <option value="subprocess">▣ Sub-Process</option>
+              <option value="note">📝 Note</option>
             </select>
-            <label class="fc-prop-lbl">Color</label>
+            <label class="fc-prop-lbl">Fill Color</label>
             <div class="fc-color-row">
-              <div class="fc-color-swatch" style="background:#fff;border:1px solid #ccc" onclick="fcSetNodeColor('#fff','#333')" title="White"></div>
-              <div class="fc-color-swatch" style="background:#e8f4f8" onclick="fcSetNodeColor('#e8f4f8','#0d4848')" title="Teal tint"></div>
-              <div class="fc-color-swatch" style="background:#f5ecd7" onclick="fcSetNodeColor('#f5ecd7','#9a6e18')" title="Gold tint"></div>
-              <div class="fc-color-swatch" style="background:#f8e8e8" onclick="fcSetNodeColor('#f8e8e8','#761212')" title="Red tint"></div>
-              <div class="fc-color-swatch" style="background:#e8f0e8" onclick="fcSetNodeColor('#e8f0e8','#304830')" title="Green tint"></div>
-              <div class="fc-color-swatch" style="background:#272018" onclick="fcSetNodeColor('#272018','#e4b040')" title="Dark"></div>
+              <div class="fc-color-swatch" style="background:#f8f9ff;border:2px solid #5865f2" onclick="fcSetNodeColor('#f8f9ff','#1e1f22')" title="Blue-Violet"></div>
+              <div class="fc-color-swatch" style="background:#f0fdf4;border:2px solid #10b981" onclick="fcSetNodeColor('#f0fdf4','#064e3b')" title="Green"></div>
+              <div class="fc-color-swatch" style="background:#fffbeb;border:2px solid #f59e0b" onclick="fcSetNodeColor('#fffbeb','#78350f')" title="Amber"></div>
+              <div class="fc-color-swatch" style="background:#fff1f2;border:2px solid #f43f5e" onclick="fcSetNodeColor('#fff1f2','#881337')" title="Red"></div>
+              <div class="fc-color-swatch" style="background:#fdf4ff;border:2px solid #a855f7" onclick="fcSetNodeColor('#fdf4ff','#581c87')" title="Purple"></div>
+              <div class="fc-color-swatch" style="background:#f0f9ff;border:2px solid #0ea5e9" onclick="fcSetNodeColor('#f0f9ff','#0c4a6e')" title="Sky"></div>
+              <div class="fc-color-swatch" style="background:#fefce8;border:2px solid #ca8a04" onclick="fcSetNodeColor('#fefce8','#713f12')" title="Yellow"></div>
+              <div class="fc-color-swatch" style="background:#1e1f22;border:2px solid #5865f2" onclick="fcSetNodeColor('#1e1f22','#ffffff')" title="Dark"></div>
+            </div>
+            <label class="fc-prop-lbl" style="margin-top:10px">Size</label>
+            <div style="display:flex;gap:6px">
+              <button class="fc-tool-btn" style="flex:1;font-size:9px" onclick="fcResizeNode(120,40)">Small</button>
+              <button class="fc-tool-btn" style="flex:1;font-size:9px" onclick="fcResizeNode(160,48)">Medium</button>
+              <button class="fc-tool-btn" style="flex:1;font-size:9px" onclick="fcResizeNode(200,60)">Large</button>
             </div>
             <label class="fc-prop-lbl" style="margin-top:12px">Note / Tooltip</label>
             <textarea class="fc-prop-ta" id="fc-prop-note" oninput="fcUpdateNodeNote(this.value)" placeholder="Optional note…"></textarea>
@@ -2521,7 +3136,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
       <button class="mm-tool-btn" onclick="mmColorCycle()" title="Cycle branch color">🎨 Color</button>
       <button class="mm-tool-btn" onclick="mmExportSVG()">↓ SVG</button>
       <button class="mm-tool-btn" onclick="mmSave()">Save to Entry</button>
-      <button class="mm-tool-btn danger" onclick="closeMMModal()">✕ Close</button>
+      <button class="mm-tool-btn close-btn" onclick="closeMMModal()">✕ Close</button>
     </div>
 
     <div class="mm-body">
@@ -2551,7 +3166,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     <button class="sm-btn" onclick="smUndo()">↩ Undo</button>
     <button class="sm-btn" onclick="smExportSVG()">↓ SVG</button>
     <button class="sm-btn primary" onclick="smSave()">Save</button>
-    <button class="sm-btn danger" onclick="closeSystemsMap()">✕ Close</button>
+    <button class="sm-btn close-btn" onclick="closeSystemsMap()">✕ Close</button>
   </div>
 
   <div class="sm-subbar">
@@ -2588,6 +3203,14 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
       <div class="sm-props-body">
         <label class="sm-prop-lbl">Label</label>
         <input class="sm-prop-inp" id="sm-prop-label" placeholder="Node label…" oninput="smUpdateLabel(this.value)">
+        <label class="sm-prop-lbl">Shape</label>
+        <select class="sm-prop-inp" id="sm-prop-shape" onchange="smUpdateShape(this.value)" style="padding:5px 8px;cursor:pointer">
+          <option value="rect">▭ System (Rectangle)</option>
+          <option value="rounded">▢ Process (Rounded)</option>
+          <option value="diamond">◇ Decision / Branch</option>
+          <option value="oval">⬭ Start / End</option>
+          <option value="hexagon">⬡ Trigger / Event</option>
+        </select>
         <label class="sm-prop-lbl">Notes</label>
         <textarea class="sm-prop-ta" id="sm-prop-notes" placeholder="Details, design notes…" oninput="smUpdateNotes(this.value)"></textarea>
         <label class="sm-prop-lbl">Color</label>
@@ -2606,6 +3229,47 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     <span>Edges: <b id="sm-edge-count">0</b></span>
     <span>Depth: <b id="sm-depth">1</b></span>
     <span style="margin-left:auto">Scroll to zoom · Drag canvas to pan · Double-click node to drill in · Backspace to go up</span>
+  </div>
+</div>
+
+<!-- Guiding Questions Panel -->
+<div class="gq-panel" id="gq-panel">
+  <div class="gq-hdr">
+    <div class="gq-title" id="gq-panel-title">❓ Guiding Questions</div>
+    <button class="gq-close" onclick="closeGQ()">✕</button>
+  </div>
+  <div class="gq-body" id="gq-body"></div>
+</div>
+
+<!-- Reading Mode Overlay -->
+<div class="rm-overlay" id="rm-overlay">
+  <div class="rm-topbar">
+    <div>
+      <div class="rm-section-name" id="rm-section-name">Section</div>
+      <div class="rm-title" id="rm-title">Reading View</div>
+    </div>
+    <div style="flex:1"></div>
+    <button class="rm-btn" onclick="window.print()">🖨 Print</button>
+    <button class="rm-btn primary" onclick="rmExportMarkdown()">↓ Markdown</button>
+    <button class="rm-btn close" onclick="closeReadMode()">✕ Close</button>
+  </div>
+  <div class="rm-body">
+    <div class="rm-doc" id="rm-doc"></div>
+  </div>
+</div>
+
+<!-- Onboarding Wizard -->
+<div class="ob-overlay" id="ob-overlay">
+  <div class="ob-modal">
+    <div class="ob-progress">
+      <div class="ob-progress-fill" id="ob-prog-fill" style="width:0%"></div>
+    </div>
+    <div class="ob-body" id="ob-body"></div>
+    <div class="ob-footer">
+      <button class="ob-skip" id="ob-skip" onclick="obSkip()">Skip setup</button>
+      <button class="ob-back" id="ob-back" onclick="obBack()" style="display:none">← Back</button>
+      <button class="ob-next" id="ob-next" onclick="obNext()">Get Started →</button>
+    </div>
   </div>
 </div>
 
@@ -2678,6 +3342,8 @@ let S = {
   customSections: [],
   readMode: false,
   currentTheme: 'parchment',
+  kanbanMode: false,
+  collapsedGroups: {},
   cost: { sIn: 0, sOut: 0, calls: [], lastIn: 0, lastOut: 0 },
 };
 
@@ -2800,9 +3466,46 @@ function secData() {
 
 function completion(key) {
   const p = proj(); if (!p || !p.data || !p.data[key]) return 0;
-  const e = p.data[key].entries || [];
-  if (!e.length) return 0;
-  return Math.round(e.filter(x => strip(x.content).length > 20).length / e.length * 100);
+  const entries = p.data[key].entries || [];
+  if (!entries.length) return 0;
+
+  // Skip cut entries entirely — they don't count for or against
+  const active = entries.filter(e => e.status !== 'cut');
+  if (!active.length) return 0;
+
+  let totalScore = 0;
+  let totalPossible = 0;
+
+  active.forEach(entry => {
+    const status = entry.status || 'concept';
+    const words = wc(entry.content);
+    const target = parseInt(entry.wcTarget) || 0;
+
+    // Base score by status
+    let base = 0;
+    if (status === 'approved')    base = 1.00;
+    else if (status === 'in-progress' || status === 'progress') base = 0.60;
+    else if (status === 'concept' && words > 20) base = 0.30;
+    else base = 0.05; // concept with no real content
+
+    // If word count target set, scale by how close they are
+    let score = base;
+    if (target > 0 && status !== 'approved') {
+      const wcRatio = Math.min(1, words / target);
+      // Blend: half from status, half from word count progress
+      score = base * 0.5 + base * wcRatio * 0.5;
+    }
+
+    // Bonus for entries with AI comments resolved
+    const resolvedCmts = (entry.comments || []).filter(c => c.resolved).length;
+    const totalCmts = (entry.comments || []).length;
+    if (totalCmts > 0) score = Math.min(1, score + resolvedCmts / totalCmts * 0.10);
+
+    totalScore += score;
+    totalPossible += 1;
+  });
+
+  return Math.round((totalScore / totalPossible) * 100);
 }
 
 function linkIcon(url) {
@@ -2888,11 +3591,112 @@ function resetCost() {
 
 /*  Reading Mode  */
 function toggleReadMode() {
-  S.readMode = !S.readMode;
-  document.getElementById('content-area').classList.toggle('reading-mode', S.readMode);
+  if (S.section === '__home') { toast('Open a section first to use Reading View', 'warn'); return; }
+  openReadMode();
+}
+
+function openReadMode() {
+  const p = proj(); if (!p) return;
+  if (S.section === '__home') return;
+  const sec = secData();
+  const def = getDef(S.section);
+  const entries = sec?.entries || [];
+
+  // Set header
+  const sectionLabel = (def.cat && def.title) ? `${def.cat} — ${def.title}` : (def.title || S.section);
+  document.getElementById('rm-section-name').textContent = sectionLabel;
+  document.getElementById('rm-title').textContent = p.theme?.name || p.name || 'My Game';
+
+  // Build document
+  const doc = document.getElementById('rm-doc');
+  const totalWords = entries.reduce((a, e) => a + wc(e.content), 0);
+  const approved = entries.filter(e => e.status === 'approved').length;
+
+  let html = `
+    <div class="rm-doc-title">${esc(def.title)}</div>
+    <div class="rm-doc-sub">${esc(def.sub)}</div>
+    <div class="rm-doc-meta">
+      <span class="rm-doc-meta-item">${entries.length} ${entries.length === 1 ? 'entry' : 'entries'}</span>
+      <span class="rm-doc-meta-item">${totalWords.toLocaleString()} words</span>
+      ${approved ? `<span class="rm-doc-meta-item">${approved} approved</span>` : ''}
+      <span class="rm-doc-meta-item">${p.theme?.name || p.name || ''}</span>
+    </div>`;
+
+  if (!entries.length) {
+    html += `<div class="rm-empty">No entries in this section yet.</div>`;
+  } else {
+    entries.forEach(entry => {
+      if (entry.status === 'cut') return; // skip cut entries in reading view
+      const status = entry.status || 'concept';
+      const bodyHtml = rmRenderContent(entry.content || '');
+      html += `
+        <div class="rm-entry">
+          <div class="rm-entry-header">
+            <div class="rm-entry-title">${esc(entry.title || 'Untitled')}</div>
+            <span class="rm-entry-badge ${status}">${status === 'in-progress' ? 'In Progress' : status.charAt(0).toUpperCase() + status.slice(1)}</span>
+          </div>
+          ${bodyHtml ? `<div class="rm-entry-body">${bodyHtml}</div>` : '<div class="rm-entry-body" style="color:#949ba4;font-style:italic">No content yet.</div>'}
+          ${(entry.tags||[]).length ? `<div class="rm-entry-tags">${entry.tags.map(t => `<span class="rm-entry-tag">${esc(t)}</span>`).join('')}</div>` : ''}
+        </div>`;
+    });
+  }
+
+  doc.innerHTML = html;
+  document.getElementById('rm-overlay').classList.add('open');
+  S.readMode = true;
   const btn = document.getElementById('read-btn');
-  btn.classList.toggle('read-active', S.readMode);
-  btn.textContent = S.readMode ? '✕ Read' : '◉ Read';
+  if (btn) { btn.classList.add('read-active'); btn.textContent = '◉ Reading'; }
+}
+
+function closeReadMode() {
+  document.getElementById('rm-overlay').classList.remove('open');
+  S.readMode = false;
+  const btn = document.getElementById('read-btn');
+  if (btn) { btn.classList.remove('read-active'); btn.textContent = '◉ Read'; }
+}
+
+function rmRenderContent(raw) {
+  if (!raw) return '';
+  // Convert rich-text HTML to clean reading HTML
+  // Strip editor artifacts, normalize
+  let html = raw
+    .replace(/<div>/gi, '<p>')
+    .replace(/<\/div>/gi, '</p>')
+    .replace(/<br\s*\/?>/gi, '<br>')
+    .replace(/\[\[([^\]]+)\]\]/g, '<strong>$1</strong>'); // cross-refs
+  return html;
+}
+
+function rmExportMarkdown() {
+  const p = proj(); if (!p) return;
+  const sec = secData();
+  const def = getDef(S.section);
+  const entries = sec?.entries || [];
+
+  let md = `# ${def.title}\n`;
+  md += `*${def.sub}*\n\n`;
+  md += `**Project:** ${p.theme?.name || p.name}\n\n---\n\n`;
+
+  entries.forEach(entry => {
+    if (entry.status === 'cut') return;
+    md += `## ${entry.title || 'Untitled'}\n`;
+    md += `*Status: ${entry.status || 'concept'}*\n\n`;
+    if (entry.content) {
+      const text = entry.content
+        .replace(/<[^>]+>/g, '')
+        .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ');
+      md += text.trim() + '\n\n';
+    }
+    if ((entry.tags||[]).length) md += `**Tags:** ${entry.tags.join(', ')}\n\n`;
+    md += '---\n\n';
+  });
+
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (def.title || 'section').replace(/\s+/g, '_').toLowerCase() + '.md';
+  a.click();
+  toast('Exported as Markdown');
 }
 
 /*  Keyboard Shortcuts  */
@@ -2983,13 +3787,14 @@ function renderNav() {
   let html = '';
   Object.entries(grouped).forEach(([cat, items]) => {
     const gid = 'g_' + cat.replace(/\W/g,'');
+    const isCollapsed = !!S.collapsedGroups[gid];
     html += `
       <div>
         <div class="sb-group-hd" onclick="toggleGroup('${gid}')">
           <span class="sb-gl">${esc(cat)}</span>
-          <span class="sb-garr open" id="arr-${gid}">▶</span>
+          <span class="sb-garr ${isCollapsed ? '' : 'open'}" id="arr-${gid}">▶</span>
         </div>
-        <div id="${gid}">`;
+        <div id="${gid}" style="display:${isCollapsed ? 'none' : ''}">`;
     items.forEach(s => {
       const pct = completion(s.key);
       const ai = p && p.data && p.data[s.key] ? (p.data[s.key].entries||[]).reduce((a,e) => a+(e.comments||[]).length, 0) : 0;
@@ -2998,7 +3803,7 @@ function renderNav() {
           <span class="sb-ico">${s.icon||'◆'}</span>
           <span class="sb-lbl">${esc(s.title)}</span>
           ${ai ? `<span class="sb-badge">${ai}</span>` : ''}
-          ${pct > 0 ? `<span class="sb-pct ${pct===100?'full':''}">${pct}%</span>` : `<span class="sb-pct">—</span>`}
+          ${pct > 0 ? `<span class="sb-pct ${pct>=100?'full':pct>=60?'good':pct>=30?'mid':''}">${pct}%</span>` : `<span class="sb-pct">—</span>`}
         </div>`;
     });
     html += `</div><div class="sb-div"></div></div>`;
@@ -3009,9 +3814,13 @@ function renderNav() {
 function toggleGroup(gid) {
   const el = document.getElementById(gid);
   const arr = document.getElementById('arr-' + gid);
+  if (!el) return;
   const open = el.style.display !== 'none';
   el.style.display = open ? 'none' : '';
   arr.classList.toggle('open', !open);
+  // Persist collapsed state
+  if (!S.collapsedGroups) S.collapsedGroups = {};
+  S.collapsedGroups[gid] = open; // open=true means we're collapsing it
 }
 
 function goHome() {
@@ -3044,11 +3853,14 @@ function switchSection(key) {
   const ver = p && p.data && p.data[key] ? (p.data[key].version||'1.0') : '1.0';
   document.getElementById('sh-ver').textContent = 'v' + ver;
   document.getElementById('sh-acts').innerHTML = `
+    <button class="btn sm" id="btn-kanban-toggle" onclick="toggleKanban()" title="Kanban board view">⊞ Board</button>
+    <button class="btn sm" onclick="openGQ()" title="Show guiding questions for this section">❓ Questions</button>
     <button class="btn sm" onclick="togglePin()" title="Pin a note to this section">📌 Pin</button>
     <button class="btn sm" onclick="openAddEntry()">+ Entry</button>
     <button class="btn sm" onclick="snapshot()">Snapshot</button>
     <button class="btn sm ai" onclick="reviewSection()">✦ Review</button>
   `;
+  S.kanbanMode = false; // reset on section change
   // Nav highlight
   document.querySelectorAll('.sb-item, .sb-home').forEach(e => e.classList.remove('active'));
   const el = document.getElementById('sbi-' + key);
@@ -3125,8 +3937,8 @@ function renderDashboard() {
           <div class="dash-card-title">${esc(s.title)}</div>
           <div class="dash-card-sub">${esc(s.sub)}</div>
           <div class="dash-card-foot">
-            <span class="dash-card-pct">${pct}%</span>
-            <div class="dash-card-prog"><div class="dash-card-prog-fill" style="width:${pct}%"></div></div>
+            <span class="dash-card-pct" style="color:${pct>=100?'#4ade80':pct>=60?'var(--teal3)':pct>=30?'var(--amber2)':'var(--ink4)'}">${pct > 0 ? pct+'%' : '—'}</span>
+            <div class="dash-card-prog"><div class="dash-card-prog-fill" style="width:${pct}%;background:${pct>=100?'#4ade80':pct>=60?'var(--teal3)':pct>=30?'var(--amber2)':'var(--ink5)'}"></div></div>
             ${notes ? `<span class="dash-card-notes">${notes} note${notes>1?'s':''}</span>` : ''}
             <span class="dash-card-words">${entries} entr${entries===1?'y':'ies'}</span>
           </div>
@@ -3160,20 +3972,52 @@ function renderDashboard() {
 === */
 function renderContent() {
   if (S.section === '__home') { renderDashboard(); return; }
+  if (S.section === '__completed') { renderCompleted(); return; }
   // Remove any existing pinned note bar first
   const oldPin = document.getElementById('pinned-note-bar');
   if (oldPin) oldPin.remove();
   const area = document.getElementById('content-area');
   const p = proj();
   if (!p) { area.innerHTML = buildEmpty('No project loaded','Create or select a project.',[]); return; }
+
+  // Custom UI for Design Pillars
+  if (S.section === 'pillars') { renderPillars(); return; }
+
+  // Custom UI for Overview — hero + entries
+  if (S.section === 'overview') {
+    if (S.kanbanMode) { renderKanban(); return; }
+    renderOverview(); return;
+  }
+
   const sec = secData();
   const entries = sec ? (sec.entries||[]) : [];
+
+  // Kanban mode — show board regardless of entry count
+  if (S.kanbanMode) {
+    renderKanban();
+    return;
+  }
+
+  // Update toggle button state
+  const kbBtn = document.getElementById('btn-kanban-toggle');
+  if (kbBtn) kbBtn.classList.toggle('kanban-active', S.kanbanMode);
+
   if (!entries.length) {
     const def = getDef(S.section);
     area.innerHTML = buildEmpty(def.title + ' is empty', 'Add your first entry below.', def.qs) + buildAddBar();
   } else {
+    const incomplete = entries.map((e,i) => ({e,i})).filter(({e}) => e.status !== 'approved');
+    const complete   = entries.map((e,i) => ({e,i})).filter(({e}) => e.status === 'approved');
     let html = '';
-    entries.forEach((e, i) => { html += buildCard(e, i); });
+    incomplete.forEach(({e,i}) => { html += buildCard(e, i); });
+    if (complete.length) {
+      html += `<div class="completed-divider">
+        <div class="completed-divider-line"></div>
+        <div class="completed-divider-label">✓ Completed <span class="completed-divider-count">${complete.length}</span></div>
+        <div class="completed-divider-line" style="background:linear-gradient(90deg,transparent,var(--sage2))"></div>
+      </div>`;
+      complete.forEach(({e,i}) => { html += buildCard(e, i, true); });
+    }
     html += buildAddBar();
     area.innerHTML = html;
     updateProgress();
@@ -3203,7 +4047,7 @@ function buildAddBar() {
     </div>`;
 }
 
-function buildCard(entry, idx) {
+function buildCard(entry, idx, isApprovedSection) {
   const type = entry.type || 'core';
   const status = entry.status || 'concept';
   const priority = entry.priority || 'must';
@@ -3264,7 +4108,7 @@ function buildCard(entry, idx) {
   const hasCmts = (entry.comments||[]).length > 0;
 
   return `
-    <div class="entry-card ${locked?'locked':''}" data-type="${esc(type)}" id="card-${idx}">
+    <div class="entry-card ${locked?'locked':''} ${isApprovedSection?'is-approved':''}" data-type="${esc(type)}" id="card-${idx}">
       <div class="card-hd" onclick="${locked?'':('toggleCard('+idx+')')}">
         ${!locked ? `<span class="card-drag">⠿</span>` : ''}
         <input class="card-title" value="${esc(entry.title||'')}" placeholder="Entry title…"
@@ -3273,7 +4117,7 @@ function buildCard(entry, idx) {
         ${ringHtml}
         <select class="status-sel st-${esc(status)}" onclick="event.stopPropagation()" onchange="updateStatus(${idx},this.value)" ${locked?'disabled':''}>
           <option value="concept"  ${status==='concept' ?'selected':''}>Concept</option>
-          <option value="progress" ${status==='progress'?'selected':''}>In Progress</option>
+          <option value="in-progress" ${status==='in-progress'||status==='progress'?'selected':''}>In Progress</option>
           <option value="approved" ${status==='approved'?'selected':''}>Approved</option>
           <option value="cut"      ${status==='cut'     ?'selected':''}>Cut</option>
         </select>
@@ -3471,18 +4315,6 @@ function closeMore() {
   if (m) m.classList.remove('open');
 }
 
-function openAddEntry(type) {
-  if (!proj()) { toast('Create a project first'); return; }
-  document.getElementById('em-title').value = '';
-  document.getElementById('em-content').value = '';
-  document.getElementById('em-wc-target').value = '';
-  document.getElementById('em-status').value = 'concept';
-  document.getElementById('em-priority').value = 'must';
-  if (type) document.getElementById('em-type').value = type;
-  openM('m-entry');
-}
-function openAddEntryType(t) { openAddEntry(t); }
-
 function confirmEntry() {
   const title = document.getElementById('em-title').value.trim() || 'Untitled Entry';
   const type = document.getElementById('em-type').value;
@@ -3491,7 +4323,14 @@ function confirmEntry() {
   const wcTarget = parseInt(document.getElementById('em-wc-target').value) || 0;
   const content = document.getElementById('em-content').value.trim();
   const sec = secData();
-  sec.entries.push({ title, type, status, priority, wcTarget, content, open:true, edited:'just now', comments:[], tags:[], images:[], links:[], locked:false });
+  if (!sec) return;
+  if (!sec.entries) sec.entries = [];
+  sec.entries.push({
+    title, type, status, priority, wcTarget, content,
+    open: true, edited: 'just now',
+    comments: [], tags: [], images: [], links: [],
+    flowcharts: [], mindmaps: [], locked: false,
+  });
   closeM('m-entry');
   renderContent(); renderNav(); updateStats(); scheduleSave();
   logChange(`Added entry "${title}" to ${getDef(S.section).title}`, 'entry');
@@ -3534,9 +4373,11 @@ function updateType(idx, val) {
 function updateStatus(idx, val) {
   const sec = secData(); if (!sec || !sec.entries[idx]) return;
   sec.entries[idx].status = val;
-  // Update badge class live without full re-render
   const sel = document.querySelector(`#card-${idx} .status-sel`);
   if (sel) sel.className = `status-sel st-${val}`;
+  // Update progress bar and sidebar % live
+  updateProgress();
+  renderNav();
   scheduleSave();
 }
 function updatePriority(idx, val) {
@@ -3782,8 +4623,23 @@ function updateStats() {
 
 function updateProgress() {
   const pct = S.section !== '__home' ? completion(S.section) : 0;
-  document.getElementById('sh-prog').style.width = pct + '%';
-  document.getElementById('sh-pct').textContent = pct > 0 ? pct + '%' : '';
+  const fill = document.getElementById('sh-prog');
+  const pctEl = document.getElementById('sh-pct');
+
+  if (fill) {
+    fill.style.width = pct + '%';
+    // Apply tier class for color
+    fill.className = 'sh-prog-fill ' + (
+      pct >= 100 ? 'tier-full' :
+      pct >= 60  ? 'tier-good' :
+      pct >= 30  ? 'tier-mid'  : 'tier-low'
+    );
+  }
+
+  if (pctEl) {
+    pctEl.textContent = pct > 0 ? pct + '%' : '';
+    pctEl.style.color = pct >= 100 ? '#4ade80' : pct >= 60 ? 'var(--teal3)' : pct >= 30 ? 'var(--amber2)' : 'var(--ink4)';
+  }
 }
 
 /* ===
@@ -4245,6 +5101,8 @@ document.addEventListener('keydown', e => {
     if (_alOpen) closeAssetLibrary();
     if (document.getElementById('mm-modal')?.classList.contains('open')) closeMMModal();
     if (document.getElementById('sm-overlay')?.classList.contains('open')) closeSystemsMap();
+    if (_gqOpen) closeGQ();
+    if (S.readMode) closeReadMode();
   }
 });
 
@@ -4595,46 +5453,136 @@ function fcRender() {
     g.setAttribute('data-node-id', node.id);
     g.style.cursor = FC.tool === 'connect' ? 'crosshair' : 'move';
 
-    const fill = node.color || FC_COLORS[node.shape]?.fill || '#fff';
-    const stroke = FC_COLORS[node.shape]?.stroke || 'var(--ink3)';
-    const textColor = node.textColor || FC_COLORS[node.shape]?.text || 'var(--ink)';
+    const fill  = node.color      || FC_COLORS[node.shape]?.fill   || '#fff';
+    const stroke= node.strokeColor|| FC_COLORS[node.shape]?.stroke || '#5865f2';
+    const textColor = node.textColor || FC_COLORS[node.shape]?.text || '#1e1f22';
+    const sw = FC.selected === node.id ? '2.5' : '1.5';
+    const filter = FC.selected === node.id ? 'drop-shadow(0 2px 6px rgba(88,101,242,.35))' : 'drop-shadow(0 1px 3px rgba(0,0,0,.08))';
 
-    if (node.shape === 'rect') {
+    const shape = node.shape || 'rect';
+
+    if (shape === 'rect') {
       const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
-      r.setAttribute('x', node.x); r.setAttribute('y', node.y);
-      r.setAttribute('width', node.w); r.setAttribute('height', node.h);
-      r.setAttribute('rx','2'); r.setAttribute('fill',fill); r.setAttribute('stroke',stroke);
+      r.setAttribute('x',node.x); r.setAttribute('y',node.y);
+      r.setAttribute('width',node.w); r.setAttribute('height',node.h);
+      r.setAttribute('rx','4'); r.setAttribute('fill',fill);
+      r.setAttribute('stroke',stroke); r.setAttribute('stroke-width',sw);
+      r.setAttribute('filter',filter);
       g.appendChild(r);
-    } else if (node.shape === 'rounded') {
+      // Left accent bar
+      const bar = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bar.setAttribute('x',node.x); bar.setAttribute('y',node.y);
+      bar.setAttribute('width','4'); bar.setAttribute('height',node.h);
+      bar.setAttribute('rx','4'); bar.setAttribute('fill',stroke);
+      g.appendChild(bar);
+    } else if (shape === 'rounded') {
       const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
-      r.setAttribute('x', node.x); r.setAttribute('y', node.y);
-      r.setAttribute('width', node.w); r.setAttribute('height', node.h);
-      r.setAttribute('rx','16'); r.setAttribute('fill',fill); r.setAttribute('stroke',stroke);
+      r.setAttribute('x',node.x); r.setAttribute('y',node.y);
+      r.setAttribute('width',node.w); r.setAttribute('height',node.h);
+      r.setAttribute('rx', Math.min(node.h/2, 24)+'');
+      r.setAttribute('fill',fill); r.setAttribute('stroke',stroke);
+      r.setAttribute('stroke-width',sw); r.setAttribute('filter',filter);
       g.appendChild(r);
-    } else if (node.shape === 'diamond') {
-      const cx = node.x + node.w/2, cy = node.y + node.h/2;
+    } else if (shape === 'diamond') {
+      const cx = node.x+node.w/2, cy = node.y+node.h/2;
       const pts = `${cx},${node.y} ${node.x+node.w},${cy} ${cx},${node.y+node.h} ${node.x},${cy}`;
       const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
-      p.setAttribute('points',pts); p.setAttribute('fill',fill); p.setAttribute('stroke',stroke);
+      p.setAttribute('points',pts); p.setAttribute('fill',fill);
+      p.setAttribute('stroke',stroke); p.setAttribute('stroke-width',sw);
+      p.setAttribute('filter',filter);
       g.appendChild(p);
-    } else if (node.shape === 'oval') {
+    } else if (shape === 'oval') {
       const el = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
-      el.setAttribute('cx', node.x+node.w/2); el.setAttribute('cy', node.y+node.h/2);
-      el.setAttribute('rx', node.w/2); el.setAttribute('ry', node.h/2);
+      el.setAttribute('cx',node.x+node.w/2); el.setAttribute('cy',node.y+node.h/2);
+      el.setAttribute('rx',node.w/2); el.setAttribute('ry',node.h/2);
       el.setAttribute('fill',fill); el.setAttribute('stroke',stroke);
+      el.setAttribute('stroke-width',sw); el.setAttribute('filter',filter);
       g.appendChild(el);
-    } else if (node.shape === 'parallelogram') {
-      const off = 12;
+    } else if (shape === 'parallelogram') {
+      const off = 14;
       const pts = `${node.x+off},${node.y} ${node.x+node.w},${node.y} ${node.x+node.w-off},${node.y+node.h} ${node.x},${node.y+node.h}`;
       const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
-      p.setAttribute('points',pts); p.setAttribute('fill',fill); p.setAttribute('stroke',stroke);
+      p.setAttribute('points',pts); p.setAttribute('fill',fill);
+      p.setAttribute('stroke',stroke); p.setAttribute('stroke-width',sw);
+      p.setAttribute('filter',filter);
       g.appendChild(p);
-    } else if (node.shape === 'note') {
+    } else if (shape === 'note') {
+      // Note with folded corner
+      const fold = 14;
+      const pts = `${node.x},${node.y} ${node.x+node.w-fold},${node.y} ${node.x+node.w},${node.y+fold} ${node.x+node.w},${node.y+node.h} ${node.x},${node.y+node.h}`;
+      const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      p.setAttribute('points',pts); p.setAttribute('fill',fill);
+      p.setAttribute('stroke',stroke); p.setAttribute('stroke-width','1.5');
+      g.appendChild(p);
+      // Fold triangle
+      const fpts = `${node.x+node.w-fold},${node.y} ${node.x+node.w},${node.y+fold} ${node.x+node.w-fold},${node.y+fold}`;
+      const fp = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      fp.setAttribute('points',fpts); fp.setAttribute('fill',stroke); fp.setAttribute('fill-opacity','0.25');
+      fp.setAttribute('stroke',stroke); fp.setAttribute('stroke-width','1');
+      g.appendChild(fp);
+    } else if (shape === 'cylinder') {
+      // Database cylinder
+      const rx = node.w/2, ry = 10;
+      const cx = node.x+node.w/2;
+      const body = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      body.setAttribute('x',node.x); body.setAttribute('y',node.y+ry);
+      body.setAttribute('width',node.w); body.setAttribute('height',node.h-ry*2);
+      body.setAttribute('fill',fill); body.setAttribute('stroke',stroke);
+      body.setAttribute('stroke-width',sw);
+      g.appendChild(body);
+      // Bottom ellipse
+      const be = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+      be.setAttribute('cx',cx); be.setAttribute('cy',node.y+node.h-ry);
+      be.setAttribute('rx',rx); be.setAttribute('ry',ry);
+      be.setAttribute('fill',fill); be.setAttribute('stroke',stroke); be.setAttribute('stroke-width',sw);
+      g.appendChild(be);
+      // Top ellipse
+      const te = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+      te.setAttribute('cx',cx); te.setAttribute('cy',node.y+ry);
+      te.setAttribute('rx',rx); te.setAttribute('ry',ry);
+      te.setAttribute('fill',stroke); te.setAttribute('fill-opacity','0.20'); te.setAttribute('stroke',stroke); te.setAttribute('stroke-width',sw);
+      g.appendChild(te);
+    } else if (shape === 'hexagon') {
+      // Horizontal hexagon (trigger/event)
+      const hw = node.w/2, hh = node.h/2;
+      const cx = node.x+hw, cy = node.y+hh;
+      const side = hw * 0.4;
+      const pts = `${node.x},${cy} ${node.x+side},${node.y} ${node.x+node.w-side},${node.y} ${node.x+node.w},${cy} ${node.x+node.w-side},${node.y+node.h} ${node.x+side},${node.y+node.h}`;
+      const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      p.setAttribute('points',pts); p.setAttribute('fill',fill);
+      p.setAttribute('stroke',stroke); p.setAttribute('stroke-width',sw);
+      p.setAttribute('filter',filter);
+      g.appendChild(p);
+    } else if (shape === 'cloud') {
+      // Cloud / external system — rounded rect with bumps
       const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
-      r.setAttribute('x', node.x); r.setAttribute('y', node.y);
-      r.setAttribute('width', node.w); r.setAttribute('height', node.h);
-      r.setAttribute('rx','4'); r.setAttribute('fill',fill); r.setAttribute('stroke',stroke);
-      r.setAttribute('stroke-dasharray','4,3');
+      r.setAttribute('x',node.x); r.setAttribute('y',node.y);
+      r.setAttribute('width',node.w); r.setAttribute('height',node.h);
+      r.setAttribute('rx','20'); r.setAttribute('fill',fill);
+      r.setAttribute('stroke',stroke); r.setAttribute('stroke-width',sw);
+      r.setAttribute('stroke-dasharray','6,3');
+      g.appendChild(r);
+    } else if (shape === 'subprocess') {
+      // Sub-process (double border)
+      const r1 = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r1.setAttribute('x',node.x); r1.setAttribute('y',node.y);
+      r1.setAttribute('width',node.w); r1.setAttribute('height',node.h);
+      r1.setAttribute('rx','4'); r1.setAttribute('fill',fill);
+      r1.setAttribute('stroke',stroke); r1.setAttribute('stroke-width','3');
+      g.appendChild(r1);
+      const r2 = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r2.setAttribute('x',node.x+5); r2.setAttribute('y',node.y+5);
+      r2.setAttribute('width',node.w-10); r2.setAttribute('height',node.h-10);
+      r2.setAttribute('rx','2'); r2.setAttribute('fill','none');
+      r2.setAttribute('stroke',stroke); r2.setAttribute('stroke-width','1');
+      g.appendChild(r2);
+    } else {
+      // Fallback rect
+      const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x',node.x); r.setAttribute('y',node.y);
+      r.setAttribute('width',node.w); r.setAttribute('height',node.h);
+      r.setAttribute('rx','4'); r.setAttribute('fill',fill);
+      r.setAttribute('stroke',stroke); r.setAttribute('stroke-width',sw);
       g.appendChild(r);
     }
 
@@ -4880,6 +5828,14 @@ function fcCanvasDrop(e) {
   _fcDragNodeType = null; _fcDragNodeLabel = null;
 }
 
+function fcResizeNode(w, h) {
+  if (!FC.selected) return;
+  const node = FC.nodes.find(n => n.id === FC.selected);
+  if (!node) return;
+  node.w = w; node.h = h;
+  fcRender(); fcUpdateCodePanel(); scheduleSave();
+}
+
 function fcDeleteSelected() {
   if (!FC.selected) return;
   fcPushHistory();
@@ -4967,56 +5923,100 @@ function fcSetNodeColor(fill, text) {
 function fcAddTemplate(type) {
   fcPushHistory();
   FC.nodes = []; FC.edges = [];
+
+  const mk = (id,x,y,w,h,shape,label,color,textColor) => ({ id, x, y, w, h, shape, label, color: color||null, textColor: textColor||null, note:'' });
+
   if (type === 'gameloop') {
-    const nodes = [
-      { id:'n1', x:200, y:40,  w:140, h:48, shape:'oval',    label:'Start Session' },
-      { id:'n2', x:200, y:140, w:140, h:48, shape:'rounded', label:'Player Action' },
-      { id:'n3', x:200, y:240, w:140, h:48, shape:'rect',    label:'Game Response' },
-      { id:'n4', x:200, y:340, w:120, h:72, shape:'diamond', label:'Win/Lose?' },
-      { id:'n5', x:420, y:340, w:120, h:48, shape:'oval',    label:'End Session' },
+    FC.nodes = [
+      mk('n1',220,20, 140,44,'oval',   'Start Session','#1e1f22','#ffffff'),
+      mk('n2',220,110,160,48,'rect',   'Player Input'),
+      mk('n3',220,210,160,48,'rounded','Game Processes Input'),
+      mk('n4',220,310,140,72,'diamond','Outcome?'),
+      mk('n5',60, 440,140,44,'rounded','Reward / Feedback','#f0fdf4','#064e3b'),
+      mk('n6',390,310,140,44,'rounded','Game Over','#fff1f2','#881337'),
     ];
-    const edges = [
-      { id:'e1', from:'n1', to:'n2', label:'' },
-      { id:'e2', from:'n2', to:'n3', label:'' },
-      { id:'e3', from:'n3', to:'n4', label:'' },
-      { id:'e4', from:'n4', to:'n2', label:'No' },
-      { id:'e5', from:'n4', to:'n5', label:'Yes' },
+    FC.edges = [
+      {id:'e1',from:'n1',to:'n2',label:''},
+      {id:'e2',from:'n2',to:'n3',label:''},
+      {id:'e3',from:'n3',to:'n4',label:''},
+      {id:'e4',from:'n4',to:'n5',label:'Continue'},
+      {id:'e5',from:'n4',to:'n6',label:'Fail'},
+      {id:'e6',from:'n5',to:'n2',label:'Next Turn'},
     ];
-    nodes.forEach(n => { n.color=null; n.textColor=null; n.note=''; });
-    FC.nodes = nodes; FC.edges = edges;
   } else if (type === 'decision') {
-    const nodes = [
-      { id:'n1', x:180, y:40,  w:140, h:48, shape:'rect',    label:'Situation' },
-      { id:'n2', x:180, y:140, w:120, h:72, shape:'diamond', label:'Condition?' },
-      { id:'n3', x:60,  y:280, w:120, h:48, shape:'rounded', label:'Path A' },
-      { id:'n4', x:300, y:280, w:120, h:48, shape:'rounded', label:'Path B' },
+    FC.nodes = [
+      mk('n1',200,20, 140,48,'rect',   'Situation / Input'),
+      mk('n2',200,120,140,72,'diamond','Condition?'),
+      mk('n3',60, 260,140,48,'rounded','Path A — Yes','#f0fdf4','#064e3b'),
+      mk('n4',340,260,140,48,'rounded','Path B — No','#fff1f2','#881337'),
+      mk('n5',200,380,140,44,'oval',   'Merge / Result'),
     ];
-    const edges = [
-      { id:'e1', from:'n1', to:'n2', label:'' },
-      { id:'e2', from:'n2', to:'n3', label:'Yes' },
-      { id:'e3', from:'n2', to:'n4', label:'No' },
+    FC.edges = [
+      {id:'e1',from:'n1',to:'n2',label:''},
+      {id:'e2',from:'n2',to:'n3',label:'Yes'},
+      {id:'e3',from:'n2',to:'n4',label:'No'},
+      {id:'e4',from:'n3',to:'n5',label:''},
+      {id:'e5',from:'n4',to:'n5',label:''},
     ];
-    nodes.forEach(n => { n.color=null; n.textColor=null; n.note=''; });
-    FC.nodes = nodes; FC.edges = edges;
   } else if (type === 'statemachine') {
-    const nodes = [
-      { id:'n1', x:60,  y:60,  w:120, h:48, shape:'oval',    label:'Idle' },
-      { id:'n2', x:240, y:60,  w:120, h:48, shape:'rounded', label:'Moving' },
-      { id:'n3', x:150, y:180, w:120, h:48, shape:'rounded', label:'Attacking' },
-      { id:'n4', x:150, y:300, w:120, h:48, shape:'rounded', label:'Dead' },
+    FC.nodes = [
+      mk('n1',20,  80, 120,44,'oval',   'Idle',    '#1e1f22','#ffffff'),
+      mk('n2',220, 20, 120,44,'rounded','Moving'),
+      mk('n3',220, 160,120,44,'rounded','Attacking','#fffbeb','#78350f'),
+      mk('n4',220, 300,120,44,'rounded','Stunned',  '#fff1f2','#881337'),
+      mk('n5',420, 160,120,44,'oval',   'Dead',     '#1e1f22','#ffffff'),
     ];
-    const edges = [
-      { id:'e1', from:'n1', to:'n2', label:'Input' },
-      { id:'e2', from:'n2', to:'n1', label:'Stop' },
-      { id:'e3', from:'n1', to:'n3', label:'Attack' },
-      { id:'e4', from:'n2', to:'n3', label:'Attack' },
-      { id:'e5', from:'n3', to:'n1', label:'Done' },
-      { id:'e6', from:'n3', to:'n4', label:'HP=0' },
+    FC.edges = [
+      {id:'e1',from:'n1',to:'n2',label:'Move'},
+      {id:'e2',from:'n2',to:'n1',label:'Stop'},
+      {id:'e3',from:'n1',to:'n3',label:'Attack'},
+      {id:'e4',from:'n2',to:'n3',label:'Attack'},
+      {id:'e5',from:'n3',to:'n1',label:'Done'},
+      {id:'e6',from:'n3',to:'n4',label:'Hit'},
+      {id:'e7',from:'n4',to:'n1',label:'Recover'},
+      {id:'e8',from:'n4',to:'n5',label:'HP=0'},
     ];
-    nodes.forEach(n => { n.color=null; n.textColor=null; n.note=''; });
-    FC.nodes = nodes; FC.edges = edges;
+  } else if (type === 'inputsystem') {
+    FC.nodes = [
+      mk('n1',200,20, 160,48,'parallelogram','Player Input','#f0f9ff','#0c4a6e'),
+      mk('n2',200,120,160,72,'diamond','Input Type?'),
+      mk('n3',40, 260,140,48,'rounded','Movement'),
+      mk('n4',200,260,140,48,'rounded','Action'),
+      mk('n5',360,260,140,48,'rounded','UI / Menu'),
+      mk('n6',200,380,160,48,'cylinder','Input Buffer','#fdf4ff','#581c87'),
+    ];
+    FC.edges = [
+      {id:'e1',from:'n1',to:'n2',label:''},
+      {id:'e2',from:'n2',to:'n3',label:'Move'},
+      {id:'e3',from:'n2',to:'n4',label:'Action'},
+      {id:'e4',from:'n2',to:'n5',label:'UI'},
+      {id:'e5',from:'n3',to:'n6',label:''},
+      {id:'e6',from:'n4',to:'n6',label:''},
+      {id:'e7',from:'n5',to:'n6',label:''},
+    ];
+  } else if (type === 'uiflow') {
+    FC.nodes = [
+      mk('n1',200,20, 140,44,'oval',   'App Launch'),
+      mk('n2',200,110,140,48,'rect',   'Main Menu'),
+      mk('n3',200,210,140,72,'diamond','Selection?'),
+      mk('n4',20, 340,140,48,'subprocess','Load Game'),
+      mk('n5',200,340,140,48,'subprocess','Settings'),
+      mk('n6',380,340,140,48,'subprocess','Credits'),
+      mk('n7',200,460,140,48,'rounded','Gameplay Screen'),
+    ];
+    FC.edges = [
+      {id:'e1',from:'n1',to:'n2',label:''},
+      {id:'e2',from:'n2',to:'n3',label:''},
+      {id:'e3',from:'n3',to:'n4',label:'Play'},
+      {id:'e4',from:'n3',to:'n5',label:'Settings'},
+      {id:'e5',from:'n3',to:'n6',label:'Credits'},
+      {id:'e6',from:'n4',to:'n7',label:''},
+      {id:'e7',from:'n5',to:'n2',label:'Back'},
+      {id:'e8',from:'n6',to:'n2',label:'Back'},
+    ];
   }
-  FC.pan = {x:60, y:20}; FC.zoom = 1;
+
+  FC.pan = {x:80, y:30}; FC.zoom = 1;
   fcRender(); fcUpdateCodePanel();
 }
 
@@ -5124,11 +6124,10 @@ function fcUndo() {
   fcRender(); fcUpdateCodePanel();
 }
 function fcClear() {
-  if (!FC.nodes.length || confirm('Clear the diagram? This cannot be undone.')) {
-    fcPushHistory();
-    FC.nodes = []; FC.edges = []; FC.selected = null;
-    fcRender(); fcUpdateCodePanel();
-  }
+  fcPushHistory();
+  FC.nodes = []; FC.edges = []; FC.selected = null;
+  fcRender(); fcUpdateCodePanel();
+  toast('Diagram cleared');
 }
 
 function fcUpdateStatus() {
@@ -5622,92 +6621,113 @@ function mmRender() {
   edgesL.setAttribute('transform', `translate(${cx},${cy}) scale(${MM.zoom})`);
   nodesL.setAttribute('transform', `translate(${cx},${cy}) scale(${MM.zoom})`);
 
-  // Draw edges (curved bezier from parent to child)
+  // Build depth map
+  const depthMap = {};
+  function calcDepth(nodeId, depth) {
+    depthMap[nodeId] = depth;
+    MM.nodes.filter(n => n.parentId === nodeId).forEach(n => calcDepth(n.id, depth + 1));
+  }
+  const root = MM.nodes.find(n => !n.parentId);
+  if (root) calcDepth(root.id, 0);
+
+  // Draw edges — thicker near root
   edgesL.innerHTML = '';
   MM.nodes.forEach(node => {
     if (!node.parentId) return;
     const parent = MM.nodes.find(n => n.id === node.parentId);
     if (!parent) return;
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const depth = depthMap[node.id] || 1;
+    const strokeW = Math.max(1.5, 4 - depth * 0.7);
+    const color = node.color || '#949ba4';
     const mx = (parent.x + node.x) / 2;
-    const d = `M ${parent.x} ${parent.y} Q ${mx} ${parent.y} ${mx} ${(parent.y + node.y)/2} Q ${mx} ${node.y} ${node.x} ${node.y}`;
-    path.setAttribute('d', d);
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', node.color || '#ccc');
-    path.setAttribute('stroke-width', '2');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const d = `M ${parent.x} ${parent.y} C ${mx} ${parent.y}, ${mx} ${node.y}, ${node.x} ${node.y}`;
+    path.setAttribute('d', d); path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', color); path.setAttribute('stroke-width', strokeW+'');
     path.setAttribute('stroke-linecap', 'round');
-    path.setAttribute('opacity', '0.6');
+    path.setAttribute('opacity', depth === 1 ? '0.75' : '0.55');
     edgesL.appendChild(path);
   });
 
-  // Draw nodes
+  // Draw nodes — shape varies by depth
   nodesL.innerHTML = '';
   MM.nodes.forEach(node => {
+    const depth = depthMap[node.id] || 0;
     const isRoot = !node.parentId;
     const isSelected = MM.selected === node.id;
+    const color = node.color || (isRoot ? '#5865f2' : '#949ba4');
+    const r = node.r || (isRoot ? 52 : Math.max(22, 42 - depth * 6));
+
     const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     g.setAttribute('class', 'mm-node' + (isRoot ? ' root' : '') + (isSelected ? ' selected' : ''));
     g.setAttribute('data-mm-id', node.id);
 
-    // Node circle
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', node.x);
-    circle.setAttribute('cy', node.y);
-    circle.setAttribute('r', node.r);
-    circle.setAttribute('fill', isRoot ? '#1e1f22' : node.color || '#5865f2');
-    circle.setAttribute('fill-opacity', isRoot ? '1' : '0.15');
-    circle.setAttribute('stroke', node.color || '#5865f2');
-    circle.setAttribute('stroke-width', isSelected ? '3' : (isRoot ? '2' : '1.5'));
-    g.appendChild(circle);
+    if (isRoot) {
+      const el = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+      el.setAttribute('cx', node.x+''); el.setAttribute('cy', node.y+'');
+      el.setAttribute('rx', (r * 1.3)+''); el.setAttribute('ry', (r * 0.72)+'');
+      el.setAttribute('fill', '#1e1f22'); el.setAttribute('stroke', color);
+      el.setAttribute('stroke-width', isSelected ? '3' : '2');
+      el.setAttribute('filter', 'drop-shadow(0 2px 8px rgba(88,101,242,.30))');
+      g.appendChild(el);
+    } else if (depth === 1) {
+      const rw = r * 2.4, rh = r * 1.15;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', (node.x - rw/2)+''); rect.setAttribute('y', (node.y - rh/2)+'');
+      rect.setAttribute('width', rw+''); rect.setAttribute('height', rh+'');
+      rect.setAttribute('rx', (rh/2)+'');
+      rect.setAttribute('fill', color); rect.setAttribute('fill-opacity', '0.14');
+      rect.setAttribute('stroke', color); rect.setAttribute('stroke-width', isSelected ? '2.5' : '1.8');
+      rect.setAttribute('filter', 'drop-shadow(0 1px 4px rgba(0,0,0,.10))');
+      g.appendChild(rect);
+    } else {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', node.x+''); circle.setAttribute('cy', node.y+'');
+      circle.setAttribute('r', r+'');
+      circle.setAttribute('fill', color); circle.setAttribute('fill-opacity', depth === 2 ? '0.12' : '0');
+      circle.setAttribute('stroke', color); circle.setAttribute('stroke-width', isSelected ? '2' : '1.5');
+      g.appendChild(circle);
+    }
 
-    // Label — wrap text
+    // Label
     const words = (node.label || '').split(' ');
-    const maxW  = node.r * 1.6;
-    const lines = [];
-    let cur = '';
+    const maxW  = isRoot ? r * 2.2 : (depth === 1 ? r * 4.0 : r * 1.8);
+    const charW = isRoot ? 8.5 : (depth === 1 ? 7.5 : 6.5);
+    const lines = []; let cur = '';
     words.forEach(w => {
       const test = cur ? cur + ' ' + w : w;
-      if (test.length * (isRoot ? 7.5 : 6.5) > maxW && cur) { lines.push(cur); cur = w; }
+      if (test.length * charW > maxW && cur) { lines.push(cur); cur = w; }
       else cur = test;
     });
     if (cur) lines.push(cur);
-    const lineH = isRoot ? 16 : 14;
+    const fontSize = isRoot ? 14 : (depth === 1 ? 13 : 11);
+    const lineH = fontSize + 4;
     const startY = node.y - (lines.length - 1) * lineH / 2;
     lines.forEach((line, li) => {
       const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.setAttribute('x', node.x);
-      t.setAttribute('y', startY + li * lineH);
-      t.setAttribute('text-anchor', 'middle');
-      t.setAttribute('dominant-baseline', 'middle');
-      t.setAttribute('fill', isRoot ? '#ffffff' : (node.color || '#1e1f22'));
-      t.setAttribute('font-size', isRoot ? '13' : '12');
-      t.setAttribute('font-weight', isRoot ? '700' : '500');
+      t.setAttribute('x', node.x+''); t.setAttribute('y', (startY + li * lineH)+'');
+      t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'middle');
+      t.setAttribute('fill', isRoot ? '#ffffff' : color);
+      t.setAttribute('font-size', fontSize+'');
+      t.setAttribute('font-weight', isRoot ? '700' : (depth === 1 ? '600' : '400'));
       t.setAttribute('font-family', 'system-ui, sans-serif');
       t.textContent = line;
       g.appendChild(t);
     });
 
-    // Add child button (+) — shown on hover via CSS, positioned to the right
+    // + button
     if (!isRoot) {
       const addBtn = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       addBtn.setAttribute('class', 'mm-add-btn');
-      const btnCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      btnCircle.setAttribute('cx', node.x + node.r + 10);
-      btnCircle.setAttribute('cy', node.y);
-      btnCircle.setAttribute('r', '9');
-      btnCircle.setAttribute('fill', node.color || '#5865f2');
-      btnCircle.setAttribute('fill-opacity', '0.9');
-      const btnText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      btnText.setAttribute('x', node.x + node.r + 10);
-      btnText.setAttribute('y', node.y);
-      btnText.setAttribute('text-anchor', 'middle');
-      btnText.setAttribute('dominant-baseline', 'middle');
-      btnText.setAttribute('fill', '#fff');
-      btnText.setAttribute('font-size', '14');
-      btnText.setAttribute('font-family', 'system-ui, sans-serif');
-      btnText.textContent = '+';
-      addBtn.appendChild(btnCircle);
-      addBtn.appendChild(btnText);
+      const btnC = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      btnC.setAttribute('cx', (node.x + r + 13)+''); btnC.setAttribute('cy', node.y+'');
+      btnC.setAttribute('r', '10'); btnC.setAttribute('fill', color); btnC.setAttribute('fill-opacity', '0.9');
+      const btnT = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      btnT.setAttribute('x', (node.x + r + 13)+''); btnT.setAttribute('y', node.y+'');
+      btnT.setAttribute('text-anchor', 'middle'); btnT.setAttribute('dominant-baseline', 'middle');
+      btnT.setAttribute('fill', '#fff'); btnT.setAttribute('font-size', '15');
+      btnT.setAttribute('font-family', 'system-ui'); btnT.textContent = '+';
+      addBtn.appendChild(btnC); addBtn.appendChild(btnT);
       addBtn.addEventListener('click', e => { e.stopPropagation(); MM.selected = node.id; mmAddChild(); });
       g.appendChild(addBtn);
     }
@@ -5717,7 +6737,6 @@ function mmRender() {
     nodesL.appendChild(g);
   });
 
-  // Update node count
   const nc = document.getElementById('mm-node-count');
   if (nc) nc.textContent = MM.nodes.length;
 }
@@ -5833,12 +6852,12 @@ function mmColorCycle() {
 }
 
 function mmClear() {
-  if (!confirm('Clear the mind map? This cannot be undone.')) return;
   mmPushHistory();
   const root = MM.nodes.find(n => !n.parentId);
   MM.nodes = root ? [{ ...root, x: 0, y: 0, r: 52 }] : [{ id: uid(), label: 'Central Idea', parentId: null, color: '#5865f2', x: 0, y: 0, r: 52 }];
   MM.selected = MM.nodes[0].id;
   mmRender();
+  toast('Mind map cleared');
 }
 
 function mmPushHistory() {
@@ -6216,24 +7235,64 @@ function smRender() {
     const isSelected = SM.selected === node.id;
     const hasChildren = d && d.levels[node.id] && d.levels[node.id].nodes.length > 0;
     const color = node.color || '#5865f2';
+    const nodeShape = node.shape || 'rect';
+    const sw = isSelected ? '2.5' : '1.5';
+    const shadowFilter = isSelected
+      ? 'drop-shadow(0 3px 8px rgba(88,101,242,.35))'
+      : 'drop-shadow(0 1px 4px rgba(0,0,0,.10))';
 
     const g = document.createElementNS('http://www.w3.org/2000/svg','g');
     g.setAttribute('data-sm-id', node.id);
     g.style.cursor = SM.tool === 'connect' ? 'crosshair' : 'move';
 
-    // Node rect
-    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rect.setAttribute('x', node.x); rect.setAttribute('y', node.y);
-    rect.setAttribute('width', w); rect.setAttribute('height', h);
-    rect.setAttribute('rx', '8');
-    rect.setAttribute('fill', color); rect.setAttribute('fill-opacity', '0.12');
-    rect.setAttribute('stroke', color);
-    rect.setAttribute('stroke-width', isSelected ? '2.5' : '1.5');
-    g.appendChild(rect);
+    // Draw shape based on node.shape
+    if (nodeShape === 'diamond') {
+      const cx = node.x+w/2, cy = node.y+h/2;
+      const pts = `${cx},${node.y} ${node.x+w},${cy} ${cx},${node.y+h} ${node.x},${cy}`;
+      const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      p.setAttribute('points',pts); p.setAttribute('fill',color);
+      p.setAttribute('fill-opacity','0.14'); p.setAttribute('stroke',color);
+      p.setAttribute('stroke-width',sw); p.setAttribute('filter',shadowFilter);
+      g.appendChild(p);
+    } else if (nodeShape === 'oval') {
+      const el = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+      el.setAttribute('cx',(node.x+w/2)+''); el.setAttribute('cy',(node.y+h/2)+'');
+      el.setAttribute('rx',(w/2)+''); el.setAttribute('ry',(h/2)+'');
+      el.setAttribute('fill',color); el.setAttribute('fill-opacity','0.18');
+      el.setAttribute('stroke',color); el.setAttribute('stroke-width',sw);
+      el.setAttribute('filter',shadowFilter);
+      g.appendChild(el);
+    } else if (nodeShape === 'hexagon') {
+      const hcx = node.x+w/2, side = w*0.35;
+      const pts = `${node.x},${node.y+h/2} ${node.x+side},${node.y} ${node.x+w-side},${node.y} ${node.x+w},${node.y+h/2} ${node.x+w-side},${node.y+h} ${node.x+side},${node.y+h}`;
+      const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      p.setAttribute('points',pts); p.setAttribute('fill',color);
+      p.setAttribute('fill-opacity','0.14'); p.setAttribute('stroke',color);
+      p.setAttribute('stroke-width',sw); p.setAttribute('filter',shadowFilter);
+      g.appendChild(p);
+    } else {
+      // Default: rounded rect with left accent bar
+      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('x', node.x+''); rect.setAttribute('y', node.y+'');
+      rect.setAttribute('width', w+''); rect.setAttribute('height', h+'');
+      rect.setAttribute('rx', nodeShape === 'rounded' ? Math.min(h/2,20)+'' : '6');
+      rect.setAttribute('fill', '#ffffff'); rect.setAttribute('fill-opacity', '0.92');
+      rect.setAttribute('stroke', color); rect.setAttribute('stroke-width', sw);
+      rect.setAttribute('filter', shadowFilter);
+      g.appendChild(rect);
+      // Left accent bar (not on rounded pill)
+      if (nodeShape !== 'rounded') {
+        const bar = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        bar.setAttribute('x', node.x+''); bar.setAttribute('y', node.y+'');
+        bar.setAttribute('width', '5'); bar.setAttribute('height', h+'');
+        bar.setAttribute('rx', '6'); bar.setAttribute('fill', color);
+        g.appendChild(bar);
+      }
+    }
 
     // Label
     const words = (node.label || '').split(' ');
-    const maxW = w - 20;
+    const maxW = w - (nodeShape === 'rect' ? 24 : 16);
     const lines = []; let cur = '';
     words.forEach(word => {
       const test = cur ? cur + ' ' + word : word;
@@ -6241,15 +7300,16 @@ function smRender() {
       else cur = test;
     });
     if (cur) lines.push(cur);
-    const lineH = 16;
+    const lineH = 17;
     const startY = node.y + h/2 - (lines.length-1)*lineH/2;
+    const textX = node.x + (nodeShape === 'rect' ? w/2 + 2 : w/2);
     lines.forEach((line, li) => {
       const t = document.createElementNS('http://www.w3.org/2000/svg','text');
-      t.setAttribute('x', node.x + w/2);
-      t.setAttribute('y', startY + li * lineH);
+      t.setAttribute('x', textX+'');
+      t.setAttribute('y', (startY + li * lineH)+'');
       t.setAttribute('text-anchor','middle');
       t.setAttribute('dominant-baseline','middle');
-      t.setAttribute('fill', color);
+      t.setAttribute('fill', ['diamond','oval','hexagon','rounded'].includes(nodeShape) ? color : '#1e1f22');
       t.setAttribute('font-size','13');
       t.setAttribute('font-weight','600');
       t.setAttribute('font-family','system-ui,sans-serif');
@@ -6257,16 +7317,17 @@ function smRender() {
       g.appendChild(t);
     });
 
-    // Drill-in indicator — ⬡ badge if has children
+    // Drill-in ⬡ badge
     if (hasChildren) {
+      const badgeBg = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      badgeBg.setAttribute('cx',(node.x+w-9)+''); badgeBg.setAttribute('cy',(node.y+9)+'');
+      badgeBg.setAttribute('r','8'); badgeBg.setAttribute('fill',color); badgeBg.setAttribute('fill-opacity','0.90');
+      g.appendChild(badgeBg);
       const badge = document.createElementNS('http://www.w3.org/2000/svg','text');
-      badge.setAttribute('x', node.x + w - 8);
-      badge.setAttribute('y', node.y + 10);
-      badge.setAttribute('text-anchor','middle');
-      badge.setAttribute('dominant-baseline','middle');
-      badge.setAttribute('class','sm-drill-badge');
-      badge.setAttribute('font-size','10');
-      badge.textContent = '⬡';
+      badge.setAttribute('x',(node.x+w-9)+''); badge.setAttribute('y',(node.y+9)+'');
+      badge.setAttribute('text-anchor','middle'); badge.setAttribute('dominant-baseline','middle');
+      badge.setAttribute('fill','#fff'); badge.setAttribute('font-size','9');
+      badge.setAttribute('font-weight','700'); badge.textContent = '⬡';
       g.appendChild(badge);
     }
 
@@ -6288,11 +7349,13 @@ function smRender() {
     g.addEventListener('mousedown', e => {
       if (SM.tool === 'connect') return;
       e.stopPropagation();
-      const svgRect = document.getElementById('sm-canvas').getBoundingClientRect();
+      const wrapEl = document.getElementById('sm-canvas-wrap');
+      const wRect = wrapEl.getBoundingClientRect();
       SM.dragging = node.id; SM.dragType = 'node';
+      // Convert mouse position to world coords, store offset from node origin
       SM.dragOffset = {
-        x: (e.clientX - svgRect.left - (wrap.clientWidth/2 + SM.pan.x)) / SM.zoom - node.x,
-        y: (e.clientY - svgRect.top  - (wrap.clientHeight/2 + SM.pan.y)) / SM.zoom - node.y,
+        x: (e.clientX - wRect.left - wRect.width/2  - SM.pan.x) / SM.zoom - node.x,
+        y: (e.clientY - wRect.top  - wRect.height/2 - SM.pan.y) / SM.zoom - node.y,
       };
     });
     g.addEventListener('click', e => {
@@ -6337,18 +7400,26 @@ function smSelectNode(nodeId) {
   const level = smCurrentLevel();
   const node = level.nodes.find(n => n.id === nodeId);
   if (!node) return;
-  // Open properties panel
   const props = document.getElementById('sm-props');
   if (props) props.classList.add('open');
   const lbl = document.getElementById('sm-prop-label');
   const notes = document.getElementById('sm-prop-notes');
+  const shapeEl = document.getElementById('sm-prop-shape');
   if (lbl) lbl.value = node.label || '';
   if (notes) notes.value = node.notes || '';
-  // Highlight active color swatch
+  if (shapeEl) shapeEl.value = node.shape || 'rect';
   document.querySelectorAll('.sm-swatch').forEach(s => {
     s.classList.toggle('active', s.dataset.color === node.color);
   });
   document.getElementById('sm-props-title').textContent = node.label || 'Node Properties';
+}
+
+function smUpdateShape(val) {
+  if (!SM.selected) return;
+  const node = smCurrentLevel().nodes.find(n => n.id === SM.selected);
+  if (!node) return;
+  node.shape = val;
+  smRender(); scheduleSave();
 }
 
 function smCloseProps() {
@@ -6359,14 +7430,22 @@ function smCloseProps() {
 function smAddNode() {
   smPushHistory();
   const wrap = document.getElementById('sm-canvas-wrap');
-  const W = wrap ? wrap.clientWidth : 800;
+  const W = wrap ? wrap.clientWidth  : 800;
   const H = wrap ? wrap.clientHeight : 600;
+  // Convert screen center to world coordinates
+  // World origin (0,0) maps to screen at (W/2 + pan.x, H/2 + pan.y)
+  // So screen center (W/2, H/2) maps to world (-pan.x/zoom, -pan.y/zoom)
+  const worldCX = -SM.pan.x / SM.zoom;
+  const worldCY = -SM.pan.y / SM.zoom;
+  // Offset slightly so multiple adds don't stack exactly
+  const offset = smCurrentLevel().nodes.length * 20;
   const node = {
     id: uid(),
     label: 'New System',
-    x: Math.round(((W/2 - SM.pan.x) / SM.zoom - 70) / 20) * 20,
-    y: Math.round(((H/2 - SM.pan.y) / SM.zoom - 24) / 20) * 20,
+    x: Math.round((worldCX - 70 + offset) / 20) * 20,
+    y: Math.round((worldCY - 24 + offset) / 20) * 20,
     w: 140, h: 48,
+    shape: 'rect',
     color: SM_COLORS[smCurrentLevel().nodes.length % SM_COLORS.length],
     notes: '',
   };
@@ -6389,11 +7468,9 @@ function smDeleteSelected() {
   const node = level.nodes.find(n => n.id === SM.selected);
   const edge = level.edges.find(e => e.id === SM.selected);
   if (!node && !edge) return;
-  const label = node ? node.label : 'this edge';
-  if (!confirm('Delete "' + label + '"? Child systems will also be removed.')) return;
   smPushHistory();
   if (node) {
-    // Remove node, edges, and all descendant levels
+    const label = node.label || 'node';
     level.nodes = level.nodes.filter(n => n.id !== SM.selected);
     level.edges = level.edges.filter(e => e.from !== SM.selected && e.to !== SM.selected);
     const d = smData();
@@ -6403,8 +7480,10 @@ function smDeleteSelected() {
       delete d.levels[id];
     }
     removeDescendants(SM.selected);
+    toast('Removed "' + label + '"');
   } else {
     level.edges = level.edges.filter(e => e.id !== SM.selected);
+    toast('Edge removed');
   }
   SM.selected = null;
   smCloseProps();
@@ -6439,7 +7518,12 @@ function smSetColor(color) {
 function smBuildColorSwatches() {
   const container = document.getElementById('sm-colors');
   if (!container) return;
-  container.innerHTML = SM_COLORS.map(c =>
+  const colors = [
+    '#5865f2','#0ea5e9','#10b981','#f59e0b',
+    '#ef4444','#8b5cf6','#ec4899','#06b6d4',
+    '#1e1f22','#6b7280',
+  ];
+  container.innerHTML = colors.map(c =>
     `<div class="sm-swatch" style="background:${c}" data-color="${c}" onclick="smSetColor('${c}')" title="${c}"></div>`
   ).join('');
 }
@@ -6463,24 +7547,26 @@ function smInlineRename(nodeId) {
   const node = smCurrentLevel().nodes.find(n => n.id === nodeId);
   if (!node) return;
   const wrap = document.getElementById('sm-canvas-wrap');
-  const wrapRect = wrap.getBoundingClientRect();
-  const W = wrapRect.width, H = wrapRect.height;
-  const cx = W/2 + SM.pan.x, cy = H/2 + SM.pan.y;
+  if (!wrap) return;
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  // Convert world coords to wrap-local screen coords
+  const cx = W/2 + SM.pan.x;
+  const cy = H/2 + SM.pan.y;
   const sx = (node.x + (node.w||140)/2) * SM.zoom + cx;
   const sy = (node.y + (node.h||48)/2) * SM.zoom + cy;
   const inp = document.createElement('input');
   inp.value = node.label || '';
   inp.className = 'sm-rename-inp';
-  inp.style.left = (sx - 80) + 'px';
+  const inpW = Math.max(160, (node.w||140) * SM.zoom);
+  inp.style.left = (sx - inpW/2) + 'px';
   inp.style.top  = (sy - 18) + 'px';
-  inp.style.width = (Math.max(160, (node.w||140) * SM.zoom)) + 'px';
+  inp.style.width = inpW + 'px';
   wrap.appendChild(inp);
   inp.focus(); inp.select();
   const finish = () => {
     const val = inp.value.trim();
     if (val) node.label = val;
     inp.remove(); smRender(); scheduleSave();
-    // Sync to props panel
     const lbl = document.getElementById('sm-prop-label');
     if (lbl && SM.selected === nodeId) lbl.value = node.label;
   };
@@ -6624,12 +7710,990 @@ function smNavUp() {
   smNavToLevel(d.breadcrumb.length - 2);
 }
 
+/* ═══════════════════════════════════════════════════════
+   KANBAN BOARD
+═══════════════════════════════════════════════════════ */
+const KB_COLS = [
+  { id: 'concept',     label: 'Backlog',     icon: '○', cls: 'backlog'  },
+  { id: 'in-progress', label: 'In Progress', icon: '◑', cls: 'progress' },
+  { id: 'approved',    label: 'Approved',    icon: '●', cls: 'approved' },
+  { id: 'cut',         label: 'Cut',         icon: '✕', cls: 'cut'      },
+];
+
+let _kbDragging = null; // { entryIdx, fromStatus }
+
+function toggleKanban() {
+  S.kanbanMode = !S.kanbanMode;
+  const btn = document.getElementById('btn-kanban-toggle');
+  if (btn) btn.classList.toggle('kanban-active', S.kanbanMode);
+  renderContent();
+}
+
+function renderKanban() {
+  const sec = secData();
+  const entries = sec?.entries || [];
+  const area = document.getElementById('content-area');
+  area.classList.add('kanban-mode');
+
+  // Build columns HTML
+  const colsHtml = KB_COLS.map(col => {
+    const cards = entries
+      .map((e, i) => ({ e, i }))
+      .filter(({ e }) => {
+        const status = e.status === 'progress' ? 'in-progress' : (e.status || 'concept');
+        return status === col.id;
+      });
+
+    const cardsHtml = cards.map(({ e, i }) => {
+      const status = e.status === 'progress' ? 'in-progress' : (e.status || 'concept');
+      const preview = e.content
+        ? e.content.replace(/<[^>]+>/g, '').trim().slice(0, 80) + (e.content.length > 80 ? '…' : '')
+        : '';
+      const wordCount = wc(e.content);
+      const priority = e.priority || '';
+
+      return `<div class="kb-card"
+          data-status="${status}"
+          data-idx="${i}"
+          draggable="true"
+          ondragstart="kbDragStart(event,${i},'${status}')"
+          ondragend="kbDragEnd(event)"
+          onclick="kbOpenEntry(${i}, event)">
+        <div class="kb-card-title">${esc(e.title || 'Untitled')}</div>
+        ${preview ? `<div class="kb-card-preview">${esc(preview)}</div>` : ''}
+        <div class="kb-card-meta">
+          ${e.type ? `<span class="kb-card-type">${esc(e.type)}</span>` : ''}
+          ${priority === 'must' ? `<span class="kb-card-priority must">Must</span>` : ''}
+          ${priority === 'nice' ? `<span class="kb-card-priority nice">Nice</span>` : ''}
+          ${priority === 'cut'  ? `<span class="kb-card-priority cut">Cut</span>`  : ''}
+          ${wordCount ? `<span class="kb-card-words">${wordCount}w</span>` : ''}
+        </div>
+        <button class="kb-card-open" onclick="event.stopPropagation();kbOpenEntry(${i},event)" title="Open entry">↗</button>
+      </div>`;
+    }).join('');
+
+    return `<div class="kb-col">
+      <div class="kb-col-hdr ${col.cls}">
+        <span class="kb-col-icon">${col.icon}</span>
+        <span class="kb-col-name">${col.label}</span>
+        <span class="kb-col-count">${cards.length}</span>
+      </div>
+      <div class="kb-cards" id="kb-col-${col.id}"
+        ondragover="kbDragOver(event,'${col.id}')"
+        ondragleave="kbDragLeave(event)"
+        ondrop="kbDrop(event,'${col.id}')">
+        ${cardsHtml}
+        ${!cards.length ? `<div style="text-align:center;padding:20px 12px;color:var(--ink5);font-size:12px;font-style:italic;font-family:var(--fb)">No entries here</div>` : ''}
+      </div>
+      <button class="kb-add" onclick="kbAddToCol('${col.id}')">+ Add to ${col.label}</button>
+    </div>`;
+  }).join('');
+
+  area.innerHTML = `<div class="kb-board">${colsHtml}</div>`;
+}
+
+/* ── Drag & Drop ── */
+function kbDragStart(e, idx, status) {
+  _kbDragging = { idx, status };
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', idx);
+  setTimeout(() => {
+    const card = e.target;
+    if (card) card.classList.add('dragging');
+  }, 0);
+}
+
+function kbDragEnd(e) {
+  e.target.classList.remove('dragging');
+  document.querySelectorAll('.kb-cards').forEach(c => c.classList.remove('drag-over'));
+  _kbDragging = null;
+}
+
+function kbDragOver(e, colId) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  document.querySelectorAll('.kb-cards').forEach(c => c.classList.remove('drag-over'));
+  const col = document.getElementById('kb-col-' + colId);
+  if (col) col.classList.add('drag-over');
+}
+
+function kbDragLeave(e) {
+  if (!e.currentTarget.contains(e.relatedTarget)) {
+    e.currentTarget.classList.remove('drag-over');
+  }
+}
+
+function kbDrop(e, newStatus) {
+  e.preventDefault();
+  if (!_kbDragging) return;
+  const sec = secData();
+  if (!sec || !sec.entries[_kbDragging.idx]) return;
+
+  const entry = sec.entries[_kbDragging.idx];
+  if (entry.status === newStatus) { renderKanban(); return; }
+
+  entry.status = newStatus;
+  scheduleSave();
+  renderKanban();
+  toast(`Moved to ${KB_COLS.find(c => c.id === newStatus)?.label || newStatus}`);
+}
+
+/* ── Actions ── */
+function kbOpenEntry(idx, e) {
+  if (e) e.stopPropagation();
+  // Switch to list view and open the entry
+  S.kanbanMode = false;
+  const btn = document.getElementById('btn-kanban-toggle');
+  if (btn) btn.classList.remove('kanban-active');
+  renderContent();
+  // Wait for render then scroll and open
+  setTimeout(() => {
+    const sec = secData();
+    if (sec?.entries[idx] && !sec.entries[idx].open) toggleCard(idx);
+    setTimeout(() => {
+      const card = document.getElementById('card-' + idx);
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  }, 60);
+}
+
+function kbAddToCol(status) {
+  // Add a new entry with the given status
+  const sec = secData();
+  if (!sec) return;
+  const entry = {
+    title: 'New Entry',
+    type: 'note', status,
+    priority: '', wcTarget: 0, content: '',
+    open: false, edited: Date.now(),
+    comments: [], tags: [], images: [], links: [],
+    flowcharts: [], mindmaps: [],
+  };
+  if (!sec.entries) sec.entries = [];
+  sec.entries.push(entry);
+  scheduleSave();
+
+  // Switch to list view and open the new entry for editing
+  S.kanbanMode = false;
+  const btn = document.getElementById('btn-kanban-toggle');
+  if (btn) btn.classList.remove('kanban-active');
+  renderContent();
+  setTimeout(() => {
+    const idx = sec.entries.length - 1;
+    if (!sec.entries[idx].open) toggleCard(idx);
+    setTimeout(() => {
+      const card = document.getElementById('card-' + idx);
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Focus title input
+      const titleInp = document.getElementById('title-' + idx);
+      if (titleInp) { titleInp.focus(); titleInp.select(); }
+    }, 80);
+  }, 60);
+}
+
+/* ═══════════════════════════════════════════════════════
+   DESIGN PILLARS — CUSTOM UI
+═══════════════════════════════════════════════════════ */
+function getPillars() {
+  const p = proj(); if (!p) return [];
+  if (!p.pillars) p.pillars = [];
+  return p.pillars;
+}
+
+function savePillars() { scheduleSave(); }
+
+function renderPillars() {
+  const area = document.getElementById('content-area');
+  const pillars = getPillars();
+
+  let gridHtml = pillars.map((pl, i) => `
+    <div class="pillar-card" data-pidx="${i}">
+      <div class="pillar-num">Pillar ${String(i+1).padStart(2,'0')}</div>
+      <div class="pillar-name"
+        contenteditable="${!pl.locked}"
+        data-pi="${i}"
+        onblur="savePillarName(${i},this)"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
+        >${esc(pl.name||'Untitled Pillar')}</div>
+      <div class="pillar-desc"
+        contenteditable="${!pl.locked}"
+        data-pi="${i}"
+        onblur="savePillarDesc(${i},this)"
+        placeholder="Describe what this pillar means for your game…"
+        >${esc(pl.desc||'')}</div>
+      <div class="pillar-actions">
+        <button class="pillar-act-btn" onclick="movePillar(${i},-1)" ${i===0?'style="opacity:.3;pointer-events:none"':''}>↑</button>
+        <button class="pillar-act-btn" onclick="movePillar(${i},1)" ${i===pillars.length-1?'style="opacity:.3;pointer-events:none"':''}>↓</button>
+        <button class="pillar-act-btn danger" onclick="deletePillar(${i})">✕ Remove</button>
+      </div>
+    </div>`).join('');
+
+  const canAdd = pillars.length < 6;
+  const addCard = canAdd ? `
+    <div class="pillar-add-card" onclick="addPillar()">
+      <div class="pillar-add-icon">+</div>
+      <div class="pillar-add-lbl">Add Pillar</div>
+      <div style="font-family:var(--fb);font-size:12px;color:var(--ink5);font-style:italic">
+        ${6 - pillars.length} remaining (max 6)
+      </div>
+    </div>` : '';
+
+  if (!pillars.length) {
+    area.innerHTML = `
+      <div class="pillars-wrap">
+        <div class="pillars-empty">
+          <div class="pillars-empty-icon">⟁</div>
+          <div class="pillars-empty-title">No Design Pillars Yet</div>
+          <div class="pillars-empty-sub">Design pillars are the 3–5 core principles every decision in your game must honor.<br>They are your north star — visible to every team member, every day.</div>
+          <button class="btn primary" style="margin-top:20px" onclick="addPillar()">+ Add First Pillar</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  area.innerHTML = `
+    <div class="pillars-wrap">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+        <div style="font-family:var(--fd);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4)">
+          ${pillars.length} pillar${pillars.length!==1?'s':''} defined — click any pillar to edit inline
+        </div>
+      </div>
+      <div class="pillars-grid">
+        ${gridHtml}
+        ${addCard}
+      </div>
+    </div>`;
+}
+
+function addPillar() {
+  const pillars = getPillars();
+  if (pillars.length >= 6) { toast('Maximum 6 pillars', 'err'); return; }
+  pillars.push({ name: 'New Pillar', desc: '' });
+  savePillars();
+  renderPillars();
+  // Focus the new pillar name
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.pillar-name');
+    const last = cards[cards.length - 1];
+    if (last) { last.focus(); const r = document.createRange(); r.selectNodeContents(last); r.collapse(false); window.getSelection().removeAllRanges(); window.getSelection().addRange(r); }
+  }, 60);
+}
+
+function savePillarName(idx, el) {
+  const pillars = getPillars();
+  if (!pillars[idx]) return;
+  pillars[idx].name = el.textContent.trim() || 'Untitled Pillar';
+  savePillars();
+}
+
+function savePillarDesc(idx, el) {
+  const pillars = getPillars();
+  if (!pillars[idx]) return;
+  pillars[idx].desc = el.textContent.trim();
+  savePillars();
+}
+
+function deletePillar(idx) {
+  const pillars = getPillars();
+  if (!pillars[idx]) return;
+  const name = pillars[idx].name || 'Untitled Pillar';
+  pillars.splice(idx, 1);
+  savePillars();
+  renderPillars();
+  toast('Removed "' + name + '"');
+}
+
+function movePillar(idx, dir) {
+  const pillars = getPillars();
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= pillars.length) return;
+  [pillars[idx], pillars[newIdx]] = [pillars[newIdx], pillars[idx]];
+  savePillars();
+  renderPillars();
+}
+
+/* ═══════════════════════════════════════════════════════
+   OVERVIEW — HERO UI
+═══════════════════════════════════════════════════════ */
+function renderOverview() {
+  const area = document.getElementById('content-area');
+  const p = proj(); if (!p) return;
+  const t = p.theme || {};
+  const sec = secData();
+  const entries = sec ? (sec.entries||[]) : [];
+
+  // Build meta items from project theme
+  const metaItems = [
+    { lbl: 'Genre',    val: t.genre    || '—' },
+    { lbl: 'Platform', val: t.platform || '—' },
+    { lbl: 'Studio',   val: t.studio   || '—' },
+    { lbl: 'Audience', val: t.audience || '—' },
+  ].filter(m => m.val !== '—');
+
+  const metaHtml = metaItems.map(m =>
+    `<div class="oh-meta-item">
+      <div class="oh-meta-lbl">${m.lbl}</div>
+      <div class="oh-meta-val">${esc(m.val)}</div>
+    </div>`
+  ).join('');
+
+  const heroHtml = `
+    <div class="overview-hero">
+      <div class="oh-label">Game Overview</div>
+      <div class="oh-pitch"
+        contenteditable="true"
+        data-placeholder="Your game's pitch — what it is, why it matters, what makes it unique…"
+        onblur="saveOverviewPitch(this)"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.blur()}"
+        >${esc(p.overviewPitch||'')}</div>
+      ${metaItems.length ? `<div class="oh-meta">${metaHtml}</div>` : ''}
+      <div class="oh-edit-hint">Click pitch text to edit · Metadata pulls from Edit Theme</div>
+    </div>`;
+
+  if (!entries.length) {
+    area.innerHTML = heroHtml + buildEmpty('Overview is empty', 'Add your first entry below.', getDef('overview').qs) + buildAddBar();
+  } else {
+    let html = heroHtml;
+    entries.forEach((e, i) => { html += buildCard(e, i); });
+    html += buildAddBar();
+    area.innerHTML = html;
+    updateProgress();
+  }
+  renderPin();
+}
+
+function saveOverviewPitch(el) {
+  const p = proj(); if (!p) return;
+  p.overviewPitch = el.innerText.trim();
+  scheduleSave();
+}
+
+/* ═══════════════════════════════════════════════════════
+   GUIDING QUESTIONS PANEL
+═══════════════════════════════════════════════════════ */
+let _gqOpen = false;
+
+function openGQ() {
+  const def = getDef(S.section);
+  if (!def || !def.qs || !def.qs.length) { toast('No guiding questions for this section'); return; }
+  _gqOpen = true;
+  const panel = document.getElementById('gq-panel');
+  const title = document.getElementById('gq-panel-title');
+  const body  = document.getElementById('gq-body');
+  if (!panel) return;
+  title.textContent = '❓ ' + def.title;
+  body.innerHTML = `
+    <div class="gq-intro">These questions should guide what you write in this section. Come back to them whenever you're stuck or want to check your work.</div>
+    ${def.qs.map((q, i) => `
+      <div class="gq-q">
+        <span class="gq-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="gq-text">${esc(q)}</span>
+      </div>`).join('')}`;
+  panel.classList.add('open');
+}
+
+function closeGQ() {
+  _gqOpen = false;
+  document.getElementById('gq-panel')?.classList.remove('open');
+}
+
+/* ═══════════════════════════════════════════════════════
+   ENTRY TEMPLATES
+═══════════════════════════════════════════════════════ */
+const ENTRY_TEMPLATES = {
+  // ── Overview ──────────────────────────────────────
+  overview: [
+    { icon:'🎯', name:'Elevator Pitch', type:'core', wc:150,
+      desc:'One-paragraph pitch',
+      content:'**What it is:** [One sentence — genre, setting, hook]\n\n**Who it\'s for:** [Target player in one sentence]\n\n**What makes it unique:** [The one thing no other game does]\n\n**The fantasy:** [What the player feels/does that they can\'t do elsewhere]' },
+    { icon:'📄', name:'One-Pager', type:'core', wc:400,
+      desc:'Complete game summary',
+      content:'**Title:** \n**Genre:** \n**Platform:** \n**Target Audience:** \n\n**Concept:**\n[2–3 sentences on the core idea]\n\n**Core Loop:**\n[What the player does every session]\n\n**Key Features:**\n- \n- \n- \n\n**Why Now:**\n[Why is this game relevant right now?]' },
+    { icon:'📊', name:'Market Analysis', type:'note', wc:300,
+      desc:'Genre & competitor overview',
+      content:'**Genre:** \n**Market Size:** \n\n**Comparable Titles:**\n- [Title] — [What it does well] — [What it does poorly]\n- \n- \n\n**Gap We Fill:**\n[What none of them do that we will]\n\n**Monetization Comparison:**\n' },
+  ],
+  // ── Characters ────────────────────────────────────
+  characters: [
+    { icon:'👤', name:'Character Bio', type:'lore', wc:250,
+      desc:'Full character profile',
+      content:'**Role:** [Protagonist / Antagonist / NPC / Companion]\n**Age:** \n**Occupation:** \n\n**Appearance:**\n[2–3 sentences on visual design]\n\n**Personality:**\n[Core traits, speech patterns, quirks]\n\n**Motivation:**\n[What do they want? What do they fear?]\n\n**Arc:**\n[How do they change over the game?]\n\n**Relationship to Player:**\n' },
+    { icon:'💀', name:'Enemy Type', type:'mechanic', wc:200,
+      desc:'Enemy design document',
+      content:'**Enemy Name:** \n**Category:** [Common / Elite / Boss / Mini-Boss]\n**Difficulty Tier:** \n\n**Behaviour:**\n[Attack patterns, movement, AI logic]\n\n**Strengths:**\n- \n\n**Weaknesses:**\n- \n\n**Drops/Rewards:** \n\n**Visual Language:**\n[How does the player read this enemy at a glance?]\n\n**First Encounter:** [Where and when does the player meet this enemy?]' },
+    { icon:'🗣', name:'NPC Profile', type:'lore', wc:180,
+      desc:'Non-player character sheet',
+      content:'**Name:** \n**Role in World:** \n**Location:** \n\n**Personality & Voice:**\n\n**Relationship to Player:**\n[Friendly / Hostile / Neutral / Quest-giver]\n\n**Services / Functions:**\n[Shop / Quest / Exposition / Companion]\n\n**Dialogue Style:**\n[Formal / Casual / Cryptic / Comic relief]\n\n**Key Lines:**\n- \n- ' },
+    { icon:'🔥', name:'Boss Design', type:'mechanic', wc:300,
+      desc:'Boss encounter blueprint',
+      content:'**Boss Name:** \n**Narrative Role:** \n**Arena:** \n\n**Phase 1:**\n[HP range, attack patterns, tells]\n\n**Phase 2:**\n[Transition trigger, new mechanics]\n\n**Phase 3 (if any):**\n\n**Win Condition:** \n**Fail State:** \n\n**Player Learning Curve:**\n[What skill must the player develop to win?]\n\n**Reward:** ' },
+  ],
+  // ── Core Mechanics ────────────────────────────────
+  mechanics: [
+    { icon:'⚙', name:'Mechanic Brief', type:'mechanic', wc:200,
+      desc:'How one mechanic works',
+      content:'**Mechanic Name:** \n**Type:** [Core / Secondary / Meta]\n\n**In One Sentence:**\n[The player does X which causes Y]\n\n**Input:**\n[What button/gesture/action triggers it]\n\n**Output / Feedback:**\n[What immediately happens — visual, audio, haptic]\n\n**Skill Ceiling:**\n[What does mastery look like?]\n\n**Failure State:**\n[What happens when the player gets it wrong?]\n\n**Why It\'s Fun:**\n' },
+    { icon:'🔄', name:'Feedback Loop', type:'mechanic', wc:150,
+      desc:'Action → reward cycle',
+      content:'**Loop Name:** \n**Duration:** [Micro / Session / Long-term]\n\n**Action:** [What the player does]\n**Immediate Feedback:** [What happens in < 1 second]\n**Short Reward:** [What is gained in this session]\n**Long Reward:** [What this unlocks over time]\n\n**Loop Breakers:**\n[What prevents this from becoming mindless?]' },
+    { icon:'⌨', name:'Control Scheme', type:'tech', wc:150,
+      desc:'Input mapping document',
+      content:'**Platform:** \n**Controller Type:** \n\n**Primary Actions:**\n| Input | Action | Context |\n|---|---|---|\n| | | |\n\n**Secondary Actions:**\n\n**Accessibility Options:**\n[Toggle vs hold, remapping, assist modes]\n\n**Edge Cases:**\n[What happens when two inputs conflict?]' },
+  ],
+  // ── Progression ───────────────────────────────────
+  progression: [
+    { icon:'📈', name:'Progression System', type:'mechanic', wc:200,
+      desc:'How players grow',
+      content:'**System Name:** \n**Type:** [XP / Skill Tree / Gear / Knowledge / Story]\n\n**What Progresses:**\n[Power / Ability / Knowledge / Story Access]\n\n**Rate of Progression:**\n[Early: fast. Mid: slower. Late: meaningful]\n\n**Gates:**\n[What milestones unlock new content?]\n\n**Prestige / End-Game:**\n[What happens at max level?]\n\n**Anti-Grind Design:**\n[How do we prevent boring repetition?]' },
+    { icon:'🔓', name:'Unlock / Reward', type:'mechanic', wc:120,
+      desc:'Single unlock or reward item',
+      content:'**Item/Unlock Name:** \n**Type:** [Cosmetic / Functional / Story]\n**Earned By:** \n**When Available:** [Level / Time / Achievement]\n\n**Effect on Gameplay:**\n\n**Player Fantasy Served:**\n[What does the player feel when they get this?]' },
+  ],
+  // ── Levels/Areas ──────────────────────────────────
+  levels: [
+    { icon:'🗺', name:'Level Brief', type:'core', wc:250,
+      desc:'Level design document',
+      content:'**Level Name:** \n**Act / Chapter:** \n**Estimated Duration:** \n\n**Setting:**\n[Visual description, tone, atmosphere]\n\n**Narrative Purpose:**\n[What story beats happen here?]\n\n**Core Mechanic Featured:**\n[Which mechanic does this level teach or test?]\n\n**Key Encounters:**\n1. \n2. \n3. \n\n**Win Condition:** \n**Optional Content:** ' },
+    { icon:'🏰', name:'Area Description', type:'lore', wc:180,
+      desc:'World area / biome sheet',
+      content:'**Area Name:** \n**Biome / Theme:** \n**Size:** [Small / Medium / Large / Open World]\n\n**Visual Identity:**\n[3 words that define the look]\n\n**Audio Identity:**\n[Music mood, ambient sounds]\n\n**Inhabitants:**\n[Who/what lives here?]\n\n**Resources / Collectibles:**\n\n**Connection to Other Areas:**\n[How does the player get here and where can they go next?]' },
+    { icon:'⚔', name:'Boss Room', type:'mechanic', wc:150,
+      desc:'Boss arena design',
+      content:'**Boss:** \n**Arena Name:** \n**Size:** \n**Layout:**\n[Describe the space — pillars, platforms, hazards]\n\n**Environmental Hazards:**\n\n**How Arena Supports the Boss:**\n[Does the arena reinforce the boss\'s theme/mechanics?]\n\n**Player Entry / Exit:**\n[How do players enter and how does it feel?]' },
+  ],
+  // ── Narrative ─────────────────────────────────────
+  narrative: [
+    { icon:'📖', name:'Story Beat', type:'lore', wc:200,
+      desc:'Single narrative moment',
+      content:'**Beat Name:** \n**Act:** \n**Location:** \n\n**Setup:**\n[What does the player know / feel entering this scene?]\n\n**Conflict / Revelation:**\n[What happens? What is revealed?]\n\n**Player Agency:**\n[Does the player make a choice here? What are the options?]\n\n**Emotional Goal:**\n[What should the player FEEL?]\n\n**Stakes:**\n[What is at risk?]\n\n**Aftermath:**\n[What changed after this beat?]' },
+    { icon:'💬', name:'Dialogue Scene', type:'lore', wc:150,
+      desc:'Key conversation design',
+      content:'**Scene:** \n**Characters Present:** \n**Location:** \n\n**Purpose:**\n[Exposition / Character Development / Choice / Relationship]\n\n**Player Choices:**\n- Option A: [Tone / outcome]\n- Option B: [Tone / outcome]\n\n**Non-negotiable Information:**\n[What must the player learn regardless of choices?]\n\n**Emotional Beat:** ' },
+    { icon:'🌍', name:'World Lore', type:'lore', wc:200,
+      desc:'World-building document',
+      content:'**Lore Topic:** \n**Category:** [History / Culture / Religion / Magic / Technology]\n\n**The Core Truth:**\n[1–2 sentences that define this piece of the world]\n\n**How Players Discover This:**\n[In-game book / NPC dialogue / Environmental / Cutscene]\n\n**Connection to Gameplay:**\n[Does this lore reinforce a mechanic or player choice?]\n\n**Contradictions / Mysteries:**\n[What is unknown or contested in-world?]' },
+  ],
+  // ── Tech Stack ────────────────────────────────────
+  techstack: [
+    { icon:'🔧', name:'Technical Spec', type:'tech', wc:200,
+      desc:'System or feature spec',
+      content:'**System Name:** \n**Owner:** \n**Priority:** \n\n**Description:**\n[What this system does in plain language]\n\n**Inputs:**\n\n**Outputs:**\n\n**Dependencies:**\n[What other systems does this rely on?]\n\n**Performance Budget:**\n[CPU / Memory / Draw calls / Network]\n\n**Edge Cases:**\n\n**Open Questions:**\n- ' },
+    { icon:'📱', name:'Platform Note', type:'tech', wc:100,
+      desc:'Platform-specific requirements',
+      content:'**Platform:** \n**Target Resolution:** \n**Target Frame Rate:** \n**Min Specs:** \n\n**Platform-Specific Features:**\n[Touch / Controller / Achievements / Cloud Save]\n\n**Known Limitations:**\n\n**Certification Requirements:**\n' },
+  ],
+  // ── Art Direction ─────────────────────────────────
+  artdirection: [
+    { icon:'🎨', name:'Art Style Guide', type:'core', wc:200,
+      desc:'Visual direction document',
+      content:'**Visual Style:** \n**Reference Games:** \n**Reference Films/Art:** \n\n**Color Palette:**\n[Primary / Secondary / Accent — describe the mood]\n\n**Lighting Philosophy:**\n[Realistic / Stylized / Dark / Vibrant]\n\n**Character Design Rules:**\n[Silhouette rules, proportion, costume]\n\n**Environment Rules:**\n[Texture density, detail level, world-building through art]\n\n**What We\'re NOT:**\n[3 visual styles we actively avoid]' },
+    { icon:'🖼', name:'Asset Spec', type:'tech', wc:100,
+      desc:'Art asset requirements',
+      content:'**Asset Name:** \n**Type:** [Character / Environment / UI / VFX / Audio]\n**Priority:** \n\n**Dimensions / Format:** \n**Poly Count (if 3D):** \n**Animation States:** \n\n**Reference Images:**\n[Link or describe]\n\n**Delivery Date:** \n**Owner:** ' },
+  ],
+  // ── Playtesting ───────────────────────────────────
+  playtesting: [
+    { icon:'🎮', name:'Session Log', type:'note', wc:200,
+      desc:'Playtest session record',
+      content:'**Date:** \n**Build Version:** \n**Testers:** \n**Duration:** \n\n**What We Tested:**\n\n**Key Observations:**\n1. \n2. \n3. \n\n**What Broke / Confused Players:**\n\n**What Surprised Us:**\n\n**What Players Tried That We Didn\'t Expect:**\n\n**Changes Made As a Result:**\n\n**What to Test Next:** ' },
+    { icon:'🐛', name:'Bug Report', type:'note', wc:100,
+      desc:'Bug documentation',
+      content:'**Bug ID:** \n**Severity:** [Critical / High / Medium / Low]\n**Build:** \n\n**Description:**\n[What happened?]\n\n**Steps to Reproduce:**\n1. \n2. \n3. \n\n**Expected:** \n**Actual:** \n\n**Frequency:** [Always / Often / Rare]\n**Platform:** \n**Assigned To:** \n**Status:** Open' },
+    { icon:'📝', name:'Feedback Summary', type:'note', wc:150,
+      desc:'Aggregated player feedback',
+      content:'**Feedback Source:** [Survey / Playtest / Stream / Review]\n**Sample Size:** \n**Date Range:** \n\n**What Players Love:**\n- \n- \n\n**What Players Hate:**\n- \n- \n\n**Common Confusion Points:**\n\n**Feature Requests:**\n\n**Action Items:**\n- [ ] \n- [ ] ' },
+  ],
+  // ── Economy & Systems ─────────────────────────────
+  economy: [
+    { icon:'💰', name:'Resource Definition', type:'mechanic', wc:150,
+      desc:'Single resource type',
+      content:'**Resource Name:** \n**Type:** [Currency / Crafting / Consumable / Time]\n**Scarcity:** [Abundant / Moderate / Scarce]\n\n**Sources:**\n[How do players get it?]\n\n**Sinks:**\n[How do players spend it?]\n\n**Cap:** [Max amount player can hold]\n\n**Exchange Rate:**\n[How does it relate to other resources?]\n\n**Exploit Prevention:**\n[How do we stop farming loops?]' },
+    { icon:'⚖', name:'Balance Note', type:'note', wc:120,
+      desc:'Balance observation or decision',
+      content:'**System:** \n**Issue:** \n**Date Observed:** \n\n**Current Values:**\n\n**Proposed Change:**\n\n**Expected Impact:**\n\n**Risk:**\n\n**Test Method:**\n[How will we verify the change worked?]\n\n**Decision Made By:** \n**Status:** [Under Review / Approved / Live]' },
+  ],
+  // ── Monetization ──────────────────────────────────
+  monetization: [
+    { icon:'💳', name:'IAP Item', type:'mechanic', wc:100,
+      desc:'In-app purchase definition',
+      content:'**Item Name:** \n**Price Point:** \n**Category:** [Cosmetic / Convenience / Content / Currency]\n\n**What It Is:**\n\n**Player Fantasy:**\n[Why would someone buy this?]\n\n**Purchase Trigger:**\n[When in the game flow is this offered?]\n\n**Ethical Check:**\n[Is this pay-to-win? Does it respect F2P players?]' },
+    { icon:'🎁', name:'Seasonal Event', type:'note', wc:150,
+      desc:'Limited-time event design',
+      content:'**Event Name:** \n**Duration:** \n**Trigger:** [Real-world date / In-game milestone]\n\n**Content:**\n[What is unique to this event?]\n\n**Rewards:**\n[Free / Premium tiers]\n\n**FOMO Design:**\n[What is limited-time? What is permanent?]\n\n**Returning Player Hook:**\n[What brings lapsed players back?]\n\n**Monetization:**\n' },
+  ],
+  // ── Emotional Journey ─────────────────────────────
+  emotional: [
+    { icon:'💫', name:'Emotion Arc', type:'core', wc:200,
+      desc:'Feeling map for a section',
+      content:'**Section of Game:** \n**Time in Experience:** [0–10 min / Mid-game / End-game]\n\n**Target Emotion:** \n**Intensity:** [1–10]\n\n**How Mechanics Create This Feeling:**\n\n**How Narrative Creates This Feeling:**\n\n**How Audio Creates This Feeling:**\n\n**How Visuals Create This Feeling:**\n\n**Risk of Getting This Wrong:**\n[What happens if the player feels the opposite?]\n\n**Reference Moments from Other Games:**\n' },
+  ],
+};
+
+// Sections that have custom UI (no entry templates needed)
+const TEMPLATE_EXEMPT = ['pillars', 'overview'];
+
+function openAddEntry(type) {
+  if (!proj()) { toast('Create a project first'); return; }
+  if (TEMPLATE_EXEMPT.includes(S.section)) {
+    // Skip template picker for sections with custom UI
+    showEntryStep('', '', type || 'note', 'concept', 'must', 0, '');
+    return;
+  }
+  openM('m-entry');
+  showTemplateStep();
+}
+
+function showTemplateStep() {
+  document.getElementById('tpl-step').style.display = 'block';
+  document.getElementById('entry-step').style.display = 'none';
+  document.getElementById('m-entry-title').textContent = 'Choose a Template';
+  const wrap = document.getElementById('tpl-grid-wrap');
+  const sectionTemplates = ENTRY_TEMPLATES[S.section] || [];
+
+  let html = '';
+
+  if (sectionTemplates.length) {
+    html += `<div class="tpl-section-label">${getDef(S.section).title} Templates</div>
+    <div class="tpl-grid">
+      ${sectionTemplates.map((t, i) => `
+        <div class="tpl-card" onclick="selectTemplate(${i})">
+          <div class="tpl-icon">${t.icon}</div>
+          <div class="tpl-name">${esc(t.name)}</div>
+          <div class="tpl-desc">${esc(t.desc)}</div>
+        </div>`).join('')}
+    </div>`;
+  }
+
+  // Always show blank option
+  html += `<div class="tpl-section-label" style="margin-top:${sectionTemplates.length?'16px':'0'}">Start from Scratch</div>
+  <div class="tpl-grid">
+    <div class="tpl-card blank" onclick="selectTemplate(-1)">
+      <div class="tpl-icon">✦</div>
+      <div class="tpl-name">Blank Entry</div>
+      <div class="tpl-desc">Empty entry — you write everything</div>
+    </div>
+  </div>`;
+
+  wrap.innerHTML = html;
+}
+
+function selectTemplate(idx) {
+  const templates = ENTRY_TEMPLATES[S.section] || [];
+  if (idx >= 0 && templates[idx]) {
+    const t = templates[idx];
+    showEntryStep(t.name, t.content, t.type, 'concept', 'must', t.wc || 0, '');
+  } else {
+    showEntryStep('', '', 'note', 'concept', 'must', 0, '');
+  }
+}
+
+function showEntryStep(title, content, type, status, priority, wc, tags) {
+  document.getElementById('tpl-step').style.display = 'none';
+  document.getElementById('entry-step').style.display = 'block';
+  document.getElementById('m-entry-title').textContent = 'Add New Entry';
+  document.getElementById('em-title').value = title;
+  document.getElementById('em-content').value = content;
+  document.getElementById('em-type').value = type || 'note';
+  document.getElementById('em-status').value = status || 'concept';
+  document.getElementById('em-priority').value = priority || 'must';
+  document.getElementById('em-wc-target').value = wc || '';
+  // Focus the title field
+  setTimeout(() => {
+    const t = document.getElementById('em-title');
+    if (t) { t.focus(); if (title) { t.select(); } }
+  }, 60);
+}
+
+function entryBackToTemplates() {
+  showTemplateStep();
+}
+
+function openAddEntryType(t) { openAddEntry(t); }
+
+/* ═══════════════════════════════════════════════════════
+   COMPLETED VIEW
+═══════════════════════════════════════════════════════ */
+function openCompleted() {
+  const p = proj(); if (!p) { toast('Create a project first'); return; }
+  document.querySelectorAll('.sb-home,.sb-item').forEach(e => e.classList.remove('active'));
+  const sbi = document.getElementById('sbi-__completed');
+  if (sbi) sbi.classList.add('active');
+  S.section = '__completed';
+  // Update section header if visible
+  const shCat   = document.getElementById('sh-cat');
+  const shTitle = document.getElementById('sh-title');
+  const shSub   = document.getElementById('sh-sub');
+  const shVer   = document.getElementById('sh-ver');
+  const shActs  = document.getElementById('sh-acts');
+  const shPct   = document.getElementById('sh-pct');
+  const shProg  = document.getElementById('sh-prog');
+  if (shCat)   shCat.textContent   = 'Project';
+  if (shTitle) shTitle.textContent = 'Completed Work';
+  if (shSub)   shSub.textContent   = 'All approved entries across every section';
+  if (shVer)   shVer.textContent   = '';
+  if (shActs)  shActs.innerHTML    = '';
+  if (shPct)   shPct.textContent   = '';
+  if (shProg)  { shProg.style.width = '0%'; shProg.className = 'sh-prog-fill'; }
+  renderCompleted();
+}
+
+function renderCompleted() {
+  const area = document.getElementById('content-area');
+  const p = proj(); if (!p) return;
+  const allSections = [...SECTIONS, ...S.customSections];
+
+  // Collect all approved entries across all sections
+  const bySection = [];
+  allSections.forEach(sec => {
+    const data = p.data?.[sec.key];
+    if (!data?.entries?.length) return;
+    const approved = data.entries
+      .map((e, i) => ({ e, i, secKey: sec.key, secTitle: sec.title, secIcon: sec.icon }))
+      .filter(({e}) => e.status === 'approved');
+    if (approved.length) bySection.push({ sec, approved });
+  });
+
+  const total = bySection.reduce((a, b) => a + b.approved.length, 0);
+
+  if (!total) {
+    area.innerHTML = `<div class="cv-wrap"><div class="cv-empty">
+      <div class="cv-empty-icon">✓</div>
+      <div>No approved entries yet.</div>
+      <div style="font-size:13px;margin-top:8px;color:var(--ink5)">Mark entries as Approved to see them here.</div>
+    </div></div>`;
+    return;
+  }
+
+  let html = `<div class="cv-wrap">
+    <div style="font-family:var(--fb);font-size:14px;color:var(--ink4);margin-bottom:20px;font-style:italic">
+      ${total} completed entr${total===1?'y':'ies'} across ${bySection.length} section${bySection.length===1?'':'s'} — shown in their original sections too
+    </div>`;
+
+  bySection.forEach(({ sec, approved }) => {
+    html += `<div class="cv-section-hd">${sec.icon||'◆'} ${esc(sec.title)} <span style="font-weight:400;opacity:.6">(${approved.length})</span></div>`;
+    approved.forEach(({ e, i, secKey, secTitle }) => {
+      const words = wc(e.content);
+      html += `<div class="cv-item">
+        <div class="cv-item-icon">✓</div>
+        <div class="cv-item-info">
+          <div class="cv-item-title">${esc(e.title || 'Untitled')}</div>
+          <div class="cv-item-meta">${esc(secTitle)} · ${e.type || 'note'} · Approved</div>
+        </div>
+        ${words ? `<span class="cv-item-wc">${words}w</span>` : ''}
+        <button class="cv-item-goto" onclick="cvGoTo('${secKey}', ${i})">Go to →</button>
+        <button class="cv-item-revert" onclick="cvRevert('${secKey}', ${i})">← Revert</button>
+      </div>`;
+    });
+  });
+
+  html += '</div>';
+  area.innerHTML = html;
+
+  // Reset progress bar
+  const prog = document.getElementById('sh-prog');
+  const pct  = document.getElementById('sh-pct');
+  if (prog) { prog.style.width = '0%'; prog.className = 'sh-prog-fill'; }
+  if (pct)  pct.textContent = '';
+}
+
+function cvGoTo(secKey, idx) {
+  switchSection(secKey);
+  setTimeout(() => {
+    const sec = secData();
+    if (sec?.entries?.[idx] && !sec.entries[idx].open) toggleCard(idx);
+    setTimeout(() => {
+      const card = document.getElementById('card-' + idx);
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  }, 60);
+}
+
+function cvRevert(secKey, idx) {
+  const p = proj(); if (!p) return;
+  const data = p.data?.[secKey];
+  if (!data?.entries?.[idx]) return;
+  data.entries[idx].status = 'in-progress';
+  scheduleSave();
+  renderCompleted();
+  renderNav();
+  toast('Reverted to In Progress — entry is back in the section');
+}
+
+/* ═══════════════════════════════════════════════════════
+   ONBOARDING WIZARD
+═══════════════════════════════════════════════════════ */
+const OB = {
+  step: 0,
+  data: {
+    name: '',
+    genre: '',
+    platform: '',
+    theme: 'default',
+    startSection: 'overview',
+  },
+};
+
+const OB_STEPS = [
+  'welcome',
+  'project',
+  'theme',
+  'section',
+  'done',
+];
+
+const OB_START_SECTIONS = [
+  { key: 'overview',   icon: '◈', name: 'Overview',        desc: 'Start with the big picture — pitch, concept, goals' },
+  { key: 'mechanics',  icon: '⚙', name: 'Core Mechanics',  desc: 'Design how the game actually plays' },
+  { key: 'characters', icon: '👤', name: 'Characters',      desc: 'Build your cast — heroes, enemies, NPCs' },
+  { key: 'narrative',  icon: '📖', name: 'Narrative',       desc: 'Write the story, world, and lore' },
+  { key: 'levels',     icon: '🗺', name: 'Levels / Areas',  desc: 'Design the spaces players explore' },
+  { key: 'techstack',  icon: '🔧', name: 'Tech Stack',      desc: 'Plan the engine, tools, and platform' },
+];
+
+function obStart() {
+  OB.step = 0;
+  OB.data = { name: proj()?.theme?.name || '', genre: proj()?.theme?.genre || '', platform: proj()?.theme?.platform || '', theme: S.currentTheme || 'default', startSection: 'overview' };
+  document.getElementById('ob-overlay').classList.add('open');
+  obRender();
+}
+
+function obSkip() {
+  localStorage.setItem('codex_gdd_onboarded', '1');
+  const overlay = document.getElementById('ob-overlay');
+  overlay.classList.add('fade-out');
+  setTimeout(() => overlay.classList.remove('open', 'fade-out'), 520);
+}
+
+function obBack() {
+  if (OB.step > 0) { OB.step--; obRender(); }
+}
+
+function obNext() {
+  // Collect current step data before advancing
+  obCollect();
+
+  if (OB.step < OB_STEPS.length - 1) {
+    OB.step++;
+    obRender();
+  } else {
+    obFinish();
+  }
+}
+
+function obCollect() {
+  const step = OB_STEPS[OB.step];
+  if (step === 'project') {
+    OB.data.name     = document.getElementById('ob-name')?.value.trim() || OB.data.name;
+    OB.data.genre    = document.getElementById('ob-genre')?.value.trim() || OB.data.genre;
+    OB.data.platform = document.getElementById('ob-platform')?.value || OB.data.platform;
+  }
+}
+
+function obSelectTheme(id) {
+  OB.data.theme = id;
+  document.querySelectorAll('.ob-theme-card').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector(`.ob-theme-card[data-tid="${id}"]`);
+  if (card) card.classList.add('active');
+  // Live preview the theme
+  applyThemeById(id);
+}
+
+function obSelectSection(key) {
+  OB.data.startSection = key;
+  document.querySelectorAll('.ob-section-card').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector(`.ob-section-card[data-skey="${key}"]`);
+  if (card) card.classList.add('active');
+}
+
+function obFinish() {
+  const p = proj(); if (!p) return;
+  // Apply project name
+  if (OB.data.name) {
+    p.name = OB.data.name;
+    p.theme = p.theme || {};
+    p.theme.name = OB.data.name;
+  }
+  if (OB.data.genre)    p.theme.genre    = OB.data.genre;
+  if (OB.data.platform) p.theme.platform = OB.data.platform;
+
+  // Apply theme
+  applyThemeById(OB.data.theme);
+
+  // Collapse all sidebar groups except the one containing chosen section
+  const chosenDef = getDef(OB.data.startSection);
+  const chosenCat = chosenDef?.cat || '';
+  S.collapsedGroups = {};
+  // Get all unique categories
+  const allSecs = [...SECTIONS, ...S.customSections];
+  const cats = [...new Set(allSecs.map(s => s.cat))];
+  cats.forEach(cat => {
+    const gid = 'g_' + cat.replace(/\W/g,'');
+    S.collapsedGroups[gid] = (cat !== chosenCat); // collapse all except chosen
+  });
+
+  // Mark onboarded
+  localStorage.setItem('codex_gdd_onboarded', '1');
+  scheduleSave();
+
+  // Fade out overlay then reveal app
+  const overlay = document.getElementById('ob-overlay');
+  overlay.classList.add('fade-out');
+  setTimeout(() => {
+    overlay.classList.remove('open', 'fade-out');
+    // Navigate to chosen section
+    switchSection(OB.data.startSection);
+    toast('Welcome to The Codex! Your project is ready.');
+  }, 520);
+}
+
+function obRender() {
+  const step = OB_STEPS[OB.step];
+  const total = OB_STEPS.length;
+  const pct = (OB.step / (total - 1)) * 100;
+
+  // Progress bar
+  document.getElementById('ob-prog-fill').style.width = pct + '%';
+
+  // Back button
+  const back = document.getElementById('ob-back');
+  back.style.display = OB.step > 0 && OB.step < total - 1 ? 'block' : 'none';
+
+  // Next button label
+  const next = document.getElementById('ob-next');
+  next.textContent = OB.step === total - 1 ? '✓ Open My Codex' : (OB.step === 0 ? "Let's Go →" : 'Continue →');
+
+  // Skip button
+  const skip = document.getElementById('ob-skip');
+  skip.style.display = OB.step === total - 1 ? 'none' : 'block';
+
+  // Body
+  const body = document.getElementById('ob-body');
+  const stepLabel = OB.step < total - 1 ? `Step ${OB.step + 1} of ${total - 1}` : 'All set!';
+
+  if (step === 'welcome') {
+    body.innerHTML = `
+      <div class="ob-step-num">${stepLabel}</div>
+      <div class="ob-title">Welcome to<br>The Codex ✦</div>
+      <div class="ob-sub">Your living game design document — where your entire game lives, grows, and ships from. Let's get you set up in under a minute.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--parch2);border-radius:8px;border:1px solid var(--parch4)">
+          <span style="font-size:20px">✦</span>
+          <div>
+            <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink2)">AI-powered design review</div>
+            <div style="font-family:var(--fb);font-size:12px;color:var(--ink4)">Claude reviews your entries and gives design feedback</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--parch2);border-radius:8px;border:1px solid var(--parch4)">
+          <span style="font-size:20px">⟁</span>
+          <div>
+            <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink2)">Flowcharts, Mind Maps & Systems Map</div>
+            <div style="font-family:var(--fb);font-size:12px;color:var(--ink4)">Visual design tools built right into your GDD</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--parch2);border-radius:8px;border:1px solid var(--parch4)">
+          <span style="font-size:20px">🗂</span>
+          <div>
+            <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink2)">24+ GDD sections with guided templates</div>
+            <div style="font-family:var(--fb);font-size:12px;color:var(--ink4)">Every section of your game design, structured and organized</div>
+          </div>
+        </div>
+      </div>`;
+
+  } else if (step === 'project') {
+    body.innerHTML = `
+      <div class="ob-step-num">${stepLabel}</div>
+      <div class="ob-title">Name Your Game</div>
+      <div class="ob-sub">You can change this anytime — just enough to get started.</div>
+      <div class="ob-field">
+        <label class="ob-label">Game Title</label>
+        <input class="ob-inp" id="ob-name" placeholder="e.g. Hollow Rift, Project Nova…" value="${esc(OB.data.name)}" maxlength="60" autofocus>
+      </div>
+      <div class="ob-field">
+        <label class="ob-label">Genre</label>
+        <input class="ob-inp" id="ob-genre" placeholder="e.g. Action RPG, Cozy Sim, Horror Survival…" value="${esc(OB.data.genre)}" maxlength="60">
+      </div>
+      <div class="ob-field">
+        <label class="ob-label">Primary Platform</label>
+        <select class="ob-sel" id="ob-platform">
+          <option value="" ${!OB.data.platform?'selected':''}>— Select platform —</option>
+          <option value="PC" ${OB.data.platform==='PC'?'selected':''}>PC (Steam / Epic / Itch)</option>
+          <option value="Console" ${OB.data.platform==='Console'?'selected':''}>Console (PS / Xbox / Switch)</option>
+          <option value="Mobile" ${OB.data.platform==='Mobile'?'selected':''}>Mobile (iOS / Android)</option>
+          <option value="PC + Console" ${OB.data.platform==='PC + Console'?'selected':''}>PC + Console</option>
+          <option value="Web" ${OB.data.platform==='Web'?'selected':''}>Web Browser</option>
+          <option value="VR" ${OB.data.platform==='VR'?'selected':''}>VR / AR</option>
+          <option value="TBD" ${OB.data.platform==='TBD'?'selected':''}>TBD</option>
+        </select>
+      </div>`;
+    // Focus title after render
+    setTimeout(() => document.getElementById('ob-name')?.focus(), 60);
+
+  } else if (step === 'theme') {
+    const cur = OB.data.theme || 'default';
+    body.innerHTML = `
+      <div class="ob-step-num">${stepLabel}</div>
+      <div class="ob-title">Pick Your Theme</div>
+      <div class="ob-sub">Choose the visual style that fits your game. You can change it anytime in Settings.</div>
+      <div class="ob-theme-grid">
+        ${THEMES.map(t => `
+          <div class="ob-theme-card ${t.id === cur ? 'active' : ''}" data-tid="${t.id}" onclick="obSelectTheme('${t.id}')">
+            <div class="ob-theme-preview">
+              <div class="ob-tp-sidebar" style="background:${t.sidebar}">
+                ${[1,2,3].map(() => `<div style="height:5px;margin:4px 3px 0;background:${t.accent};opacity:.25;border-radius:1px"></div>`).join('')}
+              </div>
+              <div class="ob-tp-main" style="background:${t.main}">
+                <div class="ob-tp-hdr" style="background:${t.accent};opacity:.7"></div>
+                <div class="ob-tp-line" style="background:${t.text}"></div>
+                <div class="ob-tp-line" style="background:${t.text};width:60%"></div>
+                <div class="ob-tp-card" style="background:${t.card};border:1px solid ${t.line};border-left:3px solid ${t.accent}"></div>
+              </div>
+            </div>
+            <div class="ob-theme-name" style="background:var(--parch2);color:var(--ink2)">
+              <div style="font-family:var(--fd);font-size:9px;font-weight:700;color:var(--ink)">${t.name}</div>
+              <div style="font-size:7px;color:var(--ink4);margin-top:1px">${t.genre}</div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+
+  } else if (step === 'section') {
+    const cur = OB.data.startSection || 'overview';
+    body.innerHTML = `
+      <div class="ob-step-num">${stepLabel}</div>
+      <div class="ob-title">Where Do You<br>Want to Start?</div>
+      <div class="ob-sub">Pick the section that feels most natural. Every section is available anytime — this just decides where we land.</div>
+      <div class="ob-section-grid">
+        ${OB_START_SECTIONS.map(s => `
+          <div class="ob-section-card ${s.key === cur ? 'active' : ''}" data-skey="${s.key}" onclick="obSelectSection('${s.key}')">
+            <div class="ob-sc-icon">${s.icon}</div>
+            <div class="ob-sc-info">
+              <div class="ob-sc-name">${s.name}</div>
+              <div class="ob-sc-desc">${s.desc}</div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+
+  } else if (step === 'done') {
+    const themeName = THEMES.find(t => t.id === OB.data.theme)?.name || 'Studio';
+    const sectionName = OB_START_SECTIONS.find(s => s.key === OB.data.startSection)?.name || 'Overview';
+    body.innerHTML = `
+      <div class="ob-step-num">Ready!</div>
+      <div class="ob-title">You're All Set${OB.data.name ? ',<br>' + esc(OB.data.name) : ''}! 🎮</div>
+      <div class="ob-sub">Here's what's been set up for you:</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+        ${OB.data.name ? `<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--parch2);border-radius:8px;border-left:3px solid var(--gold2)"><span>🎮</span><span style="font-family:var(--fb);font-size:14px;color:var(--ink2)">${esc(OB.data.name)}${OB.data.genre ? ' — ' + esc(OB.data.genre) : ''}</span></div>` : ''}
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--parch2);border-radius:8px;border-left:3px solid var(--gold2)"><span>🎨</span><span style="font-family:var(--fb);font-size:14px;color:var(--ink2)">${themeName} theme applied</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--parch2);border-radius:8px;border-left:3px solid var(--gold2)"><span>📝</span><span style="font-family:var(--fb);font-size:14px;color:var(--ink2)">Starting in ${sectionName}</span></div>
+      </div>
+      <div style="font-family:var(--fb);font-size:13px;color:var(--ink4);margin-top:20px;font-style:italic;line-height:1.6">Add your Anthropic API key in Settings → to unlock AI-powered design review. Everything else works right away.</div>`;
+  }
+}
+
 function init() {
   loadS();
   const ids = Object.keys(S.projects);
   if (!ids.length) {
     const id = uid();
-    S.projects[id] = { id, name:'My First Game', theme:{name:'My First Game',genre:'',pitch:'',studio:'',platform:'',audience:'',team:[]}, data:{}, history:{}, changelog:[], created:Date.now() };
+    S.projects[id] = { id, name:'My First Game', theme:{name:'My First Game',genre:'',pitch:'',studio:'',platform:'',audience:'',team:[]}, data:{}, history:{}, changelog:[], pillars:[], overviewPitch:'', created:Date.now() };
     S.projId = id; saveS();
   } else if (!S.projId || !S.projects[S.projId]) {
     S.projId = ids[ids.length-1];
@@ -6643,11 +8707,17 @@ function init() {
   renderAll();
   updateStorageBar();
 
+  // Show onboarding wizard on first launch
+  const onboarded = localStorage.getItem('codex_gdd_onboarded');
+  if (!onboarded) {
+    setTimeout(() => obStart(), 400);
+  }
+
   // Warn if running locally (file://) — fonts and Mermaid won't load
   if (window.location.protocol === 'file:') {
     setTimeout(() => {
       toast('Tip: For best experience upload to GitHub Pages — fonts and diagrams need a server', 'warn');
-    }, 1800);
+    }, onboarded ? 1800 : 3200);
   }
 }
 
