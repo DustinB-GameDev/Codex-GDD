@@ -14,13 +14,18 @@ window._mermaidLoaded = false;
 <style>
 
 /* ===
-     THE CODEX — Living Game Design Document              
-     v3.0 — Single file, zero dependencies               
-     Deploy: GitHub Pages, Netlify Drop, or any static   
+     THE CODEX — Living Game Design Document
+     v3.0 — Single file, zero dependencies
+     Deploy: GitHub Pages, Netlify Drop, or any static
    === */
 
 /*  Reset  */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/*  Prevent accidental text selection on non-editable UI  */
+body { user-select: none; -webkit-user-select: none; }
+input, textarea, [contenteditable="true"], .rich-ed, .bug-body, .hp-date, .hp-prev, .al-search-inp { user-select: text; -webkit-user-select: text; }
+a { user-select: text; -webkit-user-select: text; }
 
 /*  Design Tokens  */
 :root {
@@ -385,6 +390,18 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .btn.teal { background: var(--teal); color: var(--parch); border-color: var(--teal); }
 .btn.teal:hover { background: var(--teal2); }
 
+/* Card delete button — clearly separated from the expand chevron */
+.card-delete-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--t), background var(--t);
+  border-radius: var(--r);
+  padding: 4px 8px !important;
+}
+.card-hd:hover .card-delete-btn { opacity: 1; }
+.card-chev { margin-left: 16px; }
+
 /* Status bar */
 #status-bar {
   background: var(--parch3);
@@ -400,6 +417,10 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .dot.g { background: #44bb88; } .dot.y { background: var(--gold2); animation: blink 1.4s ease-in-out infinite; } .dot.r { background: var(--crimson3); }
 @keyframes blink { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+/*  Prevent flash of unstyled app before onboarding check  */
+#app { opacity: 0; transition: opacity .45s ease; }
+#app.ready { opacity: 1; }
 
 /* Content area */
 #content-area { flex: 1; overflow-y: auto; padding: 22px 24px; display: flex; flex-direction: column; gap: 16px; }
@@ -460,35 +481,35 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 
 .dash-proj-name {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 800;
   color: #ffffff;
-  letter-spacing: -.01em;
-  margin-bottom: 4px;
-  line-height: 1.15;
-  text-shadow: 0 1px 20px rgba(88,101,242,.35);
+  letter-spacing: -.02em;
+  margin-bottom: 6px;
+  line-height: 1.1;
+  text-shadow: 0 2px 24px rgba(88,101,242,.4);
 }
 .dash-genre {
   font-family: var(--fd);
-  font-size: 10px;
-  letter-spacing: .18em;
+  font-size: 11px;
+  letter-spacing: .20em;
   text-transform: uppercase;
-  color: var(--gold3);
-  margin-bottom: 8px;
-  opacity: .75;
+  color: #a0b4ff;
+  margin-bottom: 10px;
+  opacity: 1;
 }
 .dash-pitch {
-  font-size: 15px;
-  color: rgba(255,255,255,.58);
-  line-height: 1.68;
+  font-size: 16px;
+  color: rgba(255,255,255,.80);
+  line-height: 1.65;
   font-style: italic;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   max-width: 600px;
 }
 .dash-meta-row { display: flex; gap: 18px; flex-wrap: wrap; }
-.dash-meta-item { display: flex; flex-direction: column; gap: 2px; }
-.dash-meta-label { font-family: var(--fd); font-size: 8px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.38); }
-.dash-meta-val { font-family: var(--fd); font-size: 11px; color: rgba(255,255,255,.70); font-weight: 500; }
+.dash-meta-item { display: flex; flex-direction: column; gap: 3px; }
+.dash-meta-label { font-family: var(--fd); font-size: 8px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.50); }
+.dash-meta-val { font-family: var(--fd); font-size: 13px; color: rgba(255,255,255,.90); font-weight: 600; }
 
 .dash-section-label {
   font-family: var(--fd);
@@ -527,8 +548,8 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .dash-card:hover { box-shadow: 0 4px 16px var(--sh2); border-color: var(--br2); transform: translateY(-1px); }
 .dash-card:hover::before { height: 4px; }
 .dash-card-icon { font-size: 16px; margin-bottom: 8px; opacity: .6; }
-.dash-card-title { font-family: var(--fd); font-size: 11px; font-weight: 600; letter-spacing: .05em; color: var(--ink2); margin-bottom: 6px; }
-.dash-card-sub { font-size: 12px; color: var(--ink4); font-style: italic; line-height: 1.4; margin-bottom: 10px; }
+.dash-card-title { font-family: var(--fd); font-size: 13px; font-weight: 600; letter-spacing: .04em; color: var(--ink2); margin-bottom: 6px; }
+.dash-card-sub { font-size: 13px; color: var(--ink4); font-style: italic; line-height: 1.4; margin-bottom: 10px; }
 .dash-card-foot { display: flex; align-items: center; gap: 8px; }
 .dash-card-pct { font-family: var(--fd); font-size: 9px; color: var(--ink4); }
 .dash-card-prog { flex: 1; height: 2px; background: var(--parch3); border-radius: 1px; }
@@ -954,13 +975,13 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .modal-title span { flex: 1; }
 .modal-x { background: none; border: none; cursor: pointer; color: var(--ink4); font-size: 20px; font-weight: 700; padding: 0; line-height: 1; margin-left: auto; transition: color var(--t); flex-shrink: 0; }
 .modal-x:hover { color: var(--crimson2); }
-.modal-sec-hd { font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--ink3); margin: 20px 0 10px; padding-bottom: 5px; border-bottom: 1px solid var(--br); }
+.modal-sec-hd { font-family: var(--fd); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); margin: 20px 0 10px; padding-bottom: 5px; border-bottom: 1px solid var(--br); }
 .fld { margin-bottom: 14px; }
-.fld-lbl { font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: var(--ink3); display: block; margin-bottom: 5px; }
+.fld-lbl { font-family: var(--fd); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); display: block; margin-bottom: 5px; }
 .fld-inp, .fld-sel, .fld-ta { width: 100%; font-family: var(--fb); font-size: 14px; padding: 8px 11px; border: 1px solid var(--br2); background: #fff; border-radius: var(--r); color: var(--ink); outline: none; transition: border-color var(--t); }
 .fld-inp:focus, .fld-sel:focus, .fld-ta:focus { border-color: var(--gold2); }
 .fld-ta { min-height: 80px; resize: vertical; }
-.fld-hint { font-size: 12px; color: var(--ink4); margin-top: 4px; font-style: italic; line-height: 1.4; }
+.fld-hint { font-size: 13px; color: var(--ink4); margin-top: 4px; font-style: italic; line-height: 1.5; }
 .modal-acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--br); }
 
 /* Team member row in modal */
@@ -1476,7 +1497,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 
 /* ── TERMINAL — Sci-Fi / Cyberpunk ── */
 [data-theme="terminal"] {
-  --ink:#0a0e0a;--ink2:#111811;--ink3:#1e2e1e;--ink4:#4a6e4a;--ink5:#6a9a6a;
+  --ink:#c8ffdc;--ink2:#aaffcc;--ink3:#77dd99;--ink4:#4a9a66;--ink5:#336644;
   --parch:#0d120d;--parch2:#111811;--parch3:#162016;--parch4:#1c2a1c;--parch5:#223022;
   --gold:#00cc66;--gold2:#00ff88;--gold3:#44ffaa;--gold4:#88ffcc;
   --teal:#003322;--teal2:#005533;--teal3:#008855;--teal4:#00bb77;
@@ -1516,7 +1537,13 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 [data-theme="terminal"] #theme-bar{background:linear-gradient(90deg,#0d120d 0%,#0a0e0a 100%);}
 [data-theme="terminal"] .storage-bar-wrap{background:#111811;}
 [data-theme="terminal"] .modal{background:#111811;}
-[data-theme="terminal"] .fld-inp,[data-theme="terminal"] .fld-sel,[data-theme="terminal"] .fld-ta{background:#0a0e0a;color:#aaffcc;border-color:rgba(0,255,136,.22);}
+[data-theme="terminal"] .modal-title{color:#44ffaa;}
+[data-theme="terminal"] .modal-title span{color:#44ffaa;}
+[data-theme="terminal"] .modal-x{color:rgba(0,255,136,.45);}
+[data-theme="terminal"] .modal-x:hover{color:#ff4466;}
+[data-theme="terminal"] .modal-sec-hd{color:#00cc66;border-bottom-color:rgba(0,255,136,.18);font-size:10px;}
+[data-theme="terminal"] .fld-lbl{color:#44ffaa !important;}
+[data-theme="terminal"] .fld-inp,[data-theme="terminal"] .fld-sel,[data-theme="terminal"] .fld-ta{background:#0a0e0a;color:#aaffcc;border-color:rgba(0,255,136,.22);font-size:13px;}
 [data-theme="terminal"] #ai-panel{background:#0a0e0a;border-top-color:#00ff88;}
 [data-theme="terminal"] .sb-gl{color:rgba(0,255,136,.28);}
 [data-theme="terminal"] .sb-item{color:rgba(0,255,136,.42);}
@@ -1586,7 +1613,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 
 /* ── SLATE — Modern Studio (Dark Navy) ── */
 [data-theme="slate"] {
-  --ink:#0f1117;--ink2:#1a1d27;--ink3:#343848;--ink4:#666880;--ink5:#8890a8;
+  --ink:#dde2f0;--ink2:#ccd0e8;--ink3:#99a4c8;--ink4:#6678a0;--ink5:#445578;
   --parch:#1e2130;--parch2:#252840;--parch3:#2d3050;--parch4:#353860;--parch5:#3d4070;
   --gold:#4488ff;--gold2:#5599ff;--gold3:#66aaff;--gold4:#88bbff;
   --teal:#003366;--teal2:#004488;--teal3:#0055aa;--teal4:#2277cc;
@@ -1626,7 +1653,13 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 [data-theme="slate"] #theme-bar{background:linear-gradient(90deg,#1a1d27 0%,#0f1117 100%);}
 [data-theme="slate"] .storage-bar-wrap{background:#252840;}
 [data-theme="slate"] .modal{background:#1e2130;}
-[data-theme="slate"] .fld-inp,[data-theme="slate"] .fld-sel,[data-theme="slate"] .fld-ta{background:#1a1d27;color:#ccd0e0;border-color:rgba(68,136,255,.22);}
+[data-theme="slate"] .modal-title{color:#ccd0e0;}
+[data-theme="slate"] .modal-title span{color:#ccd0e0;}
+[data-theme="slate"] .modal-x{color:rgba(102,170,255,.45);}
+[data-theme="slate"] .modal-x:hover{color:#ff6677;}
+[data-theme="slate"] .modal-sec-hd{color:#5599ff;border-bottom-color:rgba(68,136,255,.20);font-size:10px;}
+[data-theme="slate"] .fld-lbl{color:#66aaff !important;}
+[data-theme="slate"] .fld-inp,[data-theme="slate"] .fld-sel,[data-theme="slate"] .fld-ta{background:#1a1d27;color:#ccd0e0;border-color:rgba(68,136,255,.22);font-size:13px;}
 [data-theme="slate"] #ai-panel{background:#0f1117;border-top-color:#5599ff;}
 [data-theme="slate"] .sb-gl{color:rgba(102,170,255,.28);}
 [data-theme="slate"] .sb-item{color:rgba(102,170,255,.42);}
@@ -1641,7 +1674,7 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 
 /* ── MANUSCRIPT — Horror / Gothic Dark ── */
 [data-theme="manuscript"] {
-  --ink:#0c0808;--ink2:#1a1010;--ink3:#3a2020;--ink4:#6a4040;--ink5:#8a6060;
+  --ink:#f0d8d8;--ink2:#e0b8b8;--ink3:#b88888;--ink4:#8a5858;--ink5:#5c3838;
   --parch:#140b0b;--parch2:#1e1010;--parch3:#2d1515;--parch4:#3a1c1c;--parch5:#442222;
   --gold:#882020;--gold2:#aa2828;--gold3:#cc3333;--gold4:#dd5555;
   --teal:#1a0808;--teal2:#2a1010;--teal3:#4a1818;--teal4:#6a2222;
@@ -1681,7 +1714,13 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 [data-theme="manuscript"] #theme-bar{background:linear-gradient(90deg,#1a1010 0%,#0c0808 100%);}
 [data-theme="manuscript"] .storage-bar-wrap{background:#1a0f0f;}
 [data-theme="manuscript"] .modal{background:#1a0f0f;}
-[data-theme="manuscript"] .fld-inp,[data-theme="manuscript"] .fld-sel,[data-theme="manuscript"] .fld-ta{background:#0c0808;color:#c8a0a0;border-color:rgba(170,40,40,.26);}
+[data-theme="manuscript"] .modal-title{color:#dd9090;}
+[data-theme="manuscript"] .modal-title span{color:#dd9090;}
+[data-theme="manuscript"] .modal-x{color:rgba(204,51,51,.45);}
+[data-theme="manuscript"] .modal-x:hover{color:#ff6677;}
+[data-theme="manuscript"] .modal-sec-hd{color:#aa2828;border-bottom-color:rgba(170,40,40,.22);font-size:10px;}
+[data-theme="manuscript"] .fld-lbl{color:#cc3333 !important;}
+[data-theme="manuscript"] .fld-inp,[data-theme="manuscript"] .fld-sel,[data-theme="manuscript"] .fld-ta{background:#0c0808;color:#c8a0a0;border-color:rgba(170,40,40,.26);font-size:13px;}
 [data-theme="manuscript"] #ai-panel{background:#0c0808;border-top-color:#aa2828;}
 [data-theme="manuscript"] .sb-gl{color:rgba(204,51,51,.28);}
 [data-theme="manuscript"] .sb-item{color:rgba(204,51,51,.42);}
@@ -2302,9 +2341,9 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   background: radial-gradient(circle, rgba(88,101,242,.20) 0%, transparent 70%);
   pointer-events: none;
 }
-.oh-label { font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: var(--gold3); margin-bottom: 10px; opacity: .80; }
+.oh-label { font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .20em; text-transform: uppercase; color: #a0b4ff; margin-bottom: 10px; opacity: 1; }
 .oh-pitch {
-  font-family: var(--fb); font-size: 21px; font-style: italic; font-weight: 300;
+  font-family: var(--fb); font-size: 22px; font-style: italic; font-weight: 300;
   color: #ffffff; line-height: 1.60; max-width: 680px; margin-bottom: 20px;
   min-height: 32px; position: relative; z-index: 1;
   text-shadow: 0 1px 8px rgba(0,0,0,.25);
@@ -2313,12 +2352,12 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   outline: none; border-bottom: 2px solid rgba(88,101,242,.55);
   padding-bottom: 2px; cursor: text;
 }
-.oh-pitch:empty::before { content: attr(data-placeholder); color: rgba(255,255,255,.32); font-style: italic; }
+.oh-pitch:empty::before { content: attr(data-placeholder); color: rgba(255,255,255,.40); font-style: italic; }
 .oh-meta { display: flex; gap: 24px; flex-wrap: wrap; position: relative; z-index: 1; }
 .oh-meta-item { display: flex; flex-direction: column; gap: 3px; }
-.oh-meta-lbl { font-family: var(--fd); font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.45); }
-.oh-meta-val { font-family: var(--fd); font-size: 13px; color: rgba(255,255,255,.88); font-weight: 600; }
-.oh-edit-hint { font-family: var(--fd); font-size: 8px; letter-spacing: .08em; color: rgba(255,255,255,.28); margin-top: 16px; position: relative; z-index: 1; }
+.oh-meta-lbl { font-family: var(--fd); font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.oh-meta-val { font-family: var(--fd); font-size: 14px; color: rgba(255,255,255,.95); font-weight: 600; }
+.oh-edit-hint { font-family: var(--fd); font-size: 9px; letter-spacing: .08em; color: rgba(255,255,255,.38); margin-top: 16px; position: relative; z-index: 1; }
 
 /* ── ENTRY TEMPLATES ─────────────────────────── */
 .tpl-grid {
@@ -2404,7 +2443,6 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 }
 .ob-overlay.open { display: flex; }
 .ob-overlay.fade-out { opacity: 0; pointer-events: none; }
-.ob-overlay.open { display: flex; }
 
 .ob-modal {
   background: #f8f9fa; border-radius: 16px;
@@ -2538,11 +2576,11 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 .lfs-icon { font-size: 22px; flex-shrink: 0; }
 .lfs-info { flex: 1; min-width: 0; }
 .lfs-mode {
-  font-family: var(--fd); font-size: 12px; font-weight: 700;
+  font-family: var(--fd); font-size: 13px; font-weight: 700;
   color: var(--ink2); letter-spacing: .03em;
 }
 .lfs-path {
-  font-family: var(--fm); font-size: 11px; color: var(--ink4);
+  font-family: var(--fm); font-size: 12px; color: var(--ink4);
   margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .lfs-autosave-badge {
@@ -2559,6 +2597,152 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   line-height: 1.5;
 }
 
+/* ── WORLD GRAPH ──────────────────────────────────── */
+.wg-overlay {
+  position: fixed; inset: 0; background: #13111a;
+  z-index: 125; display: none; flex-direction: column; overflow: hidden;
+}
+.wg-overlay.open { display: flex; }
+
+.wg-topbar {
+  display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+  background: #1a1825; border-bottom: 2px solid #5865f2;
+  flex-shrink: 0; flex-wrap: wrap;
+}
+.wg-logo {
+  font-family: var(--fd); font-size: 13px; font-weight: 800;
+  color: #fff; letter-spacing: .05em; flex-shrink: 0;
+}
+.wg-logo span { color: rgba(255,255,255,.30); font-weight: 400; }
+.wg-sep { width: 1px; height: 20px; background: rgba(255,255,255,.10); flex-shrink: 0; }
+.wg-spacer { flex: 1; }
+.wg-btn {
+  font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: var(--r); cursor: pointer;
+  border: 1px solid rgba(255,255,255,.16); background: transparent; color: rgba(255,255,255,.70);
+  transition: all var(--t); white-space: nowrap; flex-shrink: 0;
+}
+.wg-btn:hover { background: rgba(255,255,255,.09); color: #fff; border-color: rgba(255,255,255,.35); }
+.wg-btn.active { background: rgba(88,101,242,.35); color: #a0b4ff; border-color: #5865f2; }
+.wg-btn.primary { background: #5865f2; color: #fff; border-color: #5865f2; }
+.wg-btn.primary:hover { background: #7289da; }
+.wg-btn.close-btn { background: rgba(192,57,43,.18); color: #ff8080; border-color: rgba(192,57,43,.50); }
+.wg-btn.close-btn:hover { background: rgba(192,57,43,.32); color: #ffaaaa; }
+.wg-btn.danger { color: #ff8080; border-color: rgba(192,57,43,.40); }
+.wg-btn.danger:hover { background: rgba(192,57,43,.18); }
+
+.wg-subbar {
+  display: flex; align-items: center; gap: 8px; padding: 7px 16px;
+  background: #1e1b2e; border-bottom: 1px solid rgba(88,101,242,.20);
+  flex-shrink: 0; overflow-x: auto;
+}
+.wg-subbar-lbl {
+  font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(255,255,255,.30); flex-shrink: 0; margin-right: 2px;
+}
+.wg-type-btn {
+  display: flex; align-items: center; gap: 5px;
+  font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .06em;
+  padding: 4px 10px; border-radius: 20px; cursor: pointer; flex-shrink: 0;
+  border: 1px solid transparent; background: rgba(255,255,255,.06); color: rgba(255,255,255,.55);
+  transition: all var(--t);
+}
+.wg-type-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+.wg-type-btn .wg-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+.wg-canvas-wrap {
+  flex: 1; position: relative; overflow: hidden; cursor: grab;
+  background-color: #13111a;
+  background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.wg-canvas-wrap:active { cursor: grabbing; }
+.wg-canvas-wrap.connecting { cursor: crosshair; }
+#wg-canvas { width: 100%; height: 100%; display: block; pointer-events: all; }
+#wg-edges-layer, #wg-nodes-layer { pointer-events: all; }
+
+.wg-hint {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  font-family: var(--fd); font-size: 9px; letter-spacing: .07em;
+  color: rgba(255,255,255,.28); background: rgba(0,0,0,.45);
+  padding: 5px 14px; border-radius: 20px; white-space: nowrap; pointer-events: none;
+}
+
+.wg-bottombar {
+  padding: 6px 16px; background: #1a1825; border-top: 1px solid rgba(88,101,242,.20);
+  display: flex; align-items: center; gap: 14px; flex-shrink: 0;
+  font-family: var(--fd); font-size: 9px; color: rgba(255,255,255,.30); letter-spacing: .06em;
+}
+.wg-bottombar b { color: rgba(255,255,255,.55); }
+
+.wg-props {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 260px;
+  background: #1e1b2e; border-left: 1px solid rgba(88,101,242,.25);
+  display: flex; flex-direction: column; transform: translateX(100%);
+  transition: transform .2s ease; z-index: 5;
+}
+.wg-props.open { transform: translateX(0); }
+.wg-props-hdr {
+  padding: 12px 14px; border-bottom: 1px solid rgba(88,101,242,.20);
+  display: flex; align-items: center; gap: 8px;
+}
+.wg-props-title {
+  font-family: var(--fd); font-size: 11px; font-weight: 700;
+  color: rgba(255,255,255,.80); letter-spacing: .05em; flex: 1;
+}
+.wg-props-close { background: none; border: none; color: rgba(255,255,255,.40); cursor: pointer; font-size: 14px; padding: 0; }
+.wg-props-close:hover { color: #fff; }
+.wg-props-body { flex: 1; padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.wg-prop-lbl {
+  font-family: var(--fd); font-size: 8px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(255,255,255,.30); margin-bottom: 5px; display: block;
+}
+.wg-prop-inp {
+  width: 100%; font-family: var(--fb); font-size: 13px; padding: 7px 10px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--r); color: rgba(255,255,255,.85); outline: none;
+  transition: border-color var(--t);
+}
+.wg-prop-inp:focus { border-color: #5865f2; }
+.wg-prop-ta {
+  width: 100%; font-family: var(--fb); font-size: 12px; padding: 7px 10px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--r); color: rgba(255,255,255,.70); outline: none;
+  resize: vertical; min-height: 60px; transition: border-color var(--t); line-height: 1.5;
+}
+.wg-prop-ta:focus { border-color: #5865f2; }
+.wg-prop-sel {
+  width: 100%; font-family: var(--fd); font-size: 11px; padding: 7px 10px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--r); color: rgba(255,255,255,.80); outline: none; cursor: pointer;
+}
+.wg-prop-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.wg-prop-btn {
+  font-family: var(--fd); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 7px 12px; border-radius: var(--r); cursor: pointer; text-align: center;
+  border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.70); transition: all var(--t);
+}
+.wg-prop-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+.wg-prop-btn.danger { color: #ff8080; border-color: rgba(192,57,43,.40); }
+.wg-prop-btn.danger:hover { background: rgba(192,57,43,.20); }
+.wg-edge-chip {
+  display: flex; align-items: center; gap: 6px; padding: 5px 8px;
+  background: rgba(255,255,255,.05); border-radius: var(--r);
+  border: 1px solid rgba(255,255,255,.09);
+}
+.wg-edge-chip-lbl { flex: 1; font-size: 11px; color: rgba(255,255,255,.60); font-family: var(--fb); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wg-edge-chip-rm { background: none; border: none; color: rgba(255,255,255,.30); cursor: pointer; font-size: 13px; padding: 0; flex-shrink: 0; }
+.wg-edge-chip-rm:hover { color: #ff8080; }
+
+.wg-inline-inp {
+  position: absolute; z-index: 20; pointer-events: all;
+  font-family: var(--fb); font-size: 13px; text-align: center;
+  padding: 5px 12px; border: 2px solid #5865f2;
+  border-radius: 20px; background: #1e1b2e; color: #fff;
+  outline: none; min-width: 120px;
+}
+
 </style>
 </head>
 <body>
@@ -2573,11 +2757,18 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     <div class="hdr-proj" id="hdr-proj">Untitled Project</div>
     <div class="hdr-r">
       <button class="hbtn" onclick="goHome()">◈ Dashboard</button>
-      <button class="hbtn" id="read-btn" onclick="toggleReadMode()">◉ Read</button>
+      <div class="more-wrap" id="maps-wrap">
+        <button class="hbtn" onclick="toggleMaps()">⊹ Maps</button>
+        <div class="more-menu" id="maps-menu">
+          <button class="more-item" onclick="openSystemsMap();closeMaps()">⬡ Systems Map</button>
+          <button class="more-item" onclick="openWorldGraph();closeMaps()">✦ World Graph</button>
+        </div>
+      </div>
       <button class="hbtn" onclick="toggleHist()">⊙ History</button>
       <div class="more-wrap" id="more-wrap">
         <button class="hbtn" onclick="toggleMore()">⋯ More</button>
         <div class="more-menu" id="more-menu">
+          <button class="more-item" id="read-btn" onclick="toggleReadMode();closeMore()">◉ Read Mode</button>
           <button class="more-item" onclick="openOnePager();closeMore()">◈ Pitch View</button>
           <button class="more-item" onclick="openExport();closeMore()">↓ Export / Import</button>
           <button class="more-item" onclick="openSettings();closeMore()">⚙ Settings</button>
@@ -2615,12 +2806,6 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
     <div class="sb-home" id="sbi-__assets" onclick="openAssetLibrary()">
       <span class="sb-ico">🗂</span>
       <span class="sb-lbl">Asset Library</span>
-    </div>
-
-    <!-- Systems Map link -->
-    <div class="sb-home" id="sbi-__sysmap" onclick="openSystemsMap()">
-      <span class="sb-ico">⬡</span>
-      <span class="sb-lbl">Systems Map</span>
     </div>
 
     <!-- Completed View link -->
@@ -2840,12 +3025,12 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
       <label class="fld-lbl">Theme</label>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <button class="btn" onclick="closeM('m-settings');openThemePicker()">🎨 Choose Theme</button>
-        <span id="theme-name-display" style="font-family:var(--fd);font-size:11px;color:var(--ink4);letter-spacing:.06em">Parchment (default)</span>
+        <span id="theme-name-display" style="font-family:var(--fd);font-size:13px;color:var(--ink5);letter-spacing:.04em">Parchment (default)</span>
       </div>
     </div>
     <div class="modal-sec-hd">Claude AI</div>
     <div class="fld"><label class="fld-lbl">Anthropic API Key</label><input class="fld-inp" id="set-key" type="password" placeholder="sk-ant-…"><div class="fld-hint">Stored only in your browser's localStorage. Never sent anywhere except directly to Anthropic's API.</div></div>
-    <div class="fld"><label class="fld-lbl">Key Status</label><div id="key-status" style="font-family:var(--fm);font-size:12px;color:var(--ink4)">No key configured</div></div>
+    <div class="fld"><label class="fld-lbl">Key Status</label><div id="key-status" style="font-family:var(--fm);font-size:13px;color:var(--ink5)">No key configured</div></div>
     <div class="modal-sec-hd">Local File Storage</div>
     <div class="fld">
       <label class="fld-lbl">Save Location</label>
@@ -2878,11 +3063,14 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
 
 <!-- Theme Picker -->
 <div class="overlay" id="m-theme-picker">
-  <div class="modal" style="width:560px">
-    <div class="modal-title"><span>🎨 Choose Your Theme</span><button class="modal-x" onclick="closeM('m-theme-picker')">✕</button></div>
-    <p style="font-size:13px;color:var(--ink4);font-style:italic;margin-bottom:16px">Each theme is designed to match a genre and feel — not just a color swap. Pick what fits your game.</p>
+  <div class="modal" style="width:580px;background:#1e1c1a;border-color:rgba(255,255,255,.12);border-top-color:#5865f2;box-shadow:0 24px 64px rgba(0,0,0,.6)">
+    <div class="modal-title" style="color:#ffffff">
+      <span>🎨 Choose Your Theme</span>
+      <button class="modal-x" style="color:rgba(255,255,255,.4)" onmouseover="this.style.color='#ff8080'" onmouseout="this.style.color='rgba(255,255,255,.4)'" onclick="closeM('m-theme-picker')">✕</button>
+    </div>
+    <p style="font-size:14px;color:rgba(255,255,255,.55);font-style:italic;margin-bottom:20px;line-height:1.6">Each theme is designed to match a genre and feel — not just a color swap. Pick what fits your game.</p>
     <div class="theme-grid" id="theme-grid"></div>
-    <div class="modal-acts"><button class="btn primary" onclick="closeM('m-theme-picker')">Done</button></div>
+    <div class="modal-acts" style="border-top-color:rgba(255,255,255,.10)"><button class="btn primary" onclick="closeM('m-theme-picker')">Done</button></div>
   </div>
 </div>
 
@@ -3320,6 +3508,66 @@ body { font-family: var(--fb); color: var(--ink); font-size: 17px; }
   </div>
 </div>
 
+<!-- World Graph -->
+<div class="wg-overlay" id="wg-overlay">
+  <div class="wg-topbar">
+    <div class="wg-logo">World Graph <span>— The Codex</span></div>
+    <div class="wg-sep"></div>
+    <button class="wg-btn active" id="wg-tool-select" onclick="wgSetTool('select')">✦ Select</button>
+    <button class="wg-btn" id="wg-tool-connect" onclick="wgSetTool('connect')">→ Connect</button>
+    <div class="wg-sep"></div>
+    <button class="wg-btn" onclick="wgAddNode()">+ Add Node</button>
+    <button class="wg-btn danger" onclick="wgDeleteSelected()">✕ Delete</button>
+    <div class="wg-sep"></div>
+    <button class="wg-btn" onclick="wgUndo()">↩ Undo</button>
+    <button class="wg-btn" onclick="wgAutoLayout()">⊞ Auto Layout</button>
+    <div class="wg-spacer"></div>
+    <button class="wg-btn" onclick="wgExportSVG()">↓ SVG</button>
+    <button class="wg-btn primary" onclick="wgSave()">Save</button>
+    <button class="wg-btn close-btn" onclick="closeWorldGraph()">✕ Close</button>
+  </div>
+
+  <div class="wg-subbar">
+    <span class="wg-subbar-lbl">Add:</span>
+    <button class="wg-type-btn" onclick="wgAddTyped('character')" title="Character / NPC / enemy"><span class="wg-dot" style="background:#7F77DD"></span>Character</button>
+    <button class="wg-type-btn" onclick="wgAddTyped('location')" title="Location / area / level"><span class="wg-dot" style="background:#1D9E75"></span>Location</button>
+    <button class="wg-type-btn" onclick="wgAddTyped('faction')" title="Faction / organisation"><span class="wg-dot" style="background:#BA7517"></span>Faction</button>
+    <button class="wg-type-btn" onclick="wgAddTyped('event')" title="Story event / beat"><span class="wg-dot" style="background:#D85A30"></span>Event</button>
+    <button class="wg-type-btn" onclick="wgAddTyped('mechanic')" title="Mechanic / system"><span class="wg-dot" style="background:#D4537E"></span>Mechanic</button>
+    <button class="wg-type-btn" onclick="wgAddTyped('item')" title="Item / weapon / artifact"><span class="wg-dot" style="background:#378ADD"></span>Item</button>
+    <button class="wg-type-btn" onclick="wgAddTyped('quest')" title="Quest / objective"><span class="wg-dot" style="background:#639922"></span>Quest</button>
+    <button class="wg-type-btn" onclick="wgAddTyped('lore')" title="Lore / worldbuilding note"><span class="wg-dot" style="background:#888780"></span>Lore</button>
+  </div>
+
+  <div class="wg-canvas-wrap" id="wg-canvas-wrap">
+    <svg id="wg-canvas" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="wg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M2 2L8 5L2 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <g id="wg-edges-layer"></g>
+      <g id="wg-nodes-layer"></g>
+      <g id="wg-connecting-layer"></g>
+    </svg>
+    <div class="wg-hint" id="wg-hint">Click canvas to deselect · Double-click node to rename · Drag to move · Scroll to zoom</div>
+  </div>
+
+  <div class="wg-props" id="wg-props">
+    <div class="wg-props-hdr">
+      <div class="wg-props-title" id="wg-props-title">Node Properties</div>
+      <button class="wg-props-close" onclick="wgCloseProps()">✕</button>
+    </div>
+    <div class="wg-props-body" id="wg-props-body"></div>
+  </div>
+
+  <div class="wg-bottombar">
+    <span>Nodes: <b id="wg-node-count">0</b></span>
+    <span>Connections: <b id="wg-edge-count">0</b></span>
+    <span style="margin-left:auto;font-size:8px">Scroll to zoom · Drag canvas to pan · Double-click node to rename · Connect tool: click source then target</span>
+  </div>
+</div>
+
 <!-- Onboarding Wizard -->
 <div class="ob-overlay" id="ob-overlay">
   <div class="ob-modal">
@@ -3495,7 +3743,7 @@ function loadS() {
 function scheduleSave() {
   setSaveDot('saving');
   clearTimeout(_autoSave);
-  _autoSave = setTimeout(() => { saveS(); setSaveDot('saved'); }, 2800);
+  _autoSave = setTimeout(() => { saveS(); setSaveDot('saved'); updateStorageBar(); }, 2800);
   // Also trigger local file save if folder is connected (guard against load order)
   if (typeof lfsAutoSave === 'function') lfsAutoSave();
 }
@@ -3710,14 +3958,14 @@ function openReadMode() {
   document.getElementById('rm-overlay').classList.add('open');
   S.readMode = true;
   const btn = document.getElementById('read-btn');
-  if (btn) { btn.classList.add('read-active'); btn.textContent = '◉ Reading'; }
+  if (btn) btn.textContent = '◉ Reading Mode (active)';
 }
 
 function closeReadMode() {
   document.getElementById('rm-overlay').classList.remove('open');
   S.readMode = false;
   const btn = document.getElementById('read-btn');
-  if (btn) { btn.classList.remove('read-active'); btn.textContent = '◉ Read'; }
+  if (btn) btn.textContent = '◉ Read Mode';
 }
 
 function rmRenderContent(raw) {
@@ -4201,7 +4449,7 @@ function buildCard(entry, idx, isApprovedSection) {
         ${locked ? `<span class="card-lock-icon" title="Locked">🔒</span>` : ''}
         ${hasCmts ? `<span class="card-ai-chip">${entry.comments.length} note${entry.comments.length>1?'s':''}</span>` : ''}
         ${(entry.tags||[]).length ? `<div class="card-tags">${tagHtml}</div>` : ''}
-        ${!locked ? `<button class="btn sm danger" onclick="event.stopPropagation();deleteEntry(${idx})" style="margin-left:auto;flex-shrink:0">✕ Delete</button>` : ''}
+        ${!locked ? `<button class="btn sm danger card-delete-btn" onclick="event.stopPropagation();deleteEntry(${idx})" title="Delete entry">✕</button>` : ''}
         <span class="card-chev ${entry.open?'open':''}" id="chev-${idx}">▶</span>
       </div>
 
@@ -4370,9 +4618,11 @@ function toggleDisc(idx, panel) {
 
 /*  More Dropdown  */
 let _moreOpen = false;
+let _mapsOpen = false;
 function toggleMore() {
   _moreOpen = !_moreOpen;
   document.getElementById('more-menu').classList.toggle('open', _moreOpen);
+  if (_moreOpen) closeMaps();
 }
 function closeMore() {
   _moreOpen = false;
@@ -4380,30 +4630,36 @@ function closeMore() {
   if (m) m.classList.remove('open');
 }
 
+function toggleMaps() {
+  _mapsOpen = !_mapsOpen;
+  document.getElementById('maps-menu').classList.toggle('open', _mapsOpen);
+  if (_mapsOpen) closeMore();
+}
+function closeMaps() {
+  _mapsOpen = false;
+  const m = document.getElementById('maps-menu');
+  if (m) m.classList.remove('open');
+}
+
 function confirmEntry() {
-  try {
-    const title = document.getElementById('em-title').value.trim() || 'Untitled Entry';
-    const type = document.getElementById('em-type').value;
-    const status = document.getElementById('em-status').value;
-    const priority = document.getElementById('em-priority').value;
-    const wcTarget = parseInt(document.getElementById('em-wc-target').value) || 0;
-    const content = document.getElementById('em-content').value.trim();
-    const sec = secData();
-    if (!sec) return;
-    if (!sec.entries) sec.entries = [];
-    sec.entries.push({
-      title, type, status, priority, wcTarget, content,
-      open: true, edited: 'just now',
-      comments: [], tags: [], images: [], links: [],
-      flowcharts: [], mindmaps: [], locked: false,
-    });
-    closeM('m-entry');
-    renderContent(); renderNav(); updateStats(); scheduleSave();
-    logChange(`Added entry "${title}" to ${getDef(S.section).title}`, 'entry');
-  } catch(err) {
-    console.error('confirmEntry crash:', err);
-    toast('Error adding entry — check console for details', 'err');
-  }
+  const title = document.getElementById('em-title').value.trim() || 'Untitled Entry';
+  const type = document.getElementById('em-type').value;
+  const status = document.getElementById('em-status').value;
+  const priority = document.getElementById('em-priority').value;
+  const wcTarget = parseInt(document.getElementById('em-wc-target').value) || 0;
+  const content = document.getElementById('em-content').value.trim();
+  const sec = secData();
+  if (!sec) return;
+  if (!sec.entries) sec.entries = [];
+  sec.entries.push({
+    title, type, status, priority, wcTarget, content,
+    open: true, edited: 'just now',
+    comments: [], tags: [], images: [], links: [],
+    flowcharts: [], mindmaps: [], locked: false,
+  });
+  closeM('m-entry');
+  renderContent(); renderNav(); updateStats(); scheduleSave();
+  logChange(`Added entry "${title}" to ${getDef(S.section).title}`, 'entry');
 }
 
 function deleteEntry(idx) {
@@ -4867,8 +5123,22 @@ function saveSettings() {
   closeM('m-settings'); updateAIState(); toast('Settings saved');
 }
 function clearAll() {
-  if (!confirm('Delete ALL data? Cannot be undone.')) return;
-  localStorage.removeItem('codex_v3'); localStorage.removeItem('codex_gdd_apikey'); location.reload();
+  if (!confirm('Delete ALL Codex data? This cannot be undone.')) return;
+  // Clear all localStorage keys
+  const keysToRemove = [];
+  for (const k in localStorage) {
+    if (Object.prototype.hasOwnProperty.call(localStorage, k) && k.startsWith('codex')) {
+      keysToRemove.push(k);
+    }
+  }
+  keysToRemove.forEach(k => localStorage.removeItem(k));
+  // Clear IndexedDB folder handle
+  lfsClearHandle().catch(() => {});
+  // Clear LFS state
+  LFS.dirHandle = null;
+  LFS._pendingHandle = null;
+  lfsDismissReconnect();
+  location.reload();
 }
 
 /* ===
@@ -5176,11 +5446,12 @@ document.addEventListener('click', e => {
   if (e.target.classList.contains('overlay')) closeM(e.target.id);
   if (_ppOpen && !document.getElementById('proj-panel').contains(e.target) && e.target.id!=='proj-toggle') closeProjPanel();
   if (_moreOpen && !e.target.closest('#more-wrap')) closeMore();
+  if (_mapsOpen && !e.target.closest('#maps-wrap')) closeMaps();
 });
 document.addEventListener('keydown', e => {
   if (e.key==='Escape') {
     document.querySelectorAll('.overlay.open').forEach(el => el.classList.remove('open'));
-    closeProjPanel(); closeLB(); closeOnePager(); closeMore();
+    closeProjPanel(); closeLB(); closeOnePager(); closeMore(); closeMaps();
     if (_alOpen) closeAssetLibrary();
     if (document.getElementById('mm-modal')?.classList.contains('open')) closeMMModal();
     if (document.getElementById('sm-overlay')?.classList.contains('open')) closeSystemsMap();
@@ -5192,19 +5463,16 @@ document.addEventListener('keydown', e => {
 /* ===
    TOAST
 === */
-function toast(msg, type='ok') {
+function toast(msg, type='ok', dur) {
   const el = document.getElementById('toast');
   el.textContent = msg;
-  el.className = type === 'err' ? 'err show' : type === 'warn' ? 'warn show' : 'show';
-  const dur = type === 'warn' ? 5000 : 2800;
-  setTimeout(() => el.classList.remove('show'), dur);
+  el.className = type === 'err' ? 'err show' : type === 'warn' ? 'warn show' : type === 'info' ? 'show' : 'show';
+  const d = dur || (type === 'warn' ? 5000 : 2800);
+  setTimeout(() => el.classList.remove('show'), d);
 }
 
 /* ===
    RENDER ALL & INIT
-=== */
-/* ===
-   APP CHANGELOG DATA & FUNCTION
 === */
 const APP_VERSIONS = [
   { v:'4.2', date:'Latest', tag:'Flowchart & Sections',
@@ -5468,7 +5736,7 @@ function fcSwitchTab(tab) {
   if (tab === 'code') fcUpdateCodePanel();
 }
 
-//  Rendering 
+//  Rendering
 function fcRender() {
   const nodesLayer = document.getElementById('fc-nodes-layer');
   const edgesLayer = document.getElementById('fc-edges-layer');
@@ -5728,7 +5996,7 @@ function fcRender() {
   fcUpdateStatus();
 }
 
-//  Node interactions 
+//  Node interactions
 function fcNodeClick(nodeId) {
   if (FC.tool === 'connect') {
     if (!FC.connectFrom) {
@@ -5789,7 +6057,7 @@ function fcNodeMousedown(e, nodeId) {
   };
 }
 
-//  Canvas mouse events 
+//  Canvas mouse events
 function fcInitCanvasEvents() {
   const wrap = document.getElementById('fc-canvas-wrap');
   const svg  = document.getElementById('fc-canvas');
@@ -5869,7 +6137,7 @@ function fcInitCanvasEvents() {
   });
 }
 
-//  Node operations 
+//  Node operations
 function fcAddNode(shape, label) {
   fcPushHistory();
   const wrap = document.getElementById('fc-canvas-wrap');
@@ -6002,7 +6270,7 @@ function fcSetNodeColor(fill, text) {
   fcRender();
 }
 
-//  Templates 
+//  Templates
 function fcAddTemplate(type) {
   fcPushHistory();
   FC.nodes = []; FC.edges = [];
@@ -6103,7 +6371,7 @@ function fcAddTemplate(type) {
   fcRender(); fcUpdateCodePanel();
 }
 
-//  Mermaid code panel 
+//  Mermaid code panel
 function fcUpdateCodePanel() {
   const ta = document.getElementById('fc-code-ta');
   if (!ta) return;
@@ -6191,7 +6459,7 @@ function fcExportSVG() {
   toast('SVG exported — clean, no grid or viewport transform');
 }
 
-//  History 
+//  History
 function fcPushHistory() {
   FC.history.push({
     nodes: JSON.parse(JSON.stringify(FC.nodes)),
@@ -6290,9 +6558,9 @@ function openThemePicker() {
           <div class="tp-card" style="background:${t.card};border:1px solid ${t.line};border-left:3px solid ${t.accent}"></div>
         </div>
       </div>
-      <div class="theme-name" style="background:${t.card};color:${t.text}">
-        <div style="font-family:var(--fd)">${t.name}</div>
-        <div style="font-size:8px;opacity:.6;margin-top:2px">${t.genre}</div>
+      <div class="theme-name" style="background:#f2f3f5;color:#1e1f22;border-top:1px solid #e0e0e0">
+        <div style="font-family:system-ui,sans-serif;font-size:11px;font-weight:700;color:#1e1f22">${t.name}</div>
+        <div style="font-size:10px;color:#6d6f78;margin-top:2px">${t.genre}</div>
       </div>
     </div>
   `).join('');
@@ -6392,9 +6660,7 @@ function copyBugReport() {
   });
 }
 
-/* ═══════════════════════════════════════════════════════
-   ASSET LIBRARY
-═══════════════════════════════════════════════════════ */
+/* ASSET LIBRARY */
 let _alFilter = 'all';
 let _alOpen = false;
 
@@ -6402,9 +6668,10 @@ function openAssetLibrary() {
   _alOpen = true;
   document.getElementById('al-panel').classList.add('open');
   document.getElementById('al-search').value = '';
-  // Mark as active in sidebar
+  // Mark as active in sidebar (element may not exist if moved to header)
   document.querySelectorAll('.sb-home, .sb-item').forEach(el => el.classList.remove('active'));
-  document.getElementById('sbi-__assets').classList.add('active');
+  const alSbi = document.getElementById('sbi-__assets');
+  if (alSbi) alSbi.classList.add('active');
   alSetFilter('all');
 }
 
@@ -6581,9 +6848,7 @@ function alJumpToEntry(secKey, eIdx) {
 // Close asset library on Escape (wire into existing handler)
 const _origEscHandler = document.onkeydown;
 
-/* ═══════════════════════════════════════════════════════
-   MIND MAP ENGINE
-═══════════════════════════════════════════════════════ */
+/* MIND MAP ENGINE */
 const MM = {
   nodes: [],      // {id, label, parentId, color, x, y, r}
   selected: null,
@@ -7089,13 +7354,7 @@ function mmInitEvents() {
   mmRenderAndReattach(s2);
 }
 
-function mmRenderAndReattach(svg) {
-  mmRender();
-}
-
-/* ═══════════════════════════════════════════════════════
-   SYSTEMS MAP ENGINE
-═══════════════════════════════════════════════════════ */
+/* SYSTEMS MAP ENGINE */
 const SM_COLORS = [
   '#5865f2','#0ea5e9','#10b981','#f59e0b',
   '#ef4444','#8b5cf6','#06b6d4','#ec4899',
@@ -7146,7 +7405,8 @@ function openSystemsMap() {
   document.getElementById('sm-overlay').classList.add('open');
   // Mark sidebar active
   document.querySelectorAll('.sb-home,.sb-item').forEach(e => e.classList.remove('active'));
-  document.getElementById('sbi-__sysmap').classList.add('active');
+  const smSbi = document.getElementById('sbi-__sysmap');
+  if (smSbi) smSbi.classList.add('active');
   smBuildColorSwatches();
   smRender();
   smUpdateBreadcrumb();
@@ -7793,9 +8053,632 @@ function smNavUp() {
   smNavToLevel(d.breadcrumb.length - 2);
 }
 
-/* ═══════════════════════════════════════════════════════
-   KANBAN BOARD
-═══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════
+   WORLD GRAPH
+════════════════════════════════════════════ */
+
+const WG_TYPES = {
+  character: { label: 'Character', color: '#7F77DD', fill: '#2a2748', stroke: '#7F77DD', shape: 'circle',  icon: '◐' },
+  location:  { label: 'Location',  color: '#1D9E75', fill: '#1a3328', stroke: '#1D9E75', shape: 'rect',    icon: '⬡' },
+  faction:   { label: 'Faction',   color: '#BA7517', fill: '#332515', stroke: '#BA7517', shape: 'triangle',icon: '⚑' },
+  event:     { label: 'Event',     color: '#D85A30', fill: '#2d1a10', stroke: '#D85A30', shape: 'card',    icon: '⚡' },
+  mechanic:  { label: 'Mechanic',  color: '#D4537E', fill: '#2a1520', stroke: '#D4537E', shape: 'pill',    icon: '⚙' },
+  item:      { label: 'Item',      color: '#378ADD', fill: '#0e2240', stroke: '#378ADD', shape: 'hex',     icon: '◈' },
+  quest:     { label: 'Quest',     color: '#639922', fill: '#1a2a0a', stroke: '#639922', shape: 'diamond', icon: '◇' },
+  lore:      { label: 'Lore',      color: '#888780', fill: '#242220', stroke: '#888780', shape: 'stadium', icon: '✦' },
+};
+
+const WG_REL_PRESETS = [
+  'allied with','enemies of','controls','serves','betrayed','loves','fears',
+  'created','destroyed','knows of','located in','member of','leads','owns',
+  'seeks','guards','caused','followed by',
+];
+
+let WG = {
+  nodes: [],
+  edges: [],
+  selected: null,
+  selectType: null,
+  pan: { x: 0, y: 0 },
+  zoom: 1,
+  tool: 'select',
+  dragging: null,
+  dragOffset: { x: 0, y: 0 },
+  lastMouse: { x: 0, y: 0 },
+  connectFrom: null,
+  undoStack: [],
+  _eventsInit: false,
+};
+
+function wgData() {
+  const p = proj(); if (!p) return null;
+  if (!p.worldGraph) p.worldGraph = { nodes: [], edges: [] };
+  return p.worldGraph;
+}
+
+function openWorldGraph() {
+  const d = wgData(); if (!d) return;
+  WG.nodes = JSON.parse(JSON.stringify(d.nodes));
+  WG.edges = JSON.parse(JSON.stringify(d.edges));
+  WG.selected = null; WG.selectType = null;
+  WG.connectFrom = null; WG.tool = 'select';
+  WG.pan = { x: 0, y: 0 }; WG.zoom = 1;
+  WG.undoStack = [];
+  document.getElementById('wg-overlay').classList.add('open');
+  wgSetTool('select');
+  if (!WG._eventsInit) { wgInitEvents(); WG._eventsInit = true; }
+  wgRender();
+  wgUpdateCounts();
+}
+
+function closeWorldGraph() {
+  document.getElementById('wg-overlay').classList.remove('open');
+  wgCloseProps();
+}
+
+function wgSave() {
+  const d = wgData(); if (!d) return;
+  wgPushUndo();
+  d.nodes = JSON.parse(JSON.stringify(WG.nodes));
+  d.edges = JSON.parse(JSON.stringify(WG.edges));
+  scheduleSave();
+  toast('World Graph saved');
+}
+
+function wgPushUndo() {
+  WG.undoStack.push({ nodes: JSON.parse(JSON.stringify(WG.nodes)), edges: JSON.parse(JSON.stringify(WG.edges)) });
+  if (WG.undoStack.length > 40) WG.undoStack.shift();
+}
+
+function wgUndo() {
+  if (!WG.undoStack.length) { toast('Nothing to undo', 'warn'); return; }
+  const s = WG.undoStack.pop();
+  WG.nodes = s.nodes; WG.edges = s.edges;
+  WG.selected = null; WG.connectFrom = null;
+  wgRender(); wgUpdateCounts(); wgCloseProps();
+}
+
+function wgSetTool(t) {
+  WG.tool = t; WG.connectFrom = null;
+  ['select','connect'].forEach(id => {
+    const b = document.getElementById('wg-tool-' + id);
+    if (b) b.classList.toggle('active', id === t);
+  });
+  const wrap = document.getElementById('wg-canvas-wrap');
+  if (wrap) wrap.classList.toggle('connecting', t === 'connect');
+  const hint = document.getElementById('wg-hint');
+  if (hint) hint.textContent = t === 'connect'
+    ? 'Click a source node, then a target node to create a connection'
+    : 'Click canvas to deselect · Double-click node to rename · Drag to move · Scroll to zoom';
+}
+
+function wgAddNode(x, y) {
+  wgPushUndo();
+  const id = 'n' + Date.now();
+  const idx = WG.nodes.length;
+  const angle = idx * 137.5 * Math.PI / 180;
+  const radius = 80 + idx * 45;
+  WG.nodes.push({
+    id, type: 'character', label: 'New Node',
+    x: x !== undefined ? x : Math.round(radius * Math.cos(angle) / 20) * 20,
+    y: y !== undefined ? y : Math.round(radius * Math.sin(angle) / 20) * 20,
+    note: '',
+  });
+  wgRender(); wgUpdateCounts();
+  wgSelectNode(id);
+}
+
+function wgAddTyped(type) {
+  wgPushUndo();
+  const id = 'n' + Date.now();
+  const idx = WG.nodes.length;
+  const angle = idx * 137.5 * Math.PI / 180;
+  const radius = 80 + idx * 45;
+  WG.nodes.push({
+    id, type, label: WG_TYPES[type].label,
+    x: Math.round(radius * Math.cos(angle) / 20) * 20,
+    y: Math.round(radius * Math.sin(angle) / 20) * 20,
+    note: '',
+  });
+  wgRender(); wgUpdateCounts();
+  wgSelectNode(id);
+}
+
+function wgDeleteSelected() {
+  if (!WG.selected) { toast('Select a node or connection first', 'warn'); return; }
+  wgPushUndo();
+  if (WG.selectType === 'node') {
+    WG.nodes = WG.nodes.filter(n => n.id !== WG.selected);
+    WG.edges = WG.edges.filter(e => e.from !== WG.selected && e.to !== WG.selected);
+  } else {
+    WG.edges = WG.edges.filter(e => e.id !== WG.selected);
+  }
+  WG.selected = null; WG.selectType = null;
+  wgRender(); wgUpdateCounts(); wgCloseProps();
+}
+
+function wgAutoLayout() {
+  wgPushUndo();
+  const n = WG.nodes.length; if (!n) return;
+  const cols = Math.ceil(Math.sqrt(n * 1.6));
+  const spacingX = 220, spacingY = 180;
+  WG.nodes.forEach((node, i) => {
+    node.x = (i % cols - (cols - 1) / 2) * spacingX;
+    node.y = (Math.floor(i / cols) - Math.floor(n / cols) / 2) * spacingY;
+  });
+  wgRender();
+  toast('Nodes arranged');
+}
+
+function wgExportSVG() {
+  const svg = document.getElementById('wg-canvas');
+  if (!svg) return;
+  const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (proj()?.theme?.name || 'world') + '-graph.svg';
+  a.click();
+}
+
+function wgUpdateCounts() {
+  safeText('wg-node-count', WG.nodes.length);
+  safeText('wg-edge-count', WG.edges.length);
+}
+
+function wgSelectNode(id) {
+  WG.selected = id; WG.selectType = 'node';
+  wgRender();
+  wgShowNodeProps(id);
+}
+
+function wgSelectEdge(id) {
+  WG.selected = id; WG.selectType = 'edge';
+  wgRender();
+  wgShowEdgeProps(id);
+}
+
+function wgCloseProps() {
+  const props = document.getElementById('wg-props');
+  if (props) props.classList.remove('open');
+  WG.selected = null; WG.selectType = null;
+}
+
+function wgShowNodeProps(id) {
+  const node = WG.nodes.find(n => n.id === id); if (!node) return;
+  const t = WG_TYPES[node.type] || WG_TYPES.character;
+  const panel = document.getElementById('wg-props');
+  const title = document.getElementById('wg-props-title');
+  const body  = document.getElementById('wg-props-body');
+  safeText('wg-props-title', t.label + ' Properties');
+  panel.classList.add('open');
+
+  const edgesFrom = WG.edges.filter(e => e.from === id);
+  const edgesTo   = WG.edges.filter(e => e.to   === id);
+  const edgeChips = (list, dir) => list.map(e => {
+    const other = WG.nodes.find(n => n.id === (dir === 'from' ? e.to : e.from));
+    return `<div class="wg-edge-chip">
+      <span class="wg-edge-chip-lbl">${dir === 'from' ? '→' : '←'} <b>${esc(e.label || '—')}</b> ${esc(other?.label || '?')}</span>
+      <button class="wg-edge-chip-rm" onclick="wgRemoveEdge('${e.id}')">✕</button>
+    </div>`;
+  }).join('');
+
+  const typeOpts = Object.entries(WG_TYPES).map(([k, v]) =>
+    `<option value="${k}" ${k === node.type ? 'selected' : ''}>${v.label}</option>`).join('');
+
+  body.innerHTML = `
+    <div>
+      <label class="wg-prop-lbl">Label</label>
+      <input class="wg-prop-inp" id="wgp-label" value="${esc(node.label)}" oninput="wgUpdateNode('${id}','label',this.value)">
+    </div>
+    <div>
+      <label class="wg-prop-lbl">Type</label>
+      <select class="wg-prop-sel" id="wgp-type" onchange="wgUpdateNode('${id}','type',this.value)">${typeOpts}</select>
+    </div>
+    <div>
+      <label class="wg-prop-lbl">Notes</label>
+      <textarea class="wg-prop-ta" id="wgp-note" oninput="wgUpdateNode('${id}','note',this.value)">${esc(node.note || '')}</textarea>
+    </div>
+    ${edgesFrom.length || edgesTo.length ? `
+    <div>
+      <label class="wg-prop-lbl">Connections</label>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        ${edgeChips(edgesFrom, 'from')}
+        ${edgeChips(edgesTo,   'to')}
+      </div>
+    </div>` : ''}
+    <div class="wg-prop-actions">
+      <button class="wg-prop-btn" onclick="wgSetTool('connect');toast('Click another node to connect','info')">→ Connect to another</button>
+      <button class="wg-prop-btn danger" onclick="wgDeleteSelected()">✕ Delete Node</button>
+    </div>`;
+}
+
+function wgShowEdgeProps(id) {
+  const edge = WG.edges.find(e => e.id === id); if (!edge) return;
+  const fromNode = WG.nodes.find(n => n.id === edge.from);
+  const toNode   = WG.nodes.find(n => n.id === edge.to);
+  const panel = document.getElementById('wg-props');
+  safeText('wg-props-title', 'Connection Properties');
+  panel.classList.add('open');
+
+  const presetOpts = WG_REL_PRESETS.map(p =>
+    `<option value="${p}" ${edge.label === p ? 'selected' : ''}>${p}</option>`).join('');
+
+  document.getElementById('wg-props-body').innerHTML = `
+    <div style="font-size:12px;color:rgba(255,255,255,.50);line-height:1.6">
+      <b style="color:rgba(255,255,255,.80)">${esc(fromNode?.label || '?')}</b>
+      <span style="margin:0 6px;color:#5865f2">→</span>
+      <b style="color:rgba(255,255,255,.80)">${esc(toNode?.label || '?')}</b>
+    </div>
+    <div>
+      <label class="wg-prop-lbl">Relationship</label>
+      <input class="wg-prop-inp" id="wge-label" value="${esc(edge.label || '')}" oninput="wgUpdateEdge('${id}','label',this.value)" list="wg-rel-list" placeholder="e.g. allied with">
+      <datalist id="wg-rel-list">${WG_REL_PRESETS.map(p => '<option value="' + p + '">').join('')}</datalist>
+    </div>
+    <div>
+      <label class="wg-prop-lbl">Style</label>
+      <select class="wg-prop-sel" onchange="wgUpdateEdge('${id}','dashed',this.value==='dashed')">
+        <option value="solid" ${!edge.dashed?'selected':''}>Solid</option>
+        <option value="dashed" ${edge.dashed?'selected':''}>Dashed (tentative)</option>
+      </select>
+    </div>
+    <div class="wg-prop-actions">
+      <button class="wg-prop-btn danger" onclick="wgDeleteSelected()">✕ Delete Connection</button>
+    </div>`;
+}
+
+function wgUpdateNode(id, key, val) {
+  const node = WG.nodes.find(n => n.id === id); if (!node) return;
+  node[key] = val;
+  wgRender();
+}
+
+function wgUpdateEdge(id, key, val) {
+  const edge = WG.edges.find(e => e.id === id); if (!edge) return;
+  edge[key] = val;
+  wgRender();
+}
+
+function wgRemoveEdge(id) {
+  wgPushUndo();
+  WG.edges = WG.edges.filter(e => e.id !== id);
+  if (WG.selected === id) { WG.selected = null; WG.selectType = null; wgCloseProps(); }
+  wgRender(); wgUpdateCounts();
+  if (WG.selected && WG.selectType === 'node') wgShowNodeProps(WG.selected);
+}
+
+function wgConnect(fromId, toId) {
+  if (fromId === toId) return;
+  const exists = WG.edges.find(e => (e.from === fromId && e.to === toId) || (e.from === toId && e.to === fromId));
+  if (exists) { toast('Connection already exists', 'warn'); return; }
+  wgPushUndo();
+  const id = 'e' + Date.now();
+  WG.edges.push({ id, from: fromId, to: toId, label: '', dashed: false });
+  WG.selected = id; WG.selectType = 'edge';
+  wgRender(); wgUpdateCounts();
+  wgShowEdgeProps(id);
+  toast('Connected — set the relationship label in the panel');
+}
+
+function wgInlineRename(id) {
+  const node = WG.nodes.find(n => n.id === id); if (!node) return;
+  const wrap = document.getElementById('wg-canvas-wrap');
+  const svg  = document.getElementById('wg-canvas');
+  const rect = wrap.getBoundingClientRect();
+
+  const sx = node.x * WG.zoom + WG.pan.x + rect.width  / 2;
+  const sy = node.y * WG.zoom + WG.pan.y + rect.height / 2;
+
+  const inp = document.createElement('input');
+  inp.className = 'wg-inline-inp';
+  inp.value = node.label;
+  inp.style.left = (sx - 70) + 'px';
+  inp.style.top  = (sy - 16) + 'px';
+  inp.style.width = '140px';
+  wrap.appendChild(inp);
+  inp.focus(); inp.select();
+
+  const commit = () => {
+    const v = inp.value.trim();
+    if (v) { wgPushUndo(); node.label = v; }
+    inp.remove();
+    wgRender();
+    if (WG.selected === id) wgShowNodeProps(id);
+  };
+  inp.addEventListener('blur', commit);
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); commit(); } if (e.key === 'Escape') { inp.remove(); } });
+}
+
+function wgScreenToWorld(sx, sy) {
+  const wrap = document.getElementById('wg-canvas-wrap');
+  const r = wrap.getBoundingClientRect();
+  return {
+    x: Math.round(((sx - r.left - r.width  / 2 - WG.pan.x) / WG.zoom) / 20) * 20,
+    y: Math.round(((sy - r.top  - r.height / 2 - WG.pan.y) / WG.zoom) / 20) * 20,
+  };
+}
+
+function wgNodePath(type, cx, cy, r) {
+  switch (type) {
+    case 'circle':
+      return `<circle cx="${cx}" cy="${cy}" r="${r}" />`;
+    case 'rect':
+      return `<rect x="${cx-r*1.3}" y="${cy-r*.75}" width="${r*2.6}" height="${r*1.5}" rx="${r*.22}" />`;
+    case 'triangle': {
+      const h = r * 1.6;
+      return `<polygon points="${cx},${cy-h*.7} ${cx+r*1.1},${cy+h*.55} ${cx-r*1.1},${cy+h*.55}" />`;
+    }
+    case 'card':
+      return `<rect x="${cx-r*1.25}" y="${cy-r*.9}" width="${r*2.5}" height="${r*1.8}" rx="${r*.1}" />`
+           + `<line x1="${cx-r*1.25}" y1="${cy-r*.44}" x2="${cx+r*1.25}" y2="${cy-r*.44}" stroke-width="0.8" opacity="0.5" />`;
+    case 'pill':
+      return `<rect x="${cx-r*1.4}" y="${cy-r*.6}" width="${r*2.8}" height="${r*1.2}" rx="${r*.6}" />`;
+    case 'hex': {
+      const pts = [0,60,120,180,240,300].map(a => {
+        const rad = a * Math.PI / 180;
+        return `${cx + r * Math.sin(rad)},${cy - r * Math.cos(rad)}`;
+      }).join(' ');
+      return `<polygon points="${pts}" />`;
+    }
+    case 'diamond':
+      return `<polygon points="${cx},${cy-r*1.1} ${cx+r*1.1},${cy} ${cx},${cy+r*1.1} ${cx-r*1.1},${cy}" />`;
+    case 'stadium':
+      return `<rect x="${cx-r*1.35}" y="${cy-r*.62}" width="${r*2.7}" height="${r*1.24}" rx="${r*.62}" />`;
+    default:
+      return `<circle cx="${cx}" cy="${cy}" r="${r}" />`;
+  }
+}
+
+function wgRender() {
+  const wrap = document.getElementById('wg-canvas-wrap'); if (!wrap) return;
+  const svg  = document.getElementById('wg-canvas');
+  const edgeLayer = document.getElementById('wg-edges-layer');
+  const nodeLayer = document.getElementById('wg-nodes-layer');
+  const connLayer = document.getElementById('wg-connecting-layer');
+  if (!svg || !edgeLayer || !nodeLayer || !connLayer) return;
+
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+
+  const px = WG.pan.x, py = WG.pan.y, z = WG.zoom;
+  const cx = W / 2, cy2 = H / 2;
+  const tx = n => cx + (n.x * z + px);
+  const ty = n => cy2 + (n.y * z + py);
+
+  edgeLayer.innerHTML = '';
+  nodeLayer.innerHTML = '';
+  connLayer.innerHTML = '';
+
+  WG.edges.forEach(edge => {
+    const fn = WG.nodes.find(n => n.id === edge.from);
+    const tn = WG.nodes.find(n => n.id === edge.to);
+    if (!fn || !tn) return;
+
+    const fx = tx(fn), fy = ty(fn), ttx = tx(tn), tty = ty(tn);
+    const dx = ttx - fx, dy = tty - fy;
+    const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+    const nr = 36 * z;
+    const x1 = fx + dx / dist * nr, y1 = fy + dy / dist * nr;
+    const x2 = ttx - dx / dist * (nr + 6), y2 = tty - dy / dist * (nr + 6);
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    const isSel = WG.selected === edge.id;
+    const t = WG_TYPES[fn.type] || WG_TYPES.character;
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.style.cursor = 'pointer';
+    g.setAttribute('pointer-events', 'all');
+    g.setAttribute('data-wg-edge', edge.id); line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+    line.setAttribute('stroke', isSel ? '#a0b4ff' : t.color);
+    line.setAttribute('stroke-width', isSel ? 2.5 : 1.5);
+    line.setAttribute('stroke-opacity', isSel ? '1' : '0.55');
+    if (edge.dashed) line.setAttribute('stroke-dasharray', '6 4');
+    line.setAttribute('marker-end', 'url(#wg-arrow)');
+    g.appendChild(line);
+
+    if (edge.label) {
+      const lpad = 6, lh = 14;
+      const lw = edge.label.length * 6.2 + lpad * 2;
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      bg.setAttribute('x', mx - lw / 2); bg.setAttribute('y', my - lh / 2);
+      bg.setAttribute('width', lw); bg.setAttribute('height', lh);
+      bg.setAttribute('rx', lh / 2); bg.setAttribute('fill', isSel ? '#2a2a55' : '#1e1b2e');
+      bg.setAttribute('stroke', isSel ? '#5865f2' : t.color);
+      bg.setAttribute('stroke-width', '0.8'); bg.setAttribute('stroke-opacity', '0.7');
+      g.appendChild(bg);
+
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', mx); txt.setAttribute('y', my);
+      txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dominant-baseline', 'central');
+      txt.setAttribute('fill', isSel ? '#a0b4ff' : t.color);
+      txt.setAttribute('font-size', Math.max(8, 9 * z));
+      txt.setAttribute('font-weight', '600');
+      txt.setAttribute('font-family', 'system-ui,sans-serif');
+      txt.textContent = edge.label;
+      g.appendChild(txt);
+    }
+
+    const hitline = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    hitline.setAttribute('x1', x1); hitline.setAttribute('y1', y1);
+    hitline.setAttribute('x2', x2); hitline.setAttribute('y2', y2);
+    hitline.setAttribute('stroke', 'transparent'); hitline.setAttribute('stroke-width', '12');
+    g.appendChild(hitline);
+
+    g.addEventListener('click', e => { e.stopPropagation(); wgSelectEdge(edge.id); });
+    edgeLayer.appendChild(g);
+  });
+
+  WG.nodes.forEach(node => {
+    const t = WG_TYPES[node.type] || WG_TYPES.character;
+    const nx = tx(node), ny = ty(node);
+    const r = Math.max(22, 34 * z);
+    const isSel = WG.selected === node.id && WG.selectType === 'node';
+    const isConnSrc = WG.connectFrom === node.id;
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.style.cursor = WG.tool === 'connect' ? 'crosshair' : 'pointer';
+    g.setAttribute('pointer-events', 'all');
+    g.setAttribute('data-wg-node', node.id);
+    g.setAttribute('transform', `translate(${nx},${ny})`);
+
+    if (isSel || isConnSrc) {
+      const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      glow.setAttribute('cx', 0); glow.setAttribute('cy', 0); glow.setAttribute('r', r + 8);
+      glow.setAttribute('fill', t.color); glow.setAttribute('opacity', '0.15');
+      g.appendChild(glow);
+    }
+
+    const shapeSvg = wgNodePath(t.shape, 0, 0, r);
+    const shapeEl = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    shapeEl.innerHTML = shapeSvg;
+    shapeEl.querySelectorAll('circle,rect,polygon,ellipse').forEach(el => {
+      el.setAttribute('fill', t.fill);
+      el.setAttribute('stroke', isSel || isConnSrc ? '#fff' : t.stroke);
+      el.setAttribute('stroke-width', isSel || isConnSrc ? 2 : 1.2);
+    });
+    shapeEl.querySelectorAll('line').forEach(el => {
+      el.setAttribute('stroke', t.stroke);
+    });
+    g.appendChild(shapeEl);
+
+    const iconSize = Math.max(12, 15 * z);
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    icon.setAttribute('x', 0);
+    icon.setAttribute('y', t.shape === 'card' ? -r * 0.15 : (t.shape === 'triangle' ? r * 0.25 : 0));
+    icon.setAttribute('text-anchor', 'middle');
+    icon.setAttribute('dominant-baseline', 'central');
+    icon.setAttribute('fill', t.color);
+    icon.setAttribute('font-size', iconSize);
+    icon.setAttribute('pointer-events', 'none');
+    icon.textContent = t.icon;
+    g.appendChild(icon);
+
+    const maxLabelW = r * 2.4;
+    const labelY = t.shape === 'circle' ? r + 13 * z
+      : t.shape === 'triangle' ? r * 1.6 + 10 * z
+      : r + 11 * z;
+    const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    lbl.setAttribute('x', 0); lbl.setAttribute('y', labelY);
+    lbl.setAttribute('text-anchor', 'middle'); lbl.setAttribute('dominant-baseline', 'auto');
+    lbl.setAttribute('fill', isSel ? '#ffffff' : 'rgba(255,255,255,0.82)');
+    lbl.setAttribute('font-size', Math.max(9, 11 * z));
+    lbl.setAttribute('font-weight', '600');
+    lbl.setAttribute('font-family', 'system-ui,sans-serif');
+    lbl.setAttribute('pointer-events', 'none');
+    const maxLen = Math.floor(maxLabelW / (6.5 * z));
+    lbl.textContent = node.label.length > maxLen ? node.label.slice(0, maxLen - 1) + '…' : node.label;
+    g.appendChild(lbl);
+
+    g.addEventListener('mousedown', e => {
+      e.stopPropagation();
+      if (WG.tool === 'connect') return;
+      WG.dragging = node.id;
+      const pos = wgScreenToWorld(e.clientX, e.clientY);
+      WG.dragOffset = { x: node.x - pos.x, y: node.y - pos.y };
+      WG.lastMouse = { x: e.clientX, y: e.clientY };
+    });
+
+    g.addEventListener('click', e => {
+      e.stopPropagation();
+      if (WG.tool === 'connect') {
+        if (!WG.connectFrom) {
+          WG.connectFrom = node.id;
+          wgRender();
+          document.getElementById('wg-hint').textContent = 'Now click the target node';
+        } else if (WG.connectFrom !== node.id) {
+          wgConnect(WG.connectFrom, node.id);
+          WG.connectFrom = null;
+          wgSetTool('select');
+        }
+        return;
+      }
+      wgSelectNode(node.id);
+    });
+
+    g.addEventListener('dblclick', e => { e.stopPropagation(); wgInlineRename(node.id); });
+
+    nodeLayer.appendChild(g);
+  });
+}
+
+function wgInitEvents() {
+  const wrap = document.getElementById('wg-canvas-wrap');
+  if (!wrap) return;
+
+  wrap.addEventListener('mousedown', e => {
+    if (e.target === document.getElementById('wg-canvas') || e.target === wrap) {
+      WG.dragging = '__canvas';
+      WG.lastMouse = { x: e.clientX, y: e.clientY };
+      wrap.style.cursor = 'grabbing';
+    }
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (!WG.dragging) return;
+    if (WG.dragging === '__canvas') {
+      WG.pan.x += e.clientX - WG.lastMouse.x;
+      WG.pan.y += e.clientY - WG.lastMouse.y;
+      WG.lastMouse = { x: e.clientX, y: e.clientY };
+      wgRender();
+    } else {
+      const node = WG.nodes.find(n => n.id === WG.dragging);
+      if (node) {
+        const pos = wgScreenToWorld(e.clientX, e.clientY);
+        node.x = pos.x + WG.dragOffset.x;
+        node.y = pos.y + WG.dragOffset.y;
+        wgRender();
+        if (WG.selected === WG.dragging && WG.selectType === 'node') {
+          wgShowNodeProps(WG.dragging);
+        }
+      }
+    }
+  });
+
+  window.addEventListener('mouseup', e => {
+    if (WG.dragging && WG.dragging !== '__canvas') scheduleSave();
+    WG.dragging = null;
+    const w = document.getElementById('wg-canvas-wrap');
+    if (w) w.style.cursor = WG.tool === 'connect' ? 'crosshair' : 'grab';
+  });
+
+  wrap.addEventListener('wheel', e => {
+    e.preventDefault();
+    const factor = e.deltaY > 0 ? 0.9 : 1.1;
+    WG.zoom = Math.max(0.2, Math.min(4, WG.zoom * factor));
+    wgRender();
+  }, { passive: false });
+
+  document.getElementById('wg-canvas').addEventListener('click', e => {
+    const onNode = e.target.closest && e.target.closest('[data-wg-node]');
+    const onEdge = e.target.closest && e.target.closest('[data-wg-edge]');
+    if (!onNode && !onEdge) {
+      if (WG.tool === 'connect' && WG.connectFrom) {
+        WG.connectFrom = null;
+        wgRender();
+        document.getElementById('wg-hint').textContent = 'Click a source node to start connecting';
+      } else {
+        WG.selected = null; WG.selectType = null;
+        wgCloseProps(); wgRender();
+      }
+    }
+  });
+
+  document.addEventListener('keydown', wgKeyHandler);
+}
+
+function wgKeyHandler(e) {
+  if (!document.getElementById('wg-overlay').classList.contains('open')) return;
+  const active = document.activeElement;
+  if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT')) return;
+  if ((e.ctrlKey || e.metaKey) && e.key === 'z') { e.preventDefault(); wgUndo(); return; }
+  if (e.key === 'Escape') { WG.connectFrom = null; WG.selected = null; WG.selectType = null; wgSetTool('select'); wgCloseProps(); wgRender(); return; }
+  if (e.key === 'Delete' || e.key === 'Backspace') { if (WG.selected) wgDeleteSelected(); return; }
+  if (e.key === 'F2' && WG.selected && WG.selectType === 'node') { wgInlineRename(WG.selected); return; }
+  if (e.key === 'Tab') { e.preventDefault(); wgAddTyped('character'); return; }
+}
+
+/* KANBAN BOARD */
 const KB_COLS = [
   { id: 'concept',     label: 'Backlog',     icon: '○', cls: 'backlog'  },
   { id: 'in-progress', label: 'In Progress', icon: '◑', cls: 'progress' },
@@ -7974,9 +8857,7 @@ function kbAddToCol(status) {
   }, 60);
 }
 
-/* ═══════════════════════════════════════════════════════
-   DESIGN PILLARS — CUSTOM UI
-═══════════════════════════════════════════════════════ */
+/* DESIGN PILLARS — CUSTOM UI */
 function getPillars() {
   const p = proj(); if (!p) return [];
   if (!p.pillars) p.pillars = [];
@@ -8095,9 +8976,7 @@ function movePillar(idx, dir) {
   renderPillars();
 }
 
-/* ═══════════════════════════════════════════════════════
-   OVERVIEW — HERO UI
-═══════════════════════════════════════════════════════ */
+/* OVERVIEW — HERO UI */
 function renderOverview() {
   const area = document.getElementById('content-area');
   const p = proj(); if (!p) return;
@@ -8151,9 +9030,7 @@ function saveOverviewPitch(el) {
   scheduleSave();
 }
 
-/* ═══════════════════════════════════════════════════════
-   GUIDING QUESTIONS PANEL
-═══════════════════════════════════════════════════════ */
+/* GUIDING QUESTIONS PANEL */
 let _gqOpen = false;
 
 function openGQ() {
@@ -8180,9 +9057,7 @@ function closeGQ() {
   document.getElementById('gq-panel')?.classList.remove('open');
 }
 
-/* ═══════════════════════════════════════════════════════
-   ENTRY TEMPLATES
-═══════════════════════════════════════════════════════ */
+/* ENTRY TEMPLATES */
 const ENTRY_TEMPLATES = {
   // ── Overview ──────────────────────────────────────
   overview: [
@@ -8392,9 +9267,7 @@ function entryBackToTemplates() {
 
 function openAddEntryType(t) { openAddEntry(t); }
 
-/* ═══════════════════════════════════════════════════════
-   COMPLETED VIEW
-═══════════════════════════════════════════════════════ */
+/* COMPLETED VIEW */
 function openCompleted() {
   const p = proj(); if (!p) { toast('Create a project first'); return; }
   document.querySelectorAll('.sb-home,.sb-item').forEach(e => e.classList.remove('active'));
@@ -8501,9 +9374,7 @@ function cvRevert(secKey, idx) {
   toast('Reverted to In Progress — entry is back in the section');
 }
 
-/* ═══════════════════════════════════════════════════════
-   ONBOARDING WIZARD
-═══════════════════════════════════════════════════════ */
+/* ONBOARDING WIZARD */
 const OB = {
   step: 0,
   data: {
@@ -8544,6 +9415,7 @@ function obSkip() {
   const overlay = document.getElementById('ob-overlay');
   overlay.classList.add('fade-out');
   setTimeout(() => overlay.classList.remove('open', 'fade-out'), 520);
+  revealApp();
 }
 
 function obBack() {
@@ -8578,6 +9450,16 @@ function obSelectTheme(id) {
   if (card) card.classList.add('active');
   // Live preview the theme
   applyThemeById(id);
+  // Show accent color on modal border so user sees the theme is live
+  const t = THEMES.find(th => th.id === id);
+  const modal = document.querySelector('.ob-modal');
+  if (modal && t) {
+    modal.style.borderTop = '4px solid ' + t.accent;
+    modal.style.boxShadow = '0 32px 80px rgba(0,0,0,.55), 0 0 0 2px ' + t.accent + '44';
+  }
+  // Also flash the progress fill with the theme accent
+  const fill = document.getElementById('ob-prog-fill');
+  if (fill && t) fill.style.background = 'linear-gradient(90deg,' + t.accent + ',' + t.text + ')';
 }
 
 function obSelectSection(key) {
@@ -8622,6 +9504,7 @@ function obFinish() {
   overlay.classList.add('fade-out');
   setTimeout(() => {
     overlay.classList.remove('open', 'fade-out');
+    revealApp();
     // Navigate to chosen section
     switchSection(OB.data.startSection);
     toast('Welcome to The Codex! Your project is ready.');
@@ -8770,15 +9653,109 @@ function obRender() {
   }
 }
 
-/* ═══════════════════════════════════════════════════════
-   LOCAL FILE STORAGE — File System Access API
-═══════════════════════════════════════════════════════ */
+/* LOCAL FILE STORAGE — File System Access API + IndexedDB handle persistence */
 const LFS = {
   supported: typeof window !== 'undefined' && 'showDirectoryPicker' in window,
-  dirHandle: null,     // FileSystemDirectoryHandle
+  dirHandle: null,
   autoSaving: false,
   lastSaved: null,
+  _db: null,
 };
+
+const LFS_DB_NAME  = 'codex_lfs';
+const LFS_DB_STORE = 'handles';
+const LFS_DB_KEY   = 'dirHandle';
+
+async function lfsOpenDB() {
+  if (LFS._db) return LFS._db;
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(LFS_DB_NAME, 1);
+    req.onupgradeneeded = e => e.target.result.createObjectStore(LFS_DB_STORE);
+    req.onsuccess  = e => { LFS._db = e.target.result; resolve(LFS._db); };
+    req.onerror    = e => reject(e.target.error);
+  });
+}
+
+async function lfsPersistHandle(handle) {
+  try {
+    const db = await lfsOpenDB();
+    const tx = db.transaction(LFS_DB_STORE, 'readwrite');
+    tx.objectStore(LFS_DB_STORE).put(handle, LFS_DB_KEY);
+    await new Promise((res, rej) => { tx.oncomplete = res; tx.onerror = rej; });
+  } catch(e) { }
+}
+
+async function lfsClearHandle() {
+  try {
+    const db = await lfsOpenDB();
+    const tx = db.transaction(LFS_DB_STORE, 'readwrite');
+    tx.objectStore(LFS_DB_STORE).delete(LFS_DB_KEY);
+    await new Promise((res, rej) => { tx.oncomplete = res; tx.onerror = rej; });
+  } catch(e) { }
+}
+
+async function lfsRestoreHandle() {
+  if (!LFS.supported) return;
+  try {
+    const db = await lfsOpenDB();
+    const handle = await new Promise((resolve, reject) => {
+      const tx  = db.transaction(LFS_DB_STORE, 'readonly');
+      const req = tx.objectStore(LFS_DB_STORE).get(LFS_DB_KEY);
+      req.onsuccess = e => resolve(e.target.result);
+      req.onerror   = e => reject(e.target.error);
+    });
+    if (!handle) return;
+    // Check if we already have permission (no prompt needed)
+    const perm = await handle.queryPermission({ mode: 'readwrite' });
+    if (perm === 'granted') {
+      LFS.dirHandle = handle;
+      lfsRefreshUI();
+      lfsAutoSave();
+      return;
+    }
+    // Permission not yet granted this session — show a toast prompting reconnect
+    // Store handle so clicking "Reconnect" can call requestPermission() on it
+    LFS._pendingHandle = handle;
+    toast('📁 Folder saved — click Reconnect Folder to resume auto-saving', 'info', 8000);
+    lfsShowReconnectBanner();
+  } catch(e) { }
+}
+
+function lfsShowReconnectBanner() {
+  // Show a small banner below the save-dot if a pending handle exists
+  const existing = document.getElementById('lfs-reconnect-banner');
+  if (existing) return;
+  const banner = document.createElement('div');
+  banner.id = 'lfs-reconnect-banner';
+  banner.style.cssText = 'position:fixed;bottom:44px;left:50%;transform:translateX(-50%);background:var(--parch2);border:1px solid var(--gold2);border-radius:var(--r);padding:8px 14px;font-family:var(--fd);font-size:11px;color:var(--ink2);display:flex;align-items:center;gap:10px;z-index:200;box-shadow:0 4px 16px var(--sh2);white-space:nowrap';
+  banner.innerHTML = `<span>📁 Last folder: <b>${LFS._pendingHandle?.name || 'saved folder'}</b></span><button onclick="lfsReconnect()" style="font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r);cursor:pointer;border:1px solid var(--gold2);background:transparent;color:var(--gold2)">Reconnect</button><button onclick="lfsDismissReconnect()" style="background:none;border:none;cursor:pointer;color:var(--ink4);font-size:14px;padding:0">✕</button>`;
+  document.body.appendChild(banner);
+}
+
+async function lfsReconnect() {
+  if (!LFS._pendingHandle) return;
+  try {
+    const perm = await LFS._pendingHandle.requestPermission({ mode: 'readwrite' });
+    if (perm === 'granted') {
+      LFS.dirHandle = LFS._pendingHandle;
+      LFS._pendingHandle = null;
+      lfsDismissReconnect();
+      lfsRefreshUI();
+      lfsAutoSave();
+      toast('📁 Folder reconnected — auto-saving resumed');
+    } else {
+      toast('Permission denied — choose the folder again in Settings', 'warn');
+      lfsDismissReconnect();
+    }
+  } catch(e) {
+    toast('Could not reconnect: ' + e.message, 'err');
+  }
+}
+
+function lfsDismissReconnect() {
+  const b = document.getElementById('lfs-reconnect-banner');
+  if (b) b.remove();
+}
 
 // Called when settings modal opens — refresh UI state
 function lfsRefreshUI() {
@@ -8806,7 +9783,7 @@ function lfsRefreshUI() {
     if (saveBtn) saveBtn.style.display = 'inline-flex';
     if (clearBtn) clearBtn.style.display = 'inline-flex';
     if (pickBtn) pickBtn.textContent = '📁 Change Folder';
-    if (hintEl)  hintEl.innerHTML = '✓ Auto-saves to your folder on every change. File is a plain JSON you can open, back up, or share.';
+    if (hintEl)  hintEl.innerHTML = '✓ Auto-saves to your folder on every change. Folder choice is remembered — a one-click reconnect prompt appears on refresh.';
     if (LFS.lastSaved) {
       const t = new Date(LFS.lastSaved).toLocaleTimeString();
       if (pathEl) pathEl.textContent += ' · Last saved ' + t;
@@ -8834,12 +9811,14 @@ async function lfsChooseFolder() {
   try {
     const handle = await window.showDirectoryPicker({ mode: 'readwrite', startIn: 'documents' });
     LFS.dirHandle = handle;
+    LFS._pendingHandle = null;
+    lfsDismissReconnect();
+    await lfsPersistHandle(handle);
     lfsRefreshUI();
-    // Save immediately to the new folder
     await lfsSaveNow(true);
-    toast('📁 Folder connected — auto-saving enabled');
+    toast('📁 Folder connected — will auto-reconnect after refresh');
     closeM('m-settings');
-    setTimeout(() => openSettings(), 50); // reopen to show updated state
+    setTimeout(() => openSettings(), 50);
   } catch (e) {
     if (e.name !== 'AbortError') {
       toast('Could not access folder: ' + e.message, 'err');
@@ -8918,13 +9897,15 @@ async function lfsOpenFile() {
 
 function lfsClearFolder() {
   LFS.dirHandle = null;
+  LFS._pendingHandle = null;
   LFS.lastSaved = null;
+  lfsClearHandle();
+  lfsDismissReconnect();
   lfsRefreshUI();
   toast('Folder disconnected — saving to browser localStorage');
 }
 
 // Hook into scheduleSave to also write to local file when connected
-const _origScheduleSave = typeof scheduleSave === 'function' ? scheduleSave : null;
 
 // Patch the auto-save to also write to local folder
 function lfsAutoSave() {
@@ -8957,11 +9938,17 @@ function init() {
   renderAll();
   updateStorageBar();
 
-  // Show onboarding wizard on first launch
   const onboarded = localStorage.getItem('codex_gdd_onboarded');
   if (!onboarded) {
-    setTimeout(() => obStart(), 400);
+    setTimeout(() => obStart(), 100);
+  } else {
+    requestAnimationFrame(() => {
+      document.getElementById('app').classList.add('ready');
+    });
   }
+
+  // Attempt to restore previously connected folder (IndexedDB handle)
+  lfsRestoreHandle();
 
   // Warn if running locally (file://) — fonts and Mermaid won't load
   if (window.location.protocol === 'file:') {
@@ -8969,6 +9956,10 @@ function init() {
       toast('Tip: For best experience upload to GitHub Pages — fonts and diagrams need a server', 'warn');
     }, onboarded ? 1800 : 3200);
   }
+}
+
+function revealApp() {
+  document.getElementById('app').classList.add('ready');
 }
 
 init();
